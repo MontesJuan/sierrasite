@@ -1,0 +1,43 @@
+export const metadata = { title: 'COLABORAR — Sierra' }
+
+export default function Page() {
+  return (
+    <main className="section">
+      <div className="container">
+        <h2>COLABORAR:</h2>
+
+        <p>La producción de Sierra implicó una inversión total aproximada de $13.000.000. El proyecto contó con un subsidio del INCAA (Resolución N° 1477-E/2017, Art. 1°) que cubrió el 53% del presupuesto, complementado por una inversión personal del director equivalente al 23%.</p>
+        <p>Gracias a estos aportes fue posible completar la etapa de desarrollo, rodaje y postproducción de la película. Hoy, con la obra ya finalizada, el desafío es afrontar los costos de distribución y promoción, indispensables para garantizar su llegada al público.</p>
+        <h3 style={{marginTop:12}}>En esta etapa final, el objetivo de financiamiento se centra en cubrir:</h3>
+        <ul className="list" style={{marginTop:8}}>
+          <li>Copias y masters (DCP/KDM/QC) para salas de cine y festivales.</li>
+          <li>Subtítulos y adaptación internacional para festivales y plataformas.</li>
+          <li>Gastos de logística, traslados y alojamiento en estrenos, giras y funciones educativas.</li>
+          <li>Aranceles de inscripción en festivales nacionales e internacionales.</li>
+          <li>Diseño y difusión de material gráfico, press kit, tráiler y campañas en redes sociales.</li>
+        </ul>
+        <p style={{marginTop:12}}>El 24% restante de la inversión prevista se busca completar mediante el aporte de sponsors y colaboradores, quienes tendrán visibilidad en los créditos de la película y en todo su material promocional.</p>
+
+        <hr style={{margin:'20px 0', borderColor:'var(--border)', opacity:.4}} />
+
+        <h3>Cómo colaborar</h3>
+        <p>Los sponsors y patrocinadores pueden colaborar financiando necesidades específicas como:</p>
+        <ul className="list" style={{marginTop:8}}>
+          <li>Creación de copias DCP y subtítulos internacionales.</li>
+          <li>Inscripciones en festivales nacionales e internacionales.</li>
+          <li>Gastos de distribución, logística, traslados y alojamiento.</li>
+          <li>Diseño e impresión de materiales promocionales (afiches, press kit, gráfica).</li>
+          <li>Campañas de comunicación y difusión en redes sociales.</li>
+          <li>Proyecciones educativas en escuelas rurales de San Juan.</li>
+        </ul>
+
+        <h3 style={{marginTop:16}}>Beneficios para sponsors y patrocinadores</h3>
+        <ul className="list" style={{marginTop:8}}>
+          <li>Créditos en la película: inclusión del logotipo en los créditos finales.</li>
+          <li>Presencia de marca en difusión: inclusión del logotipo en afiches, tráiler, press kit, RRSS y materiales de prensa.</li>
+          <li>Invitaciones especiales: acceso a estrenos, funciones y eventos promocionales vinculados a la película.</li>
+        </ul>
+      </div>
+    </main>
+  )
+}

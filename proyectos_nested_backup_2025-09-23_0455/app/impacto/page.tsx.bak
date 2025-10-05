@@ -1,0 +1,23 @@
+export const metadata = { title: 'Impacto social — Sierra' }
+
+export default function Page() {
+  return (
+    <main className="section">
+      <div className="container">
+        <h2>Impacto social</h2>
+        <p>"SIERRA" trasciende lo cinematográfico para convertirse en una herramienta de memoria, educación y cambio social.</p>
+        <ul className="list" style={{marginTop:8}}>
+          <li>• Preservación cultural: difunde y resguarda las tradiciones serranas frente a los cambios del mundo moderno.</li>
+          <li>• Educación: actúa como plataforma pedagógica y de sensibilización sobre la vida rural argentina.</li>
+          <li>• Visibilización: expone problemáticas como el aislamiento y el acceso limitado a servicios básicos.</li>
+          <li>• Empatía: acerca al público a realidades poco conocidas, tendiendo puentes culturales.</li>
+          <li>• Turismo sostenible: puede impulsar la economía local con un impacto positivo en la comunidad.</li>
+          <li>• Legado: se proyecta como memoria para futuras generaciones y referencia cultural.</li>
+        </ul>
+        <p style={{marginTop:12}}>
+          En síntesis, Sierra no es solo un documental: es un agente de preservación cultural y social, y una ventana a un universo que resiste en las montañas de San Juan.
+        </p>
+      </div>
+    </main>
+  )
+}

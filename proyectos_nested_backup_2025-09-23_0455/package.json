@@ -1,0 +1,29 @@
+{
+  "name": "sierra-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "kb:clean": "rm -f public/kb/kb.json",
+    "kb:build": "node scripts/build-kb.mjs",
+    "kb:build:slow": "KB_SLOWDOWN_MS=300 KB_CHUNK_SIZE=600 KB_CHUNK_OVERLAP=120 node scripts/build-kb.mjs",
+    "kb:test": "node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync('public/kb/kb.json','utf8'));console.log('items:',j.items.length);console.log('ejemplo:',j.items[0]?.source,j.items[0]?.id)\""
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "clsx": "2.1.1",
+    "next": "^14.2.32",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "2.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.14",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "dotenv-cli": "^10.0.0",
+    "typescript": "^5.9.2"
+  }
+}

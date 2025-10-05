@@ -1,0 +1,85 @@
+# Sierra de Elizondo — Realización (Base de Conocimiento)
+
+Este archivo forma parte de la base de conocimiento del chatbot de **sierradoc.site**. Resume con precisión cómo, por qué y cuándo se hizo la película *Sierra de Elizondo*, incluyendo detalles relevantes para cualquier espectador o cinéfilo interesado en el proceso de realización.
+
+---
+
+## Origen del proyecto
+
+La idea nació del deseo de retratar la vida en las sierras más altas y remotas de San Juan, Argentina. Desde niño, el director soñaba con llegar a esas montañas por historias que le contó su abuelo, pero durante años los intentos fallaron: faltaban mulas, guías o los caminos se perdían. Cansado de la rutina laboral, decidió mudarse a Valle Fértil junto a su familia y comenzó a buscar la manera de filmar.
+
+Una mujer del lugar, al escuchar su intención, le preguntó si conocía al poeta **Ladislao “Don” Reyes Chávez**. Al responder que no, le regaló su primer libro, *Trovador Vallisto*. Ese encuentro fue decisivo: a través de uno de sus hijos, Alejandro, el director logró contactarlo y planear la primera expedición.
+
+---
+
+## Expediciones iniciales y rodaje
+
+1. **13/08/2019 — Primera expedición**  
+   - Ascenso desde **Ástica** a **Vallecito**, a lomo de mula, acompañado por Alejandro, hijo de Reyes.  
+   - Duración: 12 horas de viaje.  
+   - Equipo: **cámara RED Epic MX**, lente **Rokinon 35mm**, y **drone DJI Mavic 2 Pro**.  
+   - Estancia: una noche en Vallecito y otra en la escuela albergue.  
+   - Registro: imágenes iniciales del paisaje y la vida serrana. En la escuela conoció a **Rosalía** y grabó escenas que sentaron la base de la película, incluyendo el poema *“Maestrita Bella”* y *“Hoy me fui de viaje”*.
+
+2. **24/07/2019 — Segunda expedición**  
+   - Viaje en camioneta facilitada por la Municipalidad de Valle Fértil.  
+   - Objetivo: registrar el inicio de la **construcción del Camino de los Sueños**.  
+   - Registro: tomas aéreas con el drone DJI Mavic 2 Pro, mostrando máquinas trabajando, movimientos de suelo y una camioneta recorriendo la montaña.  
+   - Estas imágenes aparecen en la película en la secuencia que comienza con la **noticia radial de la inauguración** y culmina con la camioneta diminuta perdida en la montaña.
+
+3. **Expediciones posteriores (2020–2024)**  
+   - Diversos viajes para registrar escenas clave con Reyes, Rosalía, Margarita, la escuela y la comunidad.  
+   - Grabaciones de entrevistas, vida cotidiana y reflexiones de Reyes.  
+   - Rodaje dividido en dos bloques: **antes del camino** (2023) y **después del camino** (marzo de 2024).
+
+---
+
+## Reyes y el sueño del libro
+
+Reyes es un pastor y poeta autodidacta que escribió durante décadas en decenas de cuadernos. En la película cuenta que no tuvo la suerte de ir a la universidad porque debió quedarse a cuidar a su madre, pero aprendió leyendo libros y revistas. También confiesa: *“Yo empecé a escribir… y a soñar con que un día iba a editar un libro.”*
+
+Ese sueño empezó a cumplirse cuando la **escuela albergue** y sus alumnos comenzaron a digitalizar sus manuscritos como parte de un proyecto educativo. En 2018 publicó su primer libro, *Trovador Vallisto*. Más tarde, gracias al **Fondo Editorial de San Juan**, y en un acto oficial encabezado por el vicegobernador, recibió la edición de su segundo libro con más de 800 poemas, un momento histórico que dio continuidad a su legado.
+
+---
+
+## La escuela y los alumnos
+
+La escuela, conducida por la maestra-directora, se convirtió en un puente entre tradición y futuro. En el trailer y la película aparecen frases memorables:  
+
+- Rosalía: *“El mejor regalo es un pico o una ancha.”*  
+- Maestra: *“¿Van a cumplir el sueño?”* y *“De verdad que me siento muy orgullosa de ustedes.”*  
+- Niños: llegando a clase **a lomo de burro**, mostrando el aislamiento de la zona.  
+
+El trabajo conjunto entre alumnos y maestros fue clave para preservar la obra de Reyes y darle proyección más allá de las montañas.
+
+---
+
+## El Camino de los Sueños
+
+La película refleja la tensión entre la llegada del **Camino de los Sueños**, anunciado en 2022, y la vida tradicional de la sierra. Mientras la radio celebra la inauguración, Rosalía afirma que *“ese camino no es para los serranos”* y Margarita sostiene que *“el camino está bien, pero la electricidad no la quiero”*.  
+
+La comunidad se debate entre el aislamiento, la autosuficiencia y la presión del llamado “progreso”. Las imágenes aéreas del camino en construcción funcionan como símbolo visual de esa transformación.
+
+---
+
+## Producción y técnica
+
+- **Formato máster**: 1920×1080, 25 fps, estéreo 2.0.  
+- **Montaje**: dividido en dos etapas — antes y después del camino.  
+- **Subtítulos**: preparados para INCAA en formato SRT, con closed captions en archivo aparte.  
+- **Trailer**: armado en Adobe Premiere a partir de un XML XMEML probado y funcional, con frases seleccionadas para transmitir emoción, intriga y preguntas al espectador.
+
+---
+
+## Distribución y festivales
+
+- Proyecto presentado al **INCAA**, obtuvo Apto Técnico y financiamiento en 2024.  
+- Estreno previsto para el **Festival Internacional de Cine de Mar del Plata 2025**.  
+- Posteriormente será distribuido en **Espacios INCAA**, **Cine.Ar TV y Play**, y se busca su llegada a plataformas internacionales como Netflix, Prime Video y MUBI.  
+
+---
+
+## Relevancia cultural
+
+*Sierra de Elizondo* no solo es un documental etnográfico, sino también un testimonio de resistencia cultural y espiritual. A través de Reyes, Rosalía, Margarita y la escuela, la película cuestiona: **¿Quién es el verdadero destinatario del progreso?**
+

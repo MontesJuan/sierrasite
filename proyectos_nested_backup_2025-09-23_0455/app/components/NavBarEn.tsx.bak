@@ -1,0 +1,52 @@
+'use client'
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import theme from '../data/theme.json'
+
+const links = [
+  { href: '/en/synopsis', label: 'SYNOPSIS' },
+  { href: '/en/trailer',  label: 'TRAILER' },
+  { href: '/en/social-impact',  label: 'SOCIAL IMPACT' },
+  { href: '/en/team',   label: 'TEAM' },
+  { href: '/en/collaborate', label: 'COLLABORATE' },
+  { href: '/en/distribution', label: 'DISTRIBUTION' },
+  { href: '/en/current-status', label: 'CURRENT STATUS' },
+  { href: '/en/gallery',  label: 'GALLERY' },
+  { href: '/en/contact', label: 'CONTACT' },
+  { href: '/en/press',   label: 'PRESS' }
+];
+
+export default function NavBarEn() {
+  const pathname = usePathname();
+  return (
+    <nav style={{display:'flex', alignItems:'center', gap:12, padding:'4px 12px', minHeight:48}}>
+      <Link href="/en" style={{display:'inline-flex', alignItems:'center', gap:12}}>
+        <Image
+          src={theme.brand.logoPath}
+          width={150}
+          height={44}
+          alt="SIERRA"
+          sizes="(max-width: 768px) 35vw, 150px"
+          style={{ width:'auto', height:'34px' }}
+        />
+      </Link>
+
+      {links.map(l => (
+        <Link
+          key={l.href}
+          href={l.href}
+          className={pathname === l.href ? 'active' : ''}
+          style={{fontSize:'82%', lineHeight:1, padding:'4px 6px', display:'inline-block'}}
+        >
+          {l.label}
+        </Link>
+      ))}
+
+      <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:8}}>
+        <a href="/" style={{fontSize:'82%', opacity:.9}} rel="nofollow">ES</a>
+        <a className="btn" href="/en/trailer" style={{padding:'6px 12px', lineHeight:1, transform:'translateY(-2px)'}}>WATCH TRAILER</a>
+      </div>
+    </nav>
+  )
+}

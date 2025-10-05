@@ -1,0 +1,27 @@
+export const metadata = { title: 'Equipo técnico — Sierra' }
+
+export default function Page() {
+  return (
+    <main className="section">
+      <div className="container">
+        <h2>Equipo técnico</h2>
+        <ul className="list" style={{marginTop:8}}>
+          <li>GUION Y DIRECCIÓN: Juan Francisco Montes</li>
+          <li>PRODUCCIÓN: Ciro Nestor Novelli</li>
+          <li>Jefe de Producción: Bruno Sesto (Mza)</li>
+          <li>Dirección de Fotografía 1er rodaje: Nicolás Farina (BsAs)</li>
+          <li>Dirección de Fotografía 2do rodaje: Juan F. Montes (SJ)</li>
+          <li>Cámara: Bruno Sesto (Mza)</li>
+          <li>Sonido primer rodaje: Javier Ruiz (Mza)</li>
+          <li>Sonido segundo rodaje: Bernardo Blanco (Mza)</li>
+          <li>Diseño de Sonido: Alejandro Zogbe (Jujuy)</li>
+          <li>Música: Juan F. Montes</li>
+          <li>Edición y postproducción: Juan F. Montes, Andrés Jones (SJ)</li>
+          <li>Antropólogo: Diego Garcés (SJ)</li>
+          <li>Asistente de Producción: Nicolás Nuñez (Mza)</li>
+          <li>Diseño gráfico: Hermanos Kutter (SJ)</li>
+        </ul>
+      </div>
+    </main>
+  )
+}

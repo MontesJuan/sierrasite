@@ -1,0 +1,20 @@
+import '../globals.css'
+import type { Metadata } from 'next'
+import NavBarEn from '../components/NavBarEn'
+import FooterEn from '../components/FooterEn'
+
+export const metadata: Metadata = {
+  title: 'Sierra — Documentary',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <NavBarEn />
+        <div className="page-wrap">{children}</div>
+        <FooterEn />
+      </body>
+    </html>
+  )
+}

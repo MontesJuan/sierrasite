@@ -1,0 +1,31 @@
+export const metadata = { title: 'Financiación — Sierra' }
+
+export default function Page() {
+  return (
+    <main className="section">
+      <div className="container">
+        <h2>Cómo colaborar</h2>
+        <p>Los sponsors y patrocinadores pueden colaborar financiando necesidades específicas como:</p>
+        <ul className="list" style={{marginTop:8}}>
+          <li>• Creación de copias DCP y subtítulos internacionales.</li>
+          <li>• Inscripciones en festivales nacionales e internacionales.</li>
+          <li>• Gastos de distribución, logística, traslados y alojamiento.</li>
+          <li>• Diseño e impresión de materiales promocionales (afiches, press kit, gráfica).</li>
+          <li>• Campañas de comunicación y difusión en redes sociales.</li>
+          <li>• Proyecciones educativas en escuelas rurales de San Juan.</li>
+        </ul>
+
+        <h3 style={{marginTop:16}}>Beneficios para sponsors y patrocinadores</h3>
+        <ul className="list" style={{marginTop:8}}>
+          <li>• Créditos en la película: inclusión del logotipo en los créditos finales.</li>
+          <li>• Presencia de marca en difusión: inclusión del logotipo en afiches, tráiler, press kit, RRSS y materiales de prensa.</li>
+          <li>• Invitaciones especiales: acceso a estrenos, funciones y eventos promocionales vinculados a la película.</li>
+        </ul>
+
+        <p style={{marginTop:12}}>
+          De esta manera, los colaboradores se asocian a un proyecto cultural con impacto social, educativo y patrimonial, ganando visibilidad en el circuito cinematográfico nacional e internacional.
+        </p>
+      </div>
+    </main>
+  )
+}

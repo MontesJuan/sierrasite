@@ -1,0 +1,37 @@
+{
+  "tagline": "Un viaje humano por la cordillera sanjuanina",
+  "logline": "Dos maestras recorren la Sierra de Pie de Palo para sostener la educación...",
+  "synopsis": "En la aridez de la Sierra de Pie de Palo, dos maestras recorren ...",
+  "impact": ["Sensibilizar sobre la educación rural","Visibilizar identidades serranas","Promover circuitos culturales federales"],
+  "distribution": ["Mención Mar del Plata 2025","Gaumont & Espacio INCAA","Funciones educativas 2026"],
+  "contact": { "email": "mulanimavisual@gmail.com", "phone": "+54 2645 101344", "instagram": "sierra.docu", "whatsapp": "542645101344" },
+  "credits": [
+    "Dirección — Juan F. Montes",
+    "Producción — Mulánima",
+    "Guion — (completar)",
+    "Dirección de fotografía — (completar)",
+    "Montaje — (completar)",
+    "Música original — (completar)",
+    "Sonido — (completar)",
+    "Color — (completar)"
+  ],
+  "financing": {
+    "intro": "Buscamos cofinanciación, patrocinios culturales y alianzas...",
+    "use_of_funds": ["Postproducción","Diseño sonoro","Corrección de color","DCP","Distribución y prensa"],
+    "tiers": [
+      { "name": "Productor/a asociado/a", "amount": "USD 5.000+", "benefits": ["Logo en créditos iniciales y materiales","Invitaciones a premieres","Acceso a funciones privadas"] },
+      { "name": "Cofinanciador/a", "amount": "USD 1.000–4.999", "benefits": ["Logo en créditos finales","Mención en prensa digital","Pack de stills y póster"] },
+      { "name": "Colaborador/a", "amount": "USD 250–999", "benefits": ["Agradecimiento en créditos","Acceso anticipado al tráiler"] }
+    ],
+    "ctaEmail": "mulanimavisual@gmail.com",
+    "pitchDeck": "/assets/press/dossier-sierra.pdf"
+  },
+  "press": {
+    "dossierUrl": "/assets/press/dossier-sierra.pdf",
+    "stillsZip": "/assets/press/stills.zip"
+  },
+  "trailer": {
+    "youtubeId": "D9eAYHrvDjc",  
+    "poster": "/assets/trailer/poster.jpg"
+  }
+}

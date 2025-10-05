@@ -1,0 +1,23 @@
+{
+  "name": "dossier-calcado",
+  "colors": {
+    "bg": "#000000",
+    "fg": "#F2F2F2",
+    "muted": "#B6B6B6",
+    "paper": "#0B0B0B",
+    "accent": "#FFFFFF",
+    "accent2": "#BBBBBB",
+    "border": "#232323"
+  },
+  "brand": {
+    "logoPath": "/assets/logos/sierra-wordmark.png",
+    "posterPath": "/assets/stills/still02.jpg",
+    "faviconPath": "/favicon.svg",
+    "producerLogo": "/assets/logos/mulanima.png"
+  },
+  "hero": {
+    "titleKicker": "Un documental de Juan F. Montes",
+    "overlayOpacity": 0.55,
+    "align": "center"
+  }
+}

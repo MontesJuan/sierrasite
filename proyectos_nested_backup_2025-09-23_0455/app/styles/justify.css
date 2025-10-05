@@ -1,0 +1,2 @@
+.section .container :where(p,li,dd){text-align:justify;text-justify:inter-word}
+.no-justify :where(p,li,dd){text-align:left!important}
