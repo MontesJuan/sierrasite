@@ -1,2 +1,7 @@
 .vercel
 .env.local
+public/assets/galeria_web/_originals/
+**/.DS_Store
+.next/
+node_modules/
+public/assets/galeria_web/stills/_originals/
