@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/build-kb.mjs && next build",
+    "build": "next build",
     "start": "next start",
     "kb:clean": "rm -f public/kb/kb.json",
     "kb:build": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/build-kb.mjs",
