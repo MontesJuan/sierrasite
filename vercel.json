@@ -1,10 +1,5 @@
 {
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.sierradoc.site" }],
-      "destination": "https://sierradoc.site/:path*",
-      "permanent": true
-    }
+  "rewrites": [
+    { "source": "/api/chat", "destination": "https://sierraproxy.vercel.app/api/chat" }
   ]
 }
