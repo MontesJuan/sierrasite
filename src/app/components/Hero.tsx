@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section className="relative h-screen w-full flex flex-col items-center justify-center text-white overflow-hidden">
       <Image
-        src="/hero-large.jpg" // Asegúrate que este archivo existe en tu carpeta 'public'
+        src="/hero-large.jpg"
         alt="Fondo de la película Sierra"
         layout="fill"
         objectFit="cover"
@@ -14,10 +14,10 @@ const Hero = () => {
         priority
       />
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 -z-10"></div>
-      <div className="z-10 text-center flex flex-col items-center">
+      <div className="z-10 text-center flex flex-col items-center p-4">
         <div className="w-64 md:w-96 mb-8">
           <Image 
-            src="/logos/sierra-wordmark.png" // Asegúrate que este archivo existe en 'public/logos'
+            src="/logos/sierra-wordmark.png"
             alt="Logo Sierra"
             width={500}
             height={150}
@@ -27,8 +27,9 @@ const Hero = () => {
           UN DOCUMENTAL DE JUAN F. MONTES
         </p>
         <div className="w-24 md:w-32">
+          {/* RUTA CORREGIDA */}
           <Image 
-            src="/logos/mulanima.png" // Asegúrate que este archivo existe en 'public/logos'
+            src="/logos/MULANIMA TRANSPARENTE BLANCO.png" 
             alt="Logo Mulanima"
             width={200}
             height={200}
