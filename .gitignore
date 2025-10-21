@@ -30,12 +30,17 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Environment variables
+# Ignore all local environment variables.
+.env.local
+.env.*.local
+
+# But DO NOT ignore the example file.
+!*.env.example
