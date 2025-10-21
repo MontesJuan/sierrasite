@@ -1,8 +1,9 @@
 import './globals.css'
 import React from 'react'
 import type { Metadata } from 'next'
-import Sidebar from './components/Sidebar'
-import Footer from './components/Footer' // si ya lo tienes
+
+// import Sidebar from './components/Sidebar' // DESACTIVADO porque el archivo no existe
+// import Footer from './components/Footer'   // DESACTIVADO porque el archivo no existe
 
 export const metadata: Metadata = {
   title: 'SIERRA — documental',
@@ -14,12 +15,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body className="site-root">
         <div className="layout-grid">
-          <Sidebar />
+          {/* <Sidebar /> */} {/* DESACTIVADO */}
           <main className="site-main">
             {children}
           </main>
         </div>
-        <Footer />
+        {/* <Footer /> */} {/* DESACTIVADO */}
       </body>
     </html>
   )
