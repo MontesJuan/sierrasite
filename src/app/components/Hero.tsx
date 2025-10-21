@@ -1,31 +1,51 @@
-'use client'
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
 
-export default function Hero({ imageSrc = '/hero-large.jpg' }: { imageSrc?: string }) {
+const Hero = () => {
   return (
-    <header
-      className="full-bleed-hero"
-      style={{
-        backgroundImage: `url(${imageSrc})`,
-        backgroundSize: 'cover',
-        backgroundPosition: '50% 40%',
-        backgroundRepeat: 'no-repeat',
-        minHeight: '100vh'
-      }}
-    >
-      <div className="hero-overlay" />
+    <section className="relative h-screen w-full flex flex-col items-center justify-center text-white overflow-hidden">
+      {/* Fondo de la Imagen - Asegúrate de que 'hero-large.jpg' existe en la carpeta 'public' */}
+      <Image
+        src="/hero-large.jpg"
+        alt="Fondo de la película Sierra"
+        layout="fill"
+        objectFit="cover"
+        quality={85}
+        className="-z-10"
+        priority
+      />
+      
+      {/* Capa oscura para mejorar legibilidad */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 -z-10"></div>
 
-      <div className="relative z-10 flex items-end md:items-center h-full px-6 md:px-12 pb-10 md:pb-0">
-        <div className="max-w-4xl">
-          <h1 className="text-4xl md:text-6xl leading-tight text-white drop-shadow-md">SIERRA</h1>
-          <p className="mt-4 text-sm md:text-base text-white/90 max-w-prose">Un documental de Juan F. Montes — memoria, paisaje y poesía</p>
+      {/* Contenido Centrado */}
+      <div className="z-10 text-center flex flex-col items-center">
+        {/* Logo de Sierra - Asegúrate de que 'sierra-wordmark.png' existe en 'public/logos' */}
+        <div className="w-64 md:w-96 mb-8">
+          <Image 
+            src="/logos/sierra-wordmark.png"
+            alt="Logo Sierra"
+            width={500}
+            height={150}
+          />
+        </div>
+        
+        <p className="mb-8 text-lg md:text-xl">
+          UN DOCUMENTAL DE JUAN F. MONTES
+        </p>
 
-          <div className="mt-6">
-            <a href="#trailer" className="inline-block px-5 py-3 border border-white/80 text-white rounded-md text-sm backdrop-blur-sm">Ver tráiler</a>
-            <a href="#galeria" className="inline-block ml-3 px-5 py-3 text-white/90 text-sm">Ver galería</a>
-          </div>
+        {/* Logo de Mulanima - Asegúrate de que 'mulanima.png' existe en 'public/logos' */}
+        <div className="w-24 md:w-32">
+          <Image 
+            src="/logos/mulanima.png"
+            alt="Logo Mulanima"
+            width={200}
+            height={200}
+          />
         </div>
       </div>
-    </header>
-  )
-}
+    </section>
+  );
+};
+
+export default Hero;
