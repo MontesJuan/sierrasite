@@ -19,4 +19,5 @@ jobs:
             echo "VERCEL_TOKEN secret is not configured in this repository."
             exit 2
           fi
+          # Known-good public deployment from the SIERRA site project.
           npx --yes vercel@58.1.0 rollback sierra-iva1qti69-janaas-projects-47034055.vercel.app --scope janaas-projects-47034055 --token "$VERCEL_TOKEN" --yes
