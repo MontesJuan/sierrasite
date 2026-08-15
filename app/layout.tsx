@@ -1,5 +1,8 @@
-import dynamic from "next/dynamic";
+import "./globals.css";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import ChatBot from "./components/ChatBot";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const ChatBot = dynamic(() => import("@/components/ChatBot"), { ssr: false });
-  return (<html lang="es"><body>{children}<ChatBot /></body></html>);
+  return <html lang="es"><body><Nav />{children}<Footer /><ChatBot /></body></html>;
 }
