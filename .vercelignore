@@ -1,0 +1,12 @@
+.env*
+.git
+.next
+node_modules
+public/assets
+public/kb
+public/sierra_prensa.zip
+src/kb
+kb
+scripts
+content
+*.md

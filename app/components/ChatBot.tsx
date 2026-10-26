@@ -1,46 +1,164 @@
 "use client";
-
-import { FormEvent, useState } from "react";
-
-type Message = { role: "user" | "assistant"; content: string };
-
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import Icon from "./Icon";
+import { usePathname } from "next/navigation";
+type Message = {
+  role: "user" | "assistant";
+  text: string;
+  sources?: { title: string; url: string }[];
+};
 export default function ChatBot() {
-  const [open, setOpen] = useState(false);
+  const [entry, setEntry] = useState<HTMLElement | null>(null);
+  useEffect(() => setEntry(document.getElementById("assistant-entry")), []);
+  const en = (usePathname() || "/").startsWith("/en");
+  const dialog = useRef<HTMLDialogElement>(null);
+  const list = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [messages, setMessages] = useState<Message[]>([{ role: "assistant", content: "Hola, soy el bot de SIERRA. Preguntame sobre el proyecto." }]);
-
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text || loading) return;
-    const next = [...messages, { role: "user", content: text } as Message];
-    setMessages(next); setInput(""); setLoading(true); setError("");
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    list.current?.scrollTo({
+      top: list.current.scrollHeight,
+      behavior: "instant",
+    });
+  }, [messages, busy]);
+  async function ask(question: string) {
+    if (busy || !question.trim()) return;
+    setInput("");
+    setMessages((m) => [...m, { role: "user", text: question }]);
+    setBusy(true);
     try {
-      const response = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next }) });
-      if (!response.ok) { const body = await response.text(); throw new Error(`HTTP ${response.status}: ${body}`); }
-      const data = await response.json();
-      if (!data?.reply) { setMessages((m) => [...m, { role: "assistant", content: "No tengo esa información." }]); return; }
-      setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
-    } catch (err) {
-      setError(String(err instanceof Error ? err.message : err));
-      setMessages((m) => [...m, { role: "assistant", content: "Fallo de red." }]);
-    } finally { setLoading(false); }
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: question, locale: en ? "en" : "es" }),
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!r.ok) throw new Error();
+      const j = await r.json();
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", text: j.answer, sources: j.sources },
+      ]);
+    } catch {
+      setMessages((m) => [
+        ...m,
+        {
+          role: "assistant",
+          text: en
+            ? "The assistant is unavailable. Try again or write to mulanimavisual@gmail.com."
+            : "El asistente no está disponible. Volvé a intentar o escribí a mulanimavisual@gmail.com.",
+        },
+      ]);
+    } finally {
+      setBusy(false);
+    }
   }
-
-  return <>
-    {open && <div style={{ position: "fixed", right: 16, bottom: 72, zIndex: 9998, width: "min(420px, 92vw)", maxHeight: "70vh", background: "#0f0f0f", color: "#f2f2f2", border: "1px solid #222", borderRadius: 12, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      <div style={{ padding: "10px 12px", background: "#111", borderBottom: "1px solid #222", fontWeight: 600 }}>Chat · SIERRA</div>
-      <div style={{ padding: 12, display: "flex", flexDirection: "column", gap: 8, overflowY: "auto" }}>
-        {messages.map((m, i) => <div key={i} style={{ alignSelf: m.role === "user" ? "flex-end" : "flex-start", background: m.role === "user" ? "#1f2937" : "#111", border: "1px solid #222", padding: "8px 10px", borderRadius: 8, maxWidth: "85%", whiteSpace: "pre-wrap" }}>{m.content}</div>)}
-        {error && <div style={{ color: "#ff6b6b", fontSize: 12 }}>{error}</div>}
-      </div>
-      <form onSubmit={submit} style={{ padding: 12, display: "flex", gap: 8, borderTop: "1px solid #222" }}>
-        <input value={input} disabled={loading} onChange={(e) => setInput(e.target.value)} placeholder={loading ? "Esperá…" : "Escribí tu pregunta sobre SIERRA"} style={{ flex: 1, background: "#0c0c0c", color: "#eee", border: "1px solid #222", borderRadius: 8, padding: "10px 12px" }} />
-        <button disabled={loading || !input.trim()} style={{ border: 0, borderRadius: 8, padding: "10px 14px", background: "#e5e5e5", color: "#111", cursor: "pointer", opacity: loading ? .6 : 1 }}>{loading ? "…" : "Enviar"}</button>
-      </form>
-    </div>}
-    <button aria-label={open ? "Cerrar chat" : "Abrir chat"} onClick={() => setOpen((v) => !v)} style={{ position: "fixed", right: 16, bottom: 16, zIndex: 9999, borderRadius: 9999, padding: "12px 16px", background: "#111", color: "#fff", border: "none", boxShadow: "0 8px 20px rgba(0,0,0,.25)", cursor: "pointer" }}>{open ? "Cerrar chat" : "Chat SIERRA"}</button>
-  </>;
+  return (
+    <>
+      {entry &&
+        createPortal(
+          <button
+            className="chat-trigger"
+            onClick={() => dialog.current?.showModal()}
+            aria-haspopup="dialog"
+            aria-label={en ? "Ask about SIERRA" : "Conversar sobre SIERRA"}
+          >
+            {en ? "Ask SIERRA" : "Conversar"} <Icon name="arrow" />
+          </button>,
+          entry,
+        )}
+      <dialog className="chat-dialog" ref={dialog} aria-labelledby="chat-title">
+        <div className="chat-head">
+          <h2 id="chat-title">{en ? "About SIERRA" : "Hablemos de SIERRA"}</h2>
+          <p>
+            {en
+              ? "Film information assistant"
+              : "Asistente de información de la película"}
+          </p>
+          <button
+            className="close"
+            onClick={() => dialog.current?.close()}
+            aria-label={en ? "Close assistant" : "Cerrar asistente"}
+          >
+            <Icon name="close" />
+          </button>
+        </div>
+        <div className="chat-messages" ref={list} role="log" aria-live="polite">
+          {messages.length === 0 ? (
+            <p>
+              {en
+                ? "I can help with the story, trailer, characters and press materials. What would you like to know?"
+                : "Puedo ayudarte con la historia, el tráiler, sus protagonistas y los materiales de prensa. ¿Qué querés saber?"}
+            </p>
+          ) : (
+            messages.map((m, i) => (
+              <div key={i} className={"chat-message " + m.role}>
+                <strong>
+                  {m.role === "user" ? (en ? "You" : "Vos") : "SIERRA"}
+                </strong>
+                {m.text}
+                {m.sources?.map((s) => (
+                  <a
+                    className="chat-source"
+                    href={s.url}
+                    key={s.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {s.title} <Icon name="arrow" />
+                  </a>
+                ))}
+              </div>
+            ))
+          )}
+          {busy && (
+            <p>{en ? "Looking up information…" : "Consultando información…"}</p>
+          )}
+        </div>
+        <div className="chat-options">
+          {(en
+            ? ["Trailer", "Screenings", "Press dossier"]
+            : ["Tráiler", "Proyecciones", "Dossier de prensa"]
+          ).map((q) => (
+            <button key={q} disabled={busy} onClick={() => ask(q)}>
+              {q}
+            </button>
+          ))}
+        </div>
+        <form
+          className="chat-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void ask(input);
+          }}
+        >
+          <input
+            aria-label={en ? "Your question" : "Tu consulta"}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            maxLength={1200}
+            placeholder={
+              en ? "Ask about the film…" : "Preguntá sobre la película…"
+            }
+            required
+          />
+          <button
+            type="submit"
+            disabled={busy || !input.trim()}
+            aria-label={en ? "Send question" : "Enviar consulta"}
+          >
+            <Icon name="send" />
+          </button>
+        </form>
+        <p className="chat-privacy">
+          {en
+            ? "Public information only. Please do not send personal data."
+            : "Sólo información pública. No envíes datos personales."}{" "}
+          <a href="/privacidad">{en ? "Privacy" : "Privacidad"}</a>
+        </p>
+      </dialog>
+    </>
+  );
 }

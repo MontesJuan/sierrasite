@@ -1,0 +1,128 @@
+[
+  {
+    "file": "portada-16x9.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/09 Relanzamiento/Propuestas/Poster 16x9 v01/Sierra-16x9-arte-sin-texto.png",
+    "sourceSHA256": "10d86f118498e4534fa8a364289f59bb240ceef994a5f4180341d7aaf6b2f19a",
+    "sha256": "0cdfd9a188dd180ba50cd69b24d38d1880d1ac4f93a66eab679a1ca6378723a0",
+    "kind": "poster composite, AI assisted; not a documentary frame"
+  },
+  {
+    "file": "logo.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Archivo web/logos/SIERRA_LOGO.png",
+    "sourceSHA256": "aef82aa44967306f65ffb41403bdef630f23edee24da8c1857a52fab71e03869",
+    "sha256": "8712d67bb6f479604e3aa1b464358070e23da4129865c61e355006ff6a5f29d5",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "reyes-escribe.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/a4c39b2a38__NUEVAS_1.34.1.webp",
+    "sourceSHA256": "a4c39b2a3864c94de6ee25f379434a137afc80b4a6f01bda94a67d7dd439f06f",
+    "sha256": "d6a0f023ea47f2daa658a85bda71c0a7465bd5bf4f961d84a56b01537b16e25f",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "reyes-perfil.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/99455b803c__A002_C001_0101FQ_001.00_14_57_10.Still0082.jpg",
+    "sourceSHA256": "99455b803cd5f0165365902d66eb631472878f87915a9f74a71db32f9d76ab32",
+    "sha256": "6f8dfbc25ff13b28451a90b5376fa5d3e3707c2e8d3fe824bf3ed162bcb90b26",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "hilado.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/4653e677bf__A010_C003_01010A_001.R3D.00_01_41_23.Still001.jpg",
+    "sourceSHA256": "4653e677bfa201fffda07fe3dc46110bad28d8ecff51d51f9f8e55add597e9ab",
+    "sha256": "5217722f67742a31ab8fd74ee7ea91f15e1a9c4c06b3c6608d1f1e9018a914c5",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "poncho.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/f6e6577794__NUEVAS_1.322.1.webp",
+    "sourceSHA256": "f6e6577794445c6fe22146bfae3122f0ba4b2a00f1b58158a6cec450fc2921d9",
+    "sha256": "7ee35310c3ca98fc465a63b45361d2664cbf1171218e8c37f0c8dacae4e42d16",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "escuela-cuadernos.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/097236eec2__escuela-1-11-6.webp",
+    "sourceSHA256": "097236eec2f3df233743ec404748ace52d7e4a9fba21f03b1306daf904ff17a2",
+    "sha256": "366e20c4546104653de96c52496330adbec121928deb562ad2d74d7331f990ff",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "canon-arrieros.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/backstage/b5926c844a__MXUC1774.JPG",
+    "sourceSHA256": "b5926c844ad25329dcb6d05b4611f07d0ece8343371c4383172c5cecdd2f7988",
+    "sha256": "07123a9359c6960188f699c924d214d63c1cf32c45e7672b77df97c25ffee029",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "noche-cabras.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/2c5fa054ef__NUEVAS_1.347.3.webp",
+    "sourceSHA256": "2c5fa054ef1d819b87c556ca3aa873084cfb7cd71a645fcb5d0a345e1f6b6baf",
+    "sha256": "71be143ba0c943e1e64929d2abdcac354a1b8fccdf7ab7e1eeafaf6d42e3686e",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "cuaderno-manos.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/c72b303a5e__A002_C001_0101FQ_001.00_19_14_00.Still010.jpg",
+    "sourceSHA256": "c72b303a5e1731145071b446c0aa7680ace82125a193552915bf703ba1d4ce88",
+    "sha256": "25786c0c6ba3f670baff25b7c42ff2638294f9221f9792118929e55b19ed6dc3",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "nino-capucha.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/cec6d62a4f__A002_C001_0101FQ_001.00_27_27_24.Still015.jpg",
+    "sourceSHA256": "cec6d62a4f86d53e6b6360026b75efb773044e643ff50259e68bcf7ea10803d3",
+    "sha256": "b976a4ac1fdc710a4dbb40ed028805e7c42d9c263ad75f6382dffa5e5dea74e0",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "cresta-arrieros.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/backstage/4820e0df92__HVKG2387.JPG",
+    "sourceSHA256": "4820e0df92fd58e660e436cdeb37da98f320e3ea8fb28adf5b615208c7ab7def",
+    "sha256": "183a06a31963286522a2ca63e930ae5ed4954434a507d4540227613b9a507889",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "reyes-ladera.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Biblioteca/fotogramas/0b6158be89__sin-ti-tulo-1-32-1.webp",
+    "sourceSHA256": "0b6158be89f9f1797db0f07dfd0d2491b3ca03476a82fab9eb92a8e845c9e0e3",
+    "sha256": "12d3c3f5c2e7c766d28f5d3879b3e18cc07a814920455acac64713a56e93524e",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "reyesescribe.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Archivo web/ilustraciones/reyesescribe.png",
+    "sourceSHA256": "38e2dbe11e6a24648145cdcd79072df3b6c318f641f6cdf2c56b874d90754f8d",
+    "sha256": "ae6238791c32a10520f55597d6f6bc0da5be5e1b80a943699585e25996035cea",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "chivo.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Archivo web/ilustraciones/chivo.png",
+    "sourceSHA256": "b6c059461ba96e76f22988b471bc1772c9348aa3f405cc41b1345e106ef3aa12",
+    "sha256": "505dca169849c6c938ae63b9af90be0a7358f4fe7a43e0bd2352f0e970aea7e9",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "incaa-b.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Archivo web/logos/INCAA_LOGO_2022_BLANCO.png",
+    "sourceSHA256": "9c94178816a723e584a58efb2d5823579c84bb31640c3c15ac34948b6bc81e82",
+    "sha256": "8b5481a4e4c720505228297dacdad40f94dfdb8c8dc00da139f5cda0434a8a9d",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "mulanima-b.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Archivo web/logos/MULANIMA TRANSPARENTE BLANCO.png",
+    "sourceSHA256": "783c628faf8deb8eea9dd83fb8310b697bdcdcf60eb941abdc497bcc615b317f",
+    "sha256": "d6c5009492fbf1647686c249b5e2849ec758d35e4afad4fc2b16e96d0808c4ba",
+    "kind": "original archival asset, resized without cropping"
+  },
+  {
+    "file": "curandero.webp",
+    "source": "/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Archivo web/logos/CURANDERO FILMS.png",
+    "sourceSHA256": "09fb372e0524ff1ed8c6e89e28e3701c8feaefbb45c41c87a25ac98dbadd8a1b",
+    "sha256": "556f51145b3400df866e350150159a37a4adcb1de05b311944f4c537b61641fb",
+    "kind": "original archival asset, resized without cropping"
+  }
+]

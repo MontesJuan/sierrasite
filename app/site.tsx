@@ -1,163 +1,547 @@
-import Image from "next/image";
+import Icon from "./components/Icon";
 import type { Metadata } from "next";
+import Link from "next/link";
+import Trailer from "./components/Trailer";
+import Gallery from "./components/Gallery";
 
 export const ROUTES = [
-  "/", "/sinopsis", "/trailer", "/impacto", "/equipo", "/financiacion", "/distribucion", "/estado-actual", "/galeria", "/contacto", "/prensa",
-  "/en", "/en/synopsis", "/en/trailer", "/en/social-impact", "/en/team", "/en/collaborate", "/en/distribution", "/en/current-status", "/en/gallery", "/en/contact", "/en/press",
+  "/",
+  "/sinopsis",
+  "/trailer",
+  "/impacto",
+  "/equipo",
+  "/financiacion",
+  "/distribucion",
+  "/estado-actual",
+  "/galeria",
+  "/contacto",
+  "/prensa",
+  "/privacidad",
+  "/en",
+  "/en/synopsis",
+  "/en/trailer",
+  "/en/social-impact",
+  "/en/team",
+  "/en/collaborate",
+  "/en/distribution",
+  "/en/current-status",
+  "/en/gallery",
+  "/en/contact",
+  "/en/press",
 ] as const;
-
-export const STATIC_SLUGS = ROUTES.filter((route) => route !== "/" && route !== "/prensa").map((route) => ({ slug: route.slice(1).split("/") }));
-
-const spanishSynopsis = [
-  "Sierra es un viaje profundo al corazón de la montaña, donde el tiempo se mide en horas de mula, en distancias infinitas y en la memoria de sus habitantes. En este microcosmos forjado por el aislamiento y la naturaleza, cada oficio, cada gesto y cada silencio se convierten en forma de resistencia y pertenencia.",
-  "En Vallecito, el rincón más remoto de las Sierras de Elizondo, vive Ladislao Reyes Chávez, puestero y poeta popular que ha dedicado su vida a escribir más de ochocientos poemas en cuadernos que guarda como su mayor tesoro. Tras publicar su primer libro, Trovador Vallisto, en 2018, Reyes sueña con editar una segunda obra que preserve la voz y la memoria de su gente. Ese anhelo encuentra un aliado inesperado en los alumnos y maestras de la escuela albergue, quienes lo ayudan a digitalizar sus manuscritos, tejiendo un puente entre la tradición y el futuro.",
-  "En paralelo, la sierra enfrenta la irrupción del Camino de los Sueños, inaugurado en 2022. Una obra que prometió integración y desarrollo, pero que también abrió nuevas tensiones en la comunidad: ¿qué se gana y qué se pierde cuando el “progreso” llega hasta un territorio donde la vida se sostuvo durante siglos con reglas propias?",
-  "Con imágenes majestuosas y la cadencia de la palabra poética, Sierra retrata la crudeza y la belleza de un mundo en transformación, y plantea preguntas que resuenan más allá de las montañas: ¿Podrá Reyes cumplir el sueño de ver sus poemas publicados? ¿Será el camino un puente hacia el futuro o una amenaza para la identidad de los serranos?",
-];
-
-const teamEs = [
-  ["GUION Y DIRECCIÓN", "Juan Francisco Montes"], ["PRODUCCIÓN", "Ciro Nestor Novelli"], ["Jefe de Producción", "Bruno Sesto (Mza)"],
-  ["Dirección de Fotografía 1er rodaje", "Nicolás Farina (BsAs)"], ["Dirección de Fotografía 2do rodaje", "Juan F. Montes (SJ)"], ["Cámara", "Bruno Sesto (Mza)"],
-  ["Sonido primer rodaje", "Javier Ruiz (Mza)"], ["Sonido segundo rodaje", "Bernardo Blanco (Mza)"], ["Diseño de Sonido", "Alejandro Zogbe (Jujuy)"],
-  ["Música", "Juan F. Montes"], ["Edición y postproducción", "Juan F. Montes, Andrés Jones (SJ)"], ["Antropólogo", "Diego Garcés (SJ)"],
-  ["Asistente de Producción", "Nicolás Nuñez (Mza)"], ["Diseño gráfico", "Hermanos Kutter (SJ)"],
-];
-const teamEn = [
-  ["WRITER & DIRECTOR", "Juan Francisco Montes"], ["PRODUCER", "Ciro Nestor Novelli"], ["Production Manager", "Bruno Sesto (Mendoza)"],
-  ["Director of Photography – 1st shoot", "Nicolás Farina (Buenos Aires)"], ["Director of Photography – 2nd shoot", "Juan F. Montes (San Juan)"], ["Camera", "Bruno Sesto (Mendoza)"],
-  ["Production Sound – 1st shoot", "Javier Ruiz (Mendoza)"], ["Production Sound – 2nd shoot", "Bernardo Blanco (Mendoza)"], ["Sound Design", "Alejandro Zogbe (Jujuy)"],
-  ["Music", "Juan F. Montes"], ["Editing & Post", "Juan F. Montes, Andrés Jones (San Juan)"], ["Anthropologist", "Diego Garcés (San Juan)"],
-  ["Production Assistant", "Nicolás Nuñez (Mendoza)"], ["Graphic Design", "Hermanos Kutter (San Juan)"],
-];
-
-const pressFiles = [
-  "1.png", "10x10 sticker final cabrito png.png", "10x10 sticker final reyes png.png", "2.png", "3.png", "Guión Sierra final.pdf",
-  "INCAA_LOGO_2022_BLANCO.png", "INCAA_LOGO_2022_NEGRO.png", "MULANIMA TRANSPARENTE BLANCO.png", "MULANIMA TRANSPARENTE NEGRO.png",
-  "SIERRA TITULO TYPO final.png", "dossier-sierra.pdf", "reyes.png",
-];
-
-const backstage = [
-  ...Array.from({ length: 21 }, (_, i) => `/assets/galeria_web/backstage/${i + 1}.webp`),
-  "/assets/galeria_web/backstage/astica-1.webp", "/assets/galeria_web/backstage/back3.webp",
-  "/assets/galeria_web/backstage/captura-de-pantalla-2025-09-16-a-la-s-11-46-03captura-de-pantalla-2025-09-16-a-la-s-11-46-03-a-m.webp",
-  "/assets/galeria_web/backstage/hija-de-reyes.webp", "/assets/galeria_web/backstage/hvkg2387.webp", "/assets/galeria_web/backstage/img-8553.webp", "/assets/galeria_web/backstage/img-8748.webp",
-  "/assets/galeria_web/backstage/img-e2786.webp", "/assets/galeria_web/backstage/img-e2810.webp", "/assets/galeria_web/backstage/img-e2813.webp", "/assets/galeria_web/backstage/img-e2978.webp",
-  "/assets/galeria_web/backstage/img-e2991.webp", "/assets/galeria_web/backstage/img-e2994.webp", "/assets/galeria_web/backstage/img-e2997.webp", "/assets/galeria_web/backstage/img-e3002.webp",
-  "/assets/galeria_web/backstage/img-e3013.webp", "/assets/galeria_web/backstage/img-e3016.webp", "/assets/galeria_web/backstage/img-e3019.webp", "/assets/galeria_web/backstage/img-e3021.webp",
-  "/assets/galeria_web/backstage/img-e3022.webp", "/assets/galeria_web/backstage/img-e3023.webp", "/assets/galeria_web/backstage/img-e3025.webp", "/assets/galeria_web/backstage/img-e3029.webp",
-  "/assets/galeria_web/backstage/img-e3055.webp", "/assets/galeria_web/backstage/img-e3061.webp", "/assets/galeria_web/backstage/img-e3117.webp", "/assets/galeria_web/backstage/img-e3152.webp",
-  "/assets/galeria_web/backstage/img-e3169.webp", "/assets/galeria_web/backstage/img-e3196.webp", "/assets/galeria_web/backstage/img-e3207.webp", "/assets/galeria_web/backstage/img-e3213.webp",
-  "/assets/galeria_web/backstage/img-e3217.webp", "/assets/galeria_web/backstage/img-e3221.webp", "/assets/galeria_web/backstage/img-e3263.webp", "/assets/galeria_web/backstage/img-e3265.webp",
-  "/assets/galeria_web/backstage/img-e3278.webp", "/assets/galeria_web/backstage/img-e3298.webp", "/assets/galeria_web/backstage/img-e3300.webp", "/assets/galeria_web/backstage/img-e3308.webp",
-  "/assets/galeria_web/backstage/img-e3318.webp", "/assets/galeria_web/backstage/img-e3344.webp", "/assets/galeria_web/backstage/img-e3408.webp", "/assets/galeria_web/backstage/mxuc1774.webp", "/assets/galeria_web/backstage/ujju4405.webp",
-];
-const stills = [
-  "/assets/galeria_web/stills/a002-c001-0101fq-001-00-14-57-10-still008-2.webp", "/assets/galeria_web/stills/a002-c001-0101fq-001-00-18-30-24-still009.webp",
-  "/assets/galeria_web/stills/a002-c001-0101fq-001-00-19-14-00-still010.webp", "/assets/galeria_web/stills/a002-c001-0101fq-001-00-27-10-01-still014-copia.webp",
-  "/assets/galeria_web/stills/a002-c001-0101fq-001-00-27-27-24-still015.webp", "/assets/galeria_web/stills/a002-c001-0101fq-001-00-27-50-14-still018-2.webp",
-  "/assets/galeria_web/stills/a002-c001-0101fq-001-00-56-38-10-still001-copia-2.webp", "/assets/galeria_web/stills/a002-c001-0101fq-001-01-06-25-10-still026.webp",
-  "/assets/galeria_web/stills/a002-c001-0101fq-001-02-03-36-04-still035.webp", "/assets/galeria_web/stills/a002-c001-0101fq-001-03-10-40-04-still040.webp",
-  "/assets/galeria_web/stills/a002-c001-0101fq-001-04-15-32-20-still042.webp", "/assets/galeria_web/stills/a006-c006-0101n0-001-r3d-00-00-29-24-still001.webp",
-  "/assets/galeria_web/stills/a010-c003-01010a-001-r3d-00-01-41-23-still001.webp", "/assets/galeria_web/stills/escuela-1-4-1.webp",
-  "/assets/galeria_web/stills/escuela-1-11-2.webp", "/assets/galeria_web/stills/escuela-1-11-5.webp", "/assets/galeria_web/stills/escuela-1-11-6.webp",
-  "/assets/galeria_web/stills/escuela-1-12-2.webp", "/assets/galeria_web/stills/escuela-1-24-1.webp", "/assets/galeria_web/stills/escuela-1-25-1.webp",
-  "/assets/galeria_web/stills/escuela-1-27-1.webp", "/assets/galeria_web/stills/escuela-1-28-1.webp", "/assets/galeria_web/stills/escuela-1-29-3.webp",
-  "/assets/galeria_web/stills/escuela-1-33-1.webp", "/assets/galeria_web/stills/escuela-1-39-1.webp", "/assets/galeria_web/stills/escuela-1-72-1.webp", "/assets/galeria_web/stills/escuela-1-75-1.webp",
-  "/assets/galeria_web/stills/expedicion-1-3-1.webp", "/assets/galeria_web/stills/expedicion-1-24-1.webp", "/assets/galeria_web/stills/expedicion-1-25-1.webp", "/assets/galeria_web/stills/expedicion-1-33-1.webp",
-  "/assets/galeria_web/stills/last-ultimas-1-2-1.webp", "/assets/galeria_web/stills/last-ultimas-1-20-1.webp", "/assets/galeria_web/stills/last-ultimas-1-32-1.webp",
-  "/assets/galeria_web/stills/sin-ti-tulo-1-7-2.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-9-1.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-25-1.webp",
-  "/assets/galeria_web/stills/sin-ti-tulo-1-26-1.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-27-1.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-28-2.webp",
-  "/assets/galeria_web/stills/sin-ti-tulo-1-28-4.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-32-1.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-32-2.webp",
-  "/assets/galeria_web/stills/sin-ti-tulo-1-35-1.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-38-1.webp", "/assets/galeria_web/stills/sin-ti-tulo-1-45-2.webp",
-  "/assets/galeria_web/stills/sin-ti-tulo-1-48-1.webp", "/assets/galeria_web/stills/sin-tisin-ti-tulo-1-38-2.webp", "/assets/galeria_web/stills/ultimas-1-1-1.webp",
-  "/assets/galeria_web/stills/ultimas-1-3-1.webp", "/assets/galeria_web/stills/ultimas-1-4-1.webp", "/assets/galeria_web/stills/ultimas-1-38-3.webp",
-  "/assets/galeria_web/stills/ultimas-1-59-1.webp", "/assets/galeria_web/stills/ultimas-1-59-2.webp",
-];
-
-const enTitles: Record<string, string> = {
-  "/en": "SIERRA — Documentary", "/en/synopsis": "Synopsis — Sierra", "/en/trailer": "SIERRA — Documentary", "/en/social-impact": "Social Impact — Sierra",
-  "/en/team": "TEAM", "/en/collaborate": "Collaborate — Sierra", "/en/distribution": "Distribution — Sierra", "/en/current-status": "Current Status — Sierra",
-  "/en/gallery": "Gallery — Sierra", "/en/contact": "Contact — Sierra", "/en/press": "Press — Sierra",
-};
-const esTitles: Record<string, string> = {
-  "/": "Sierra — Documental", "/sinopsis": "Sinopsis — Sierra", "/trailer": "Tráiler — SIERRA", "/impacto": "Impacto social — Sierra", "/equipo": "Equipo — Sierra",
-  "/financiacion": "COLABORAR — Sierra", "/distribucion": "Distribución — Sierra", "/estado-actual": "Estado actual — Sierra", "/galeria": "Galería — Sierra", "/contacto": "Contacto — Sierra", "/prensa": "Sierra — Documental",
-};
-
+export const STATIC_SLUGS = ROUTES.filter(
+  (p) => p !== "/" && p !== "/prensa",
+).map((p) => ({ slug: p.slice(1).split("/") }));
+const base = "https://sierradoc.site";
 export function metadataFor(path: string): Metadata {
-  if (path.startsWith("/en")) {
-    return {
-      title: enTitles[path] || "SIERRA — Documentary",
-      description: "Feature documentary filmed in the Elizondo Range (San Juan, Argentina). Director: Juan F. Montes. Trailer, synopsis, gallery and press.",
-      keywords: ["Sierra", "documentary", "San Juan", "Elizondo Range", "INCAA", "Mulánima"],
-      robots: { index: true, follow: true },
-      alternates: { canonical: "https://sierradoc.site/en", languages: { es: "https://sierradoc.site", en: "https://sierradoc.site/en" } },
-      openGraph: { title: "SIERRA — Documentary", description: "Feature documentary from San Juan, Argentina.", url: "https://sierradoc.site/en", siteName: "SIERRA", locale: "en_US", type: "website", images: [{ url: "https://sierradoc.site/assets/og/facebook_opengraph.jpg", width: 1200, height: 630, alt: "SIERRA" }] },
-      twitter: { card: "summary_large_image", title: "SIERRA — Documentary", description: "Feature documentary from San Juan, Argentina.", images: ["https://sierradoc.site/assets/og/twitter_card.jpg"] },
-    };
-  }
-  if (path === "/trailer") {
-    return {
-      title: "Tráiler — SIERRA",
-      description: "Mirá el tráiler oficial de SIERRA: documental rodado en las Sierras de Elizondo (San Juan, Argentina).",
-      robots: { index: true, follow: true },
-      alternates: { canonical: "https://sierradoc.site/trailer", languages: { en: "https://sierradoc.site/en/trailer" } },
-      openGraph: { title: "Tráiler — SIERRA", description: "Mirá el tráiler oficial de SIERRA: documental rodado en las Sierras de Elizondo (San Juan, Argentina).", url: "https://sierradoc.site/trailer", siteName: "SIERRA", type: "video.other", images: [{ url: "https://sierradoc.site/assets/og/facebook_opengraph.jpg", width: 1200, height: 630, alt: "SIERRA — póster" }], videos: [{ url: "https://www.youtube.com/embed/69gDyIS-qMI", width: 1280, height: 720 }] },
-      twitter: { card: "summary_large_image", title: "Tráiler — SIERRA", description: "Mirá el tráiler oficial de SIERRA: documental rodado en las Sierras de Elizondo (San Juan, Argentina).", images: ["https://sierradoc.site/assets/og/facebook_opengraph.jpg"] },
-    };
-  }
-  return { title: esTitles[path] || "Sierra — Documental", description: "Sitio oficial del documental Sierra" };
+  const en = path.startsWith("/en");
+  const title =
+    path.includes("prensa") || path.includes("press")
+      ? "Prensa · SIERRA"
+      : path.includes("galeria") || path.includes("gallery")
+        ? "Imágenes · SIERRA"
+        : "SIERRA · Un documental de Juan F. Montes";
+  return {
+    metadataBase: new URL(base),
+    title,
+    description: en
+      ? "A documentary by Juan F. Montes. Poetry, memory and life in the mountains of San Juan, Argentina."
+      : "Un documental de Juan F. Montes. La poesía, la memoria y la vida en las sierras de San Juan, Argentina.",
+    alternates: { canonical: path, languages: { es: "/", en: "/en" } },
+    openGraph: {
+      title,
+      url: base + path,
+      type: "website",
+      images: [
+        { url: "/prensa/SIERRA-Afiche-16x9.jpg", width: 3840, height: 2160 },
+      ],
+    },
+    twitter: { card: "summary_large_image" },
+  };
 }
-
-function Hero({ en = false }: { en?: boolean }) {
-  return <>
-    <div className="hero hero-image" style={{ backgroundImage: "url(/assets/stills/still02.jpg)" }}>
-      <div className="shade" style={{ opacity: .55 }} />
-      <div className="content container">
-        <Image src="/assets/logos/sierra-wordmark.png" width={640} height={200} alt="SIERRA" priority sizes="(max-width: 768px) 80vw, 640px" style={{ width: "min(80vw, 640px)", height: "auto" }} />
-        <div style={{ marginTop: 28, display: "flex", justifyContent: "center" }}><Image src="/assets/logos/mulanima.png" width={132} height={52} alt="Mulánima" sizes="(max-width: 768px) 40vw, 132px" style={{ width: "auto", height: "auto", maxWidth: "40vw" }} /></div>
-        <div style={{ marginTop: 24 }}><a className="button" href={en ? "/en/trailer" : "/trailer"}>{en ? "Watch trailer" : "Ver tráiler"}</a>{" "}<a className="button" href={en ? "/en/collaborate" : "/financiacion"}>{en ? "Collaborate" : "Patrocinar"}</a></div>
+const A = "/editorial/";
+export const photos = [
+  ["cuaderno-manos", "Las manos de Reyes sobre su cuaderno"],
+  ["nino-capucha", "Un niño en la sierra"],
+  ["escuela-cuadernos", "Los alumnos leen los cuadernos de Reyes"],
+  ["noche-cabras", "Las cabras y la noche serrana"],
+  ["cresta-arrieros", "Arrieros en la cresta de la montaña"],
+  ["reyes-ladera", "Reyes en la ladera"],
+];
+function Film({ en = false }: { en?: boolean }) {
+  return (
+    <section className="film section" id="pelicula">
+      <div className="film-intro">
+        <h2>
+          {en ? (
+            <>
+              Where the mountain
+              <br />
+              becomes <em>poetry.</em>
+            </>
+          ) : (
+            <>
+              Donde la montaña
+              <br />
+              se vuelve <em>palabra.</em>
+            </>
+          )}
+        </h2>
+        <div className="synopsis">
+          <p>
+            {en
+              ? "Reyes lives in the mountains. He is a herdsman and a poet. Between the animals, the paths and his notebooks, he records a world that is changing."
+              : "Reyes vive en la sierra. Es puestero y poeta. Entre los animales, los senderos y sus cuadernos, guarda la memoria de un mundo que cambia."}
+          </p>
+          <p>
+            {en
+              ? "At the rural school, his poems pass into other hands. SIERRA follows the voices, daily gestures and knowledge that sustain life in this territory."
+              : "En la escuela rural, sus poemas pasan a otras manos. SIERRA acompaña las voces, los gestos cotidianos y los saberes que sostienen la vida en este territorio."}
+          </p>
+          <Link className="text-link" href={en ? "/en/team" : "/equipo"}>
+            {en ? "Meet the filmmakers" : "Una película de Juan F. Montes"}{" "}
+            <span>
+              <Icon name="arrow" />
+            </span>
+          </Link>
+        </div>
       </div>
+      <figure className="wide-image">
+        <img
+          src={A + "reyes-escribe.webp"}
+          alt="Reyes escribe en su cuaderno"
+          loading="lazy"
+          width="1600"
+          height="900"
+        />
+        <figcaption>
+          {en
+            ? "A notebook. A way of remembering."
+            : "Un cuaderno. Una manera de recordar."}
+        </figcaption>
+      </figure>
+    </section>
+  );
+}
+function People({ en = false }: { en?: boolean }) {
+  return (
+    <section className="people section" id="voces">
+      <div className="people-heading">
+        <h2>
+          {en ? (
+            <>
+              Lives that leave
+              <br />a <em>trace.</em>
+            </>
+          ) : (
+            <>
+              Vidas que dejan
+              <br />
+              <em>huella.</em>
+            </>
+          )}
+        </h2>
+        <img
+          className="ink"
+          src={A + "reyesescribe.webp"}
+          alt="Ilustración original de Reyes escribiendo"
+          loading="lazy"
+        />
+      </div>
+      <div className="portraits">
+        {[
+          [
+            "reyes-perfil",
+            "Reyes",
+            en
+              ? "The herdsman and the written word."
+              : "El puestero y la palabra escrita.",
+          ],
+          [
+            "hilado",
+            "Rosalía",
+            en
+              ? "Water, the garden, the thread of memory."
+              : "El agua, la huerta, el hilo de la memoria.",
+          ],
+          [
+            "poncho",
+            "Margarita",
+            en
+              ? "Hands that weave a way of life."
+              : "Las manos que tejen una forma de vivir.",
+          ],
+        ].map(([img, name, caption]) => (
+          <figure key={name}>
+            <img
+              src={A + img + ".webp"}
+              alt={
+                name === "Rosalía"
+                  ? "Rosalía hilando"
+                  : name === "Margarita"
+                    ? "Margarita con su poncho"
+                    : "Reyes de perfil"
+              }
+              width="1600"
+              height="900"
+              loading="lazy"
+            />
+            <figcaption>
+              <h3>{name}</h3>
+              <p>{caption}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+function Territory({ en = false }: { en?: boolean }) {
+  return (
+    <section className="territory">
+      <img
+        src={A + "canon-arrieros.webp"}
+        alt="Arrieros cruzando el cañón serrano"
+        loading="lazy"
+      />
+      <div className="territory-copy">
+        <h2>
+          {en ? (
+            <>
+              Another way
+              <br />
+              of inhabiting <em>time.</em>
+            </>
+          ) : (
+            <>
+              Otra forma
+              <br />
+              de habitar <em>el tiempo.</em>
+            </>
+          )}
+        </h2>
+        <p>
+          {en
+            ? "A landscape that is a home. A path, a school, the animals. The mountain holds its own rhythm."
+            : "Un paisaje que es casa. El camino, la escuela, los animales. La montaña guarda su propio ritmo."}
+        </p>
+      </div>
+    </section>
+  );
+}
+function Contact({ en = false }: { en?: boolean }) {
+  return (
+    <section className="contact section" id="contacto">
+      <img
+        src={A + "chivo.webp"}
+        alt="Sello original del chivo de SIERRA"
+        loading="lazy"
+      />
+      <div>
+        <h2>
+          {en ? (
+            <>
+              Let’s bring SIERRA
+              <br />
+              to <em>new screens.</em>
+            </>
+          ) : (
+            <>
+              Llevemos SIERRA
+              <br />a <em>otras pantallas.</em>
+            </>
+          )}
+        </h2>
+        <p>
+          {en
+            ? "Screenings, festivals, press and conversations about the film. Contact the production team."
+            : "Funciones, festivales, prensa y conversaciones alrededor de la película. Escribile al equipo de producción."}
+        </p>
+        <a className="contact-mail" href="mailto:mulanimavisual@gmail.com">
+          mulanimavisual@gmail.com <Icon name="arrow" />
+        </a>
+        <div className="contact-links">
+          <a
+            href="https://www.instagram.com/sierra.docu/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram <Icon name="arrow" />
+          </a>
+          <Link href={en ? "/en/press" : "/prensa"}>
+            {en ? "Press materials" : "Material de prensa"}{" "}
+            <Icon name="arrow" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+function Home({ en = false }: { en?: boolean }) {
+  return (
+    <>
+      <section
+        className="hero"
+        aria-label="SIERRA, un documental de Juan F. Montes"
+      >
+        <img
+          className="hero-art"
+          src={A + "portada-16x9.webp"}
+          alt="Afiche de SIERRA: Rosalía y Reyes, la escuela y los arrieros en la montaña al atardecer"
+          fetchPriority="high"
+          width="1672"
+          height="941"
+        />
+        <div className="hero-title">
+          <h1>
+            <img src={A + "logo.webp"} alt="SIERRA" />
+          </h1>
+        </div>
+        <div className="hero-foot">
+          <span>
+            {en
+              ? "A film born in the mountains"
+              : "Una película nacida en la montaña"}
+          </span>
+          <a href="#trailer" className="button button-light">
+            <span aria-hidden="true">
+              <Icon name="play" />
+            </span>{" "}
+            {en ? "Watch trailer" : "Ver tráiler"}
+          </a>
+        </div>
+      </section>
+      <Film en={en} />
+      <People en={en} />
+      <Territory en={en} />
+      <section className="trailer section" id="trailer">
+        <h2>
+          {en ? (
+            <>
+              Enter <em>SIERRA.</em>
+            </>
+          ) : (
+            <>
+              Entrar en <em>SIERRA.</em>
+            </>
+          )}
+        </h2>
+        <Trailer en={en} />
+      </section>
+      <section className="press-band section">
+        <div>
+          <h2>
+            {en
+              ? "For those who share cinema."
+              : "Para quienes comparten el cine."}
+          </h2>
+          <p>
+            {en
+              ? "The dossier, poster and images from the film."
+              : "El dossier, el afiche y las imágenes de la película."}
+          </p>
+        </div>
+        <Link className="button" href={en ? "/en/press" : "/prensa"}>
+          {en ? "Explore press materials" : "Explorar materiales"}{" "}
+          <Icon name="arrow" />
+        </Link>
+      </section>
+      <Contact en={en} />
+    </>
+  );
+}
+function Press({ en = false }: { en?: boolean }) {
+  return (
+    <div className="page-wrap section">
+      <h1>
+        {en ? (
+          <>
+            SIERRA.
+            <br />
+            <em>Press room.</em>
+          </>
+        ) : (
+          <>
+            SIERRA.
+            <br />
+            <em>Sala de prensa.</em>
+          </>
+        )}
+      </h1>
+      <p className="page-lead">
+        {en
+          ? "A closer look at the film, its territory and its people."
+          : "Una mirada a la película, su territorio y sus protagonistas."}
+      </p>
+      <div className="press-layout">
+        <img
+          src="/prensa/SIERRA-Afiche-16x9.jpg"
+          alt="Afiche horizontal SIERRA"
+          width="3840"
+          height="2160"
+        />
+        <div>
+          <h2>{en ? "The film, on paper." : "La película, en papel."}</h2>
+          <p>
+            {en
+              ? "Landscape dossier, poster and selected frames for an editorial introduction to SIERRA."
+              : "Dossier apaisado, afiche y fotogramas seleccionados para acercarse al universo de SIERRA."}
+          </p>
+          <ul className="download-list">
+            <li>
+              <a download href="/prensa/SIERRA-Dossier-16x9-v005.pdf">
+                Dossier PDF · 16:9{" "}
+                <span>
+                  <Icon name="download" />
+                </span>
+              </a>
+            </li>
+            <li>
+              <a download href="/prensa/SIERRA-Afiche-16x9.jpg">
+                {en ? "Landscape poster" : "Afiche horizontal"} · JPG{" "}
+                <span>
+                  <Icon name="download" />
+                </span>
+              </a>
+            </li>
+            <li>
+              <Link href={en ? "/en/gallery" : "/galeria"}>
+                {en ? "Selected images" : "Selección de imágenes"}{" "}
+                <span>
+                  <Icon name="arrow" />
+                </span>
+              </Link>
+            </li>
+          </ul>
+          <p className="editorial-note">
+            {en
+              ? "Review edition. For publication, screening links and final technical materials, please contact production."
+              : "Edición de revisión. Para publicación, visionado y materiales técnicos definitivos, contactá a producción."}
+          </p>
+        </div>
+      </div>
+      <Contact en={en} />
     </div>
-  </>;
+  );
 }
-
-function GalleryStrip({ items, label }: { items: string[]; label: string }) {
-  return <div className="scroll-row" aria-label={label}>{items.map((src, i) => <div className="slide" key={src}><img src={src} alt={`imagen ${i + 1}`} loading="lazy" /></div>)}</div>;
+function Team({ en = false }: { en?: boolean }) {
+  const credits = [
+    ["Dirección y guion", "Juan F. Montes"],
+    ["Producción", "Ciro Néstor Novelli"],
+    ["Dirección de fotografía", "Nicolás Farina · Juan F. Montes"],
+    ["Cámara", "Bruno Sesto"],
+    ["Sonido en rodaje", "Javier Ruiz · Bernardo Blanco"],
+    ["Diseño de sonido", "Alejandro Zogbe"],
+    ["Música original", "Juan F. Montes"],
+    ["Edición y postproducción", "Juan F. Montes · Andrés Jones"],
+    ["Antropología", "Diego Garcés"],
+    ["Asistencia de producción", "Adrián Salas Abrego"],
+    ["Diseño gráfico", "Hermanos Kutter"],
+  ];
+  return (
+    <div className="page-wrap section">
+      <h1>
+        {en ? (
+          <>
+            A film.
+            <br />
+            <em>Many voices.</em>
+          </>
+        ) : (
+          <>
+            Una película.
+            <br />
+            <em>Muchas voces.</em>
+          </>
+        )}
+      </h1>
+      <p className="page-lead">
+        {en
+          ? "A documentary by Juan F. Montes, made in the mountains of San Juan."
+          : "Un documental de Juan F. Montes, realizado en las sierras de San Juan."}
+      </p>
+      <div className="credits">
+        {credits.map(([role, name]) => (
+          <div key={role}>
+            <span>{role}</span>
+            <p>{name}</p>
+          </div>
+        ))}
+      </div>
+      <Contact en={en} />
+    </div>
+  );
 }
-
-function TrailerES() {
-  const jsonLd = { "@context": "https://schema.org", "@type": "VideoObject", name: "SIERRA — Tráiler oficial", inLanguage: "es", description: "Tráiler oficial de SIERRA, largometraje documental filmado en las Sierras de Elizondo, San Juan (Argentina).", thumbnailUrl: ["https://sierradoc.site/assets/og/facebook_opengraph.jpg"], uploadDate: "2025-09-16", embedUrl: "https://www.youtube.com/embed/69gDyIS-qMI", publisher: { "@type": "Organization", name: "Mulánima" }, potentialAction: { "@type": "WatchAction", target: ["https://sierradoc.site/trailer"] }, isFamilyFriendly: true };
-  return <main style={{ padding: "32px 20px 60px", maxWidth: 1120, margin: "0 auto" }}><h1 style={{ fontSize: "1.75rem", margin: "0 0 16px" }}>Tráiler</h1><div className="video-frame"><iframe loading="lazy" src="https://www.youtube.com/embed/69gDyIS-qMI?rel=0" title="SIERRA — Tráiler oficial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div><div style={{ height: 24 }} /><h2 style={{ fontSize: "1.1rem", margin: "28px 0 12px", opacity: .85 }}>Tráiler alternativo</h2><div className="video-frame"><iframe loading="lazy" src="https://www.youtube.com/embed/D9eAYHrvDjc?rel=0" title="SIERRA — Tráiler alternativo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /></main>;
-}
-function TrailerEN() {
-  return <main className="section"><div className="container"><h1>TRAILER</h1><h2>TRAILER 1</h2><div className="video-wrapper"><iframe src="https://www.youtube.com/embed/69gDyIS-qMI" title="Trailer 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div><div style={{ height: 32 }} /><h2>TRAILER 2</h2><div className="video-wrapper"><iframe src="https://www.youtube.com/embed/D9eAYHrvDjc" title="Official trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div></div></main>;
-}
-
 export function renderRoute(path: string) {
-  switch (path) {
-    case "/": return <main><Hero /><section className="section"><div className="container"><h2>Story Line:</h2><p style={{ whiteSpace: "pre-wrap" }}>{`"Sierra" es un viaje profundo al corazón de la montaña, donde sus habitantes se amalgaman con la naturaleza en un microcosmos con reglas propias, forjadas por el aislamiento y el paso del tiempo.\nEn Vallecito, el rincón más remoto de las Sierras de Elizondo, Ladislao Reyes Chávez —puestero y poeta popular— atesora más de ochocientos poemas manuscritos, con la esperanza de convertirlos en un libro. Con la ayuda de los alumnos de la escuela albergue, que digitalizan sus cuadernos, la vida serrana se despliega en toda su crudeza y belleza: viajes interminables a lomo de mula, oficios heredados, un vínculo profundo con la naturaleza y la resistencia de tradiciones en riesgo de desaparecer.\n¿Podrá Reyes cumplir el sueño de editar su libro? ¿La llegada del Camino de los Sueños traerá verdadero progreso o transformará para siempre la identidad de los serranos?`}</p></div></section></main>;
-    case "/sinopsis": return <main className="section"><div className="container synopsis-layout"><div className="card"><h2>Sinopsis</h2>{spanishSynopsis.map((p, i) => <p key={i}>{i === 1 ? <>{p.split("Trovador Vallisto")[0]}<em>Trovador Vallisto</em>{p.split("Trovador Vallisto")[1]}</> : p}</p>)}</div><div className="card synopsis-poster"><img src="/assets/poster/sierra-poster.webp" alt="Póster de SIERRA" /></div></div></main>;
-    case "/trailer": return <TrailerES />;
-    case "/impacto": return <main className="section"><div className="container"><h2>Impacto social</h2><p>«SIERRA» trasciende lo cinematográfico para convertirse en una herramienta de memoria, educación y cambio social.</p><ul className="list"><li><strong>Preservación cultural:</strong> difunde y resguarda las tradiciones serranas frente a los cambios del mundo moderno.</li><li><strong>Educación:</strong> plataforma pedagógica y de sensibilización sobre la vida rural argentina.</li><li><strong>Visibilización:</strong> expone problemáticas como el aislamiento y el acceso limitado a servicios básicos.</li><li><strong>Empatía:</strong> acerca al público a realidades poco conocidas, tendiendo puentes culturales.</li><li><strong>Turismo sostenible:</strong> puede impulsar la economía local con impacto positivo en la comunidad.</li><li><strong>Legado:</strong> memoria para futuras generaciones y referencia cultural.</li></ul><p>En síntesis, Sierra no es solo un documental: es un agente de preservación cultural y social, y una ventana a un universo que resiste en las montañas de San Juan.</p><img className="illustration" src="/assets/ilustraciones/chivo.png" alt="Ilustración chivo" /></div></main>;
-    case "/equipo": return <main className="section"><div className="container"><h2>Equipo técnico</h2><ul className="list credits">{teamEs.map(([role, name]) => <li key={role}><strong>{role}:</strong> {name}</li>)}</ul><img className="illustration" src="/assets/ilustraciones/reyesescribe.png" alt="Ilustración de Reyes escribiendo" /></div></main>;
-    case "/financiacion": return <main className="section"><div className="container"><h2>Colaborar</h2><p>La producción de Sierra implicó una inversión total aproximada de $13.000.000. El proyecto contó con un subsidio del INCAA (Resolución N° 1477-E/2017, Art. 1°) que cubrió el 53% del presupuesto, complementado por una inversión personal del director equivalente al 23%.</p><p>Gracias a estos aportes fue posible completar la etapa de desarrollo, rodaje y postproducción de la película. Hoy, con la obra ya finalizada, el desafío es afrontar los costos de distribución y promoción, indispensables para garantizar su llegada al público.</p><h3 style={{ marginTop: 12 }}>En esta etapa final, el objetivo de financiamiento se centra en cubrir:</h3><ul className="list"><li>Copias y masters (DCP/KDM/QC) para salas de cine y festivales.</li><li>Subtítulos y adaptación internacional para festivales y plataformas.</li><li>Gastos de logística, traslados y alojamiento en estrenos, giras y funciones educativas.</li><li>Aranceles de inscripción en festivales nacionales e internacionales.</li><li>Diseño y difusión de material gráfico, press kit, tráiler y campañas en redes sociales.</li></ul><p>El 24% restante de la inversión prevista se busca completar mediante el aporte de sponsors y colaboradores, quienes tendrán visibilidad en los créditos de la película y en todo su material promocional.</p><hr /><h3>Cómo colaborar</h3><p>Los sponsors y patrocinadores pueden colaborar financiando necesidades específicas como:</p><ul className="list"><li>Creación de copias DCP y subtítulos internacionales.</li><li>Inscripciones en festivales nacionales e internacionales.</li><li>Gastos de distribución, logística, traslados y alojamiento.</li><li>Diseño e impresión de materiales promocionales (afiches, press kit, gráfica).</li><li>Campañas de comunicación y difusión en redes sociales.</li><li>Proyecciones educativas en escuelas rurales de San Juan.</li></ul><h3>Beneficios para sponsors y patrocinadores</h3><ul className="list"><li><strong>Créditos en la película:</strong> inclusión del logotipo en los créditos finales.</li><li><strong>Presencia de marca en difusión:</strong> inclusión del logotipo en afiches, tráiler, press kit, RRSS y materiales de prensa.</li><li><strong>Invitaciones especiales:</strong> acceso a estrenos, funciones y eventos promocionales vinculados a la película.</li></ul></div></main>;
-    case "/distribucion": return <main className="section"><div className="container"><h2>Distribución</h2><p>Con la película finalizada, "Sierra" inicia su etapa de circulación y estreno, abarcando festivales, salas, funciones educativas y plataformas digitales.</p><ul className="list"><li>Festivales (fin 2025): inscripta en el Festival Internacional de Cine de Mar del Plata (6–12 de noviembre), donde podría tener su premiere nacional. Además, se prevé su postulación a IDFA, BAFICI, Málaga y otros festivales afines al cine documental cultural.</li><li>Estreno en salas (dic. 2025 – verano 2026): lanzamiento oficial en el Cine Gaumont (CABA), seguido por la red Espacio INCAA en todo el país y la cartelera comercial en San Juan (Cinema Center, Paseo Libertad) y otras provincias durante el verano.</li><li>Proyecciones educativas (2026): desde marzo, funciones en escuelas rurales con charlas y actividades didácticas, reforzando el carácter pedagógico y social del proyecto.</li><li>Plataformas digitales (post-salas): incorporación a CONTAR y negociación con servicios de VOD y señales culturales internacionales, ampliando su alcance global.</li></ul><p>Este plan busca equilibrar prestigio artístico y acceso popular, asegurando visibilidad nacional e internacional.</p></div></main>;
-    case "/estado-actual": return <main className="section"><div className="container"><h2>Estado actual</h2><p>"SIERRA" es un largometraje documental finalizado en 2025, luego de un proceso de desarrollo, rodaje y postproducción que incluyó expediciones en las Sierras de Elizondo, San Juan, y un trabajo de montaje y diseño sonoro orientado a resaltar tanto la fuerza poética de la palabra como la belleza agreste del territorio.</p><p>Actualmente, la película se encuentra en su etapa final de distribución y promoción. Fue inscripta en el Festival Internacional de Cine de Mar del Plata 2025, con altas posibilidades de selección, lo que marcaría su premiere nacional. Tras ello, se proyecta su estreno en el Cine Gaumont (Buenos Aires), su circulación en la red de salas Espacio INCAA en todo el país y su exhibición en cines comerciales de San Juan y otras provincias durante la temporada de verano 2025–2026.</p><p>En paralelo, se planifican proyecciones especiales en escuelas rurales a partir del ciclo lectivo 2026, reforzando el carácter educativo y social del proyecto.</p><p>Con la producción cubierta en su totalidad, el desafío actual es garantizar la distribución, promoción y accesibilidad de la obra, cubriendo gastos de copias (DCP), subtítulos, inscripciones a festivales, traslados, alojamiento y campañas de difusión que permitan que Sierra llegue tanto al público local como a circuitos internacionales de cine documental.</p></div></main>;
-    case "/galeria": return <main className="section container" style={{ paddingTop: 8 }}><h2 className="gallery-heading">BACKSTAGE</h2><GalleryStrip items={backstage} label="galería backstage" /><section style={{ marginTop: 12 }}><h2 className="gallery-heading">STILLS</h2><GalleryStrip items={stills} label="galería stills" /></section></main>;
-    case "/contacto": return <main className="section"><div className="container"><h2>Contacto</h2><div className="grid" style={{ marginTop: 12 }}><div className="card"><h3>Producción</h3><p className="small">Mulánima</p><p><a href="mailto:mulanimavisual@gmail.com">mulanimavisual@gmail.com</a><br /><a href="https://wa.me/542645101344" target="_blank" rel="noreferrer">WhatsApp +54 2645 101344</a><br /><a href="https://instagram.com/sierra.docu" target="_blank" rel="noreferrer">@sierra.docu</a></p></div><div className="card"><h3>Prensa y proyecciones</h3><p className="small">Consultas de prensa, funciones educativas y festivales.</p><p><a className="btn" href="/prensa">Ir a Prensa</a></p></div></div></div></main>;
-    case "/prensa": return <main className="section"><div className="container" style={{ maxWidth: 960 }}><h2 style={{ marginBottom: 8 }}>Prensa</h2><p style={{ color: "var(--muted)", lineHeight: 1.6 }}>Descargá todo el material de prensa (stills, logos, dossier) en un único archivo ZIP.</p><div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}><a className="button" href="/api/press-zip">Descargar press kit (.zip)</a></div></div></main>;
-    case "/en": return <main><Hero en /><section className="section"><div className="container"><h2>Story Line</h2><p style={{ whiteSpace: "pre-wrap" }}>{`“Sierra” is a deep journey into the heart of the mountains, where people merge with nature in a micro-cosm with its own rules, forged by isolation and time.\nIn Vallecito—the most remote corner of the Elizondo Range—Ladislao Reyes Chávez, a herder and popular poet, treasures more than eight hundred handwritten poems, hoping to turn them into a book. With the help of the boarding-school students who digitize his notebooks, mountain life unfolds in its harshness and beauty: endless mule rides, inherited crafts, a profound bond with nature, and the resistance of traditions at risk of disappearing.\nWill Reyes fulfill the dream of publishing his book? Will the arrival of the “Camino de los Sueños” bring true progress or forever reshape the identity of the mountain people?`}</p></div></section></main>;
-    case "/en/synopsis": return <main className="section"><div className="container synopsis-layout"><div className="card"><h2>Sinopsis</h2>{spanishSynopsis.map((p, i) => <p key={i}>{p}</p>)}</div><div className="card synopsis-poster"><img src="/assets/press/reyes.png" alt="Ilustración de Ladislao Reyes" /></div></div></main>;
-    case "/en/trailer": return <TrailerEN />;
-    case "/en/social-impact": return <main className="section"><div className="container"><h2>Social Impact</h2><p>"SIERRA" becomes a tool for memory, education and social change.</p><ul className="list"><li>Cultural preservation: safeguards mountain traditions facing modern change.</li><li>Education: a pedagogical platform raising awareness of rural life in Argentina.</li><li>Visibility: exposes issues such as isolation and limited access to basic services.</li><li>Empathy: brings audiences closer to lesser-known realities.</li><li>Sustainable tourism: can boost the local economy with positive impact.</li><li>Legacy: a reference and memory for future generations.</li></ul><p>In short, Sierra is an agent of cultural and social preservation, and a window into a universe that endures in San Juan’s mountains.</p></div></main>;
-    case "/en/team": return <main className="section no-justify"><div className="container no-justify"><h1>TEAM</h1><ul className="list credits">{teamEn.map(([role, name]) => <li key={role}><strong>{role}:</strong> {name}</li>)}</ul></div></main>;
-    case "/en/collaborate": return <main className="section"><div className="container"><h2>Collaborate</h2><p>Production required an approximate investment of ARS 13,000,000. The project received an INCAA grant (Resolution 1477-E/2017, Art. 1) covering 53% of the budget, complemented by the director’s personal investment (23%).</p><p>Thanks to these contributions we completed development, shooting and post-production. Now, with the film finished, the challenge is funding distribution and promotion to reach audiences.</p><h3 style={{ marginTop: 12 }}>Current funding goals</h3><ul className="list"><li>DCP/KDM/QC masters for theaters and festivals.</li><li>Subtitles and international versions for festivals and platforms.</li><li>Logistics, travel and lodging for premieres, tours and educational screenings.</li><li>Festival submission fees (national & international).</li><li>Graphic materials, press kit, trailer and social media campaigns.</li></ul><p style={{ marginTop: 12 }}>The remaining 24% is sought through sponsors and partners, who will receive credit in the film and visibility across promotional materials.</p></div></main>;
-    case "/en/distribution": return <main className="section"><div className="container"><h2>Distribution</h2><p>With the film completed, Sierra begins its circulation through festivals, theaters, educational screenings and digital platforms.</p><ul className="list"><li>Festivals (late 2025): submitted to Mar del Plata IFF (Nov 6–12) for a potential national premiere; also targeting IDFA, BAFICI, Málaga and other cultural doc festivals.</li><li>Theatrical release (Dec 2025 – Summer 2026): official opening at Cine Gaumont (Buenos Aires), followed by the Espacio INCAA network nationwide and commercial theaters in San Juan and other provinces.</li><li>Educational screenings (2026): from March, in rural schools with talks and activities.</li><li>Digital platforms (post-theatrical): aiming for CONTAR and international VOD/culture channels.</li></ul><p style={{ marginTop: 12 }}>The plan balances artistic prestige and broad access to ensure national and international visibility.</p></div></main>;
-    case "/en/current-status": return <main className="section"><div className="container"><h2>Current Status</h2><p>"SIERRA" is a feature documentary completed in 2025 after development, expeditions across the Elizondo Range (San Juan), and an edit & sound design focused on poetic language and the landscape’s raw beauty.</p><p>The film is now in its distribution & promotion phase. It has been submitted to Mar del Plata IFF 2025 as a likely national premiere. Afterwards, a release at Cine Gaumont, circulation across Espacio INCAA and commercial theaters in San Juan and other provinces during Summer 2025–2026 is planned.</p><p>In parallel, special screenings in rural schools are planned from the 2026 school year, reinforcing the project’s educational and social character.</p><p>With production fully covered, the current challenge is to guarantee distribution and accessibility: DCPs, subtitles, festival fees, travel, lodging and campaigns so Sierra reaches both local audiences and international doc circuits.</p></div></main>;
-    case "/en/gallery": return <main className="section"><div className="container"><h2>Gallery</h2><p>Backstage and stills coming here in the same collections used on the Spanish site.</p></div></main>;
-    case "/en/contact": return <main className="section"><div className="container"><h2>Contact</h2><div className="card"><p>@sierra.docu</p><p><a href="mailto:mulanimavisual@gmail.com">mulanimavisual@gmail.com</a></p><p>+54 2645 101344</p></div></div></main>;
-    case "/en/press": return <main className="section"><div className="container"><h2>Press</h2><div className="card" style={{ marginTop: 12 }}><h3 style={{ marginTop: 0 }}>PRESS MATERIALS</h3><ul className="list press-list">{pressFiles.map((file) => <li key={file}><span>{file}</span><a className="btn" href={`/assets/press/${file}`} download>Download</a></li>)}</ul></div></div></main>;
-    default: return null;
-  }
+  const en = path.startsWith("/en");
+  if (path === "/" || path === "/en") return <Home en={en} />;
+  if (/prensa|press/.test(path)) return <Press en={en} />;
+  if (/galeria|gallery/.test(path))
+    return (
+      <div className="page-wrap section">
+        <h1>
+          {en ? (
+            <>
+              The film,
+              <br />
+              <em>in images.</em>
+            </>
+          ) : (
+            <>
+              La película,
+              <br />
+              <em>en imágenes.</em>
+            </>
+          )}
+        </h1>
+        <p className="page-lead">
+          {en
+            ? "Selected frames and moments from the shoot."
+            : "Fotogramas y momentos del rodaje. Una selección del archivo de SIERRA."}
+        </p>
+        <Gallery photos={photos} en={en} />
+      </div>
+    );
+  if (/equipo|team/.test(path)) return <Team en={en} />;
+  if (/sinopsis|synopsis|impacto|social-impact/.test(path))
+    return (
+      <div className="page-wrap">
+        <Film en={en} />
+        <People en={en} />
+      </div>
+    );
+  if (/trailer/.test(path))
+    return (
+      <div className="page-wrap section">
+        <h1>{en ? "Official trailer" : "Tráiler oficial"}</h1>
+        <Trailer en={en} />
+      </div>
+    );
+  if (path === "/privacidad")
+    return (
+      <article className="page-wrap section legal">
+        <h1>Privacidad</h1>
+        <p>
+          El asistente consulta una selección pública sobre SIERRA. No envíes
+          información personal o documentos privados. Las consultas se procesan
+          para responderte; esta versión no guarda el historial en una base de
+          datos. El proveedor de alojamiento puede conservar registros técnicos.
+        </p>
+        <p>
+          El tráiler se carga desde YouTube únicamente cuando elegís
+          reproducirlo. Instagram y el correo abren servicios externos con sus
+          propias políticas.
+        </p>
+        <p>
+          Contacto y solicitudes sobre tus datos:{" "}
+          <a href="mailto:mulanimavisual@gmail.com">mulanimavisual@gmail.com</a>
+          .
+        </p>
+      </article>
+    );
+  return (
+    <div className="page-wrap">
+      <Contact en={en} />
+    </div>
+  );
 }

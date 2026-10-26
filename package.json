@@ -11,6 +11,8 @@
     "kb:test": "node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync('public/kb/kb.json','utf8'));console.log('items:',j.items.length);console.log('ejemplo:',j.items[0]?.source,j.items[0]?.id)\""
   },
   "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
     "@google/generative-ai": "^0.24.1",
     "archiver": "^7.0.1",
     "b4a": "^1.7.2",
