@@ -1,5 +1,13 @@
+import { fileURLToPath } from "node:url";
+
 /** @type {import('next').NextConfig} */
 const config = {
+  outputFileTracingRoot: fileURLToPath(new URL(".", import.meta.url)),
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: "/jugar", destination: "/jugar/index.html" }],
+    };
+  },
   async headers() {
     return [
       {

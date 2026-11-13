@@ -37,6 +37,7 @@
   ],
   "exclude": [
     "node_modules",
+    "games",
     "local_backup",
     ".next"
   ]

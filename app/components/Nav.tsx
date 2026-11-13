@@ -59,6 +59,9 @@ export default function Nav() {
               {label}
             </Link>
           ))}
+          <a href="/jugar" onClick={() => setOpen(false)}>
+            {en ? "Play" : "Jugar"}
+          </a>
           <Link
             className="language"
             href={en ? "/" : "/en"}

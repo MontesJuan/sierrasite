@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run game:build",
     "build": "next build",
+    "game:build": "npm --prefix games/sierra ci --include=dev && npm --prefix games/sierra run build && node scripts/sync-game.mjs",
     "start": "next start",
     "kb:clean": "rm -f public/kb/kb.json",
     "kb:build": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/build-kb.mjs",
@@ -18,10 +20,13 @@
     "b4a": "^1.7.2",
     "clsx": "2.1.1",
     "fast-glob": "^3.3.3",
-    "next": "^14.2.32",
+    "next": "15.5.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "2.5.2"
+  },
+  "overrides": {
+    "postcss": "8.5.23"
   },
   "devDependencies": {
     "@types/archiver": "^6.0.3",

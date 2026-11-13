@@ -4,4 +4,6 @@ public/assets/galeria_web/_originals/
 **/.DS_Store
 .next/
 node_modules/
+games/sierra/dist/
+public/jugar/
 public/assets/galeria_web/stills/_originals/

@@ -267,6 +267,30 @@ img {
 .people {
   padding-top: 20px;
 }
+.game-invitation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  border-bottom: 1px solid var(--line);
+}
+.game-invitation h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 16px;
+}
+.game-invitation p {
+  max-width: 62ch;
+}
+.game-invitation .button {
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .game-invitation {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
 .people-heading {
   display: flex;
   justify-content: space-between;

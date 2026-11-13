@@ -314,6 +314,22 @@ function Home({ en = false }: { en?: boolean }) {
       <Film en={en} />
       <People en={en} />
       <Territory en={en} />
+      <section className="game-invitation section" aria-labelledby="game-title">
+        <div>
+          <h2 id="game-title">
+            {en ? "A story you can play." : "Una historia para jugar."}
+          </h2>
+          <p>
+            {en
+              ? "Follow the filmmakers through the mountains and help Reyes’s words become a book. A browser adventure in Spanish, for schools and families."
+              : "Acompañá a los documentalistas por la sierra y ayudá a que las palabras de Reyes lleguen a un libro. Una aventura en el navegador, para escuelas y familias."}
+          </p>
+        </div>
+        <a className="button" href="/jugar">
+          {en ? "Play the adventure" : "Jugar la aventura"}{" "}
+          <Icon name="arrow" />
+        </a>
+      </section>
       <section className="trailer section" id="trailer">
         <h2>
           {en ? (
