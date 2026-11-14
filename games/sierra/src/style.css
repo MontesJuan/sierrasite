@@ -20,3 +20,101 @@
 @media(max-width:700px){.hud-tools{width:90px;min-width:90px;gap:6px}.hud-tools .speed-button{order:2;width:90px;min-height:44px;justify-content:center;padding:5px 8px;gap:5px}.hud-tools .speed-button strong{font-size:18px}.hud-tools .speed-button span{font-size:8px;max-width:42px;white-space:normal}.mission{width:calc(100vw - 133px)}.trail-status{left:15px;bottom:285px;max-width:190px;font-size:9px;gap:5px}.trail-status span{padding:7px 10px}.joystick{width:138px;height:138px}.photo-hint{bottom:330px}.hud-tools .icon-button{width:40px;height:40px}}
 @media(max-height:620px){.trail-status{left:auto;right:35px;bottom:95px;max-width:200px}.touch-controls{bottom:105px}.joystick{transform:scale(.85);transform-origin:bottom left}.photo-hint{bottom:210px}}
 @media(prefers-reduced-motion:reduce){.trail-status .found{animation:none}}
+
+/* v4 · palabras del camino, estrellas, álbum de fauna y libro personal */
+.stars{display:inline-flex;gap:3px;vertical-align:middle;color:#a9ae9b}.stars i{display:inline-flex}.stars .icon{width:15px;height:15px}.stars i.on{color:#c98a1e}.stars i.on .icon{fill:#e9b84a}
+.stars.big{display:flex;justify-content:center;gap:14px;margin:22px 0 6px}.stars.big .icon{width:46px;height:46px}.stars.big i.on{animation:star-pop .55s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(var(--i)*.22s + .25s)}
+@keyframes star-pop{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+.star-goals{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-size:11px;color:#7c8572}.star-goals li.on{color:#3d5236;font-weight:600}.star-goals li:before{content:'☆ '}.star-goals li.on:before{content:'★ ';color:#c98a1e}
+#word-pop{position:absolute;left:50%;top:21%;transform:translate(-50%,10px) scale(.9);opacity:0;pointer-events:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;max-width:min(440px,88vw);text-shadow:0 2px 14px #0009}
+#word-pop strong{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(34px,5.2vw,58px);line-height:1;color:#ffe9ad;letter-spacing:-.01em}#word-pop span{font-size:13px;line-height:1.5;color:#fbf5e3;background:#1e3228c4;padding:7px 14px;border-radius:18px}#word-pop em{font-size:11px;font-style:normal;font-weight:600;letter-spacing:.08em;color:#ffd978}
+#word-pop.show{animation:word-pop 3.4s ease-out both}
+@keyframes word-pop{0%{opacity:0;transform:translate(-50%,18px) scale(.7)}9%{opacity:1;transform:translate(-50%,0) scale(1.08)}15%{transform:translate(-50%,0) scale(1)}82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-16px)}}
+#word-count{border-color:#f0cf7a8c!important;color:#ffe7a8}#clock{font-variant-numeric:tabular-nums;min-width:50px;text-align:center}
+.photo-hint.wild{background:#7a4a12ee;box-shadow:0 0 0 1px #ffd98a88,0 0 26px #ffc96555;animation:wild-pulse 1.4s ease-in-out infinite}
+@keyframes wild-pulse{50%{box-shadow:0 0 0 1px #ffd98acc,0 0 38px #ffc96599}}
+.button.small{min-height:36px;padding:8px 14px;font-size:11px;gap:10px;margin:0 0 0 14px!important;vertical-align:middle}
+.route-score{display:flex;align-items:center;gap:8px;font-size:10px;color:#6a755e;margin-top:5px}
+.journal-page .stars{margin:0 0 5px}
+.ending-score{font-size:12px!important;color:#e8dbb8!important}.ending-score .stars i:not(.on){color:#7d8a78}
+.album,.dictionary{margin-top:42px;border-top:1px solid #c9ceba;padding-top:26px}.album>h3,.dictionary>h3{font-size:31px}.album>p,.dictionary>p{font-size:12px;color:#59664f;margin-top:6px}.album kbd{background:#254134}
+.album-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 16px;margin-top:22px}.album-grid img,.album-grid .empty-photo{width:100%;aspect-ratio:1.6;object-fit:cover;border-radius:3px}.album-grid .empty-photo{display:flex;align-items:center;justify-content:center;background:#d9dccd;color:#8b947c}
+.album-grid h4{font-family:var(--serif);font-weight:500;font-size:20px;margin:9px 0 3px}.album-grid p{font-size:10.5px;line-height:1.55;color:#56634c;margin-top:4px}.album-grid .unseen h4{color:#8b947c;font-style:italic}
+.dictionary-chapter{margin-top:22px}.dictionary-chapter h4{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#747f66;margin:0 0 8px;font-weight:600}
+.dictionary dl,.book-words{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 26px;margin:0}.dictionary dt,.book-words dt{font-family:var(--serif);font-style:italic;font-size:20px;color:#2f4530}.dictionary dd,.book-words dd{margin:0;font-size:11px;line-height:1.55;color:#56634c}.dictionary .missing dt{color:#a3aa95}.dictionary .missing dd{color:#a3aa95}
+.my-book{max-width:820px}.book-tools{display:flex;align-items:center;gap:10px}.book-tools .button{margin:0!important}
+.book-page{border-top:1px solid #c9ceba;padding:30px 0}.book-page>h3{font-size:33px;margin-bottom:14px}
+.book-front{text-align:center;border-top:0;padding-top:8px}.book-front img{width:170px;filter:brightness(0) saturate(100%) invert(22%) sepia(18%) saturate(700%) hue-rotate(90deg)}.book-front h3{font-size:46px;font-style:italic;margin:14px 0 4px}
+.book-by{font-size:15px}.book-by strong{font-family:var(--serif);font-size:27px;font-style:italic;color:#7a4a12}
+.book-front label{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;color:#56634c;margin-top:20px}.book-front input{width:min(320px,80vw);padding:12px 14px;text-align:center;font-family:var(--serif);font-size:22px;border:1px solid #9aa08d;border-radius:4px;background:#fbf8ee;color:#22332b}.book-front small{display:block;font-size:10px;color:#747f66;margin-top:6px}.book-score{font-size:12px;color:#56634c;margin-top:18px}
+.book-chapters{margin:0;padding-left:20px}.book-chapters li{margin-bottom:12px}.book-chapters strong{font-family:var(--serif);font-size:21px;font-weight:500}.book-chapters p{font-size:12px;color:#56634c;line-height:1.6}.book-chapters .pending{opacity:.5}
+.book-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.book-photos figure{margin:0}.book-photos img{width:100%;aspect-ratio:1.6;object-fit:cover;border-radius:3px}.book-photos figcaption{font-size:10px;color:#56634c;margin-top:5px}
+@media(max-width:700px){.trail-status{max-width:calc(100vw - 30px)}.photo-hint{top:142px;bottom:auto}#word-pop{top:27%}.album-grid{grid-template-columns:repeat(2,1fr)}.dictionary dl,.book-words{grid-template-columns:1fr}.book-photos{grid-template-columns:repeat(2,1fr)}.book-front h3{font-size:34px}#word-pop{top:27%}.button.small{margin:10px 0 0!important}.stars.big .icon{width:38px;height:38px}}
+@media(max-height:620px){#word-pop{top:24px;left:54%;max-width:220px;gap:3px}#word-pop strong{font-size:30px}#word-pop span{font-size:11px;padding:5px 10px}}
+@media(prefers-reduced-motion:reduce){.stars.big i.on,#word-pop.show,.photo-hint.wild{animation:none}#word-pop.show{opacity:1;transform:translate(-50%,0)}}
+@media print{
+ html,body{overflow:visible!important;background:#fff!important}#world,#vignette,#hud,.home,#toast,#flash,.no-print{display:none!important}
+ #overlay{position:static!important;inset:auto!important;background:none!important;overflow:visible!important;padding:0!important;display:block!important}
+ .my-book{max-width:none!important;max-height:none!important;overflow:visible!important;box-shadow:none!important;background:#fff!important;padding:0!important;margin:0!important;color:#1d2a22!important}
+ .book-page{break-inside:avoid}.book-photos figure,.book-words div,.book-chapters li{break-inside:avoid}.book-front{padding-top:60px;break-after:page}
+}
+
+/* Los avisos van arriba, bajo la brújula: nunca tapan los botones de acción ni la palanca. */
+#toast{bottom:auto;top:92px}
+#word-pop{top:clamp(168px,25%,290px)}
+@media(max-width:700px){#toast{bottom:auto;top:194px}#word-pop{top:37%}}
+@media(max-height:620px){#toast{bottom:auto;top:172px;left:38%;max-width:300px}#word-pop{top:24px}}
+@media(max-height:420px) and (max-width:700px){#toast{top:112px;left:50%}#word-pop{top:60px}}
+
+/* HUD de vidrio: paneles y avisos dejan ver el paisaje; un desenfoque leve mantiene el texto legible. */
+#hud .mission,#hud .kit,#hud .tool-button,#hud .icon-button,#hud .speed-button,.trail-status span,.photo-hint{background:rgba(18,30,23,.5);backdrop-filter:blur(7px) saturate(1.15);-webkit-backdrop-filter:blur(7px) saturate(1.15);box-shadow:none;border:1px solid rgba(241,234,217,.14)}
+#hud .mission{padding:14px 18px 13px;width:min(310px,33vw)}#hud .mission h2{font-size:23px}#hud .mission p{font-size:10.5px;margin-top:6px}
+#hud .kit{padding:10px 14px;min-width:120px}
+#hud .tool-button{padding:10px 13px}#hud .icon-button{width:40px;height:40px}
+#hud .mission h2,#hud .mission p,#hud .kit,.trail-status span,#hud .tool-button{text-shadow:0 1px 3px rgba(0,0,0,.55)}
+.photo-hint.wild{background:rgba(122,74,18,.72)}
+#toast{background:rgba(18,30,23,.58);color:#f8f2df;backdrop-filter:blur(8px) saturate(1.15);-webkit-backdrop-filter:blur(8px) saturate(1.15);border:1px solid rgba(241,234,217,.2);box-shadow:0 6px 26px rgba(0,0,0,.18);text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.interaction-hint{background:rgba(241,228,201,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.joystick{background:#2032264d;box-shadow:inset 0 0 0 18px #2032261f}.dpad button,.touch-jump{background:#20322680}
+@media(max-width:700px){#hud .mission{width:calc(100vw - 124px);max-width:300px;padding:11px 13px}#hud .mission h2{font-size:20px}#hud .icon-button{width:36px;height:36px}.joystick{width:122px;height:122px}}
+
+/* Avisos en una sola columna, arriba y al centro: no se pisan entre sí ni tapan los controles. */
+#notices{position:fixed;z-index:30;left:50%;top:136px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;width:min(500px,calc(100vw - 30px));pointer-events:none}
+#notices .photo-hint,#notices .interaction-hint,#notices #toast,#notices #word-pop{position:static;left:auto;top:auto;right:auto;bottom:auto;transform:none;margin:0;max-width:100%}
+#notices .photo-hint,#notices .interaction-hint{padding:8px 13px;font-size:11px;gap:8px;white-space:normal;text-align:center}
+#notices #toast{display:none;opacity:1;padding:10px 16px;font-size:12px;line-height:1.5;transition:none}#notices #toast.visible{display:block;animation:notice-in .25s ease-out}
+#notices #word-pop{display:none}#notices #word-pop.show{display:flex;animation:word-in 3.4s ease-out both}
+@keyframes notice-in{from{opacity:0;transform:translateY(-8px)}}
+@keyframes word-in{0%{opacity:0;transform:translateY(14px) scale(.75)}9%{opacity:1;transform:scale(1.07)}15%{transform:none}85%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
+@media(prefers-reduced-motion:reduce){#notices #toast.visible,#notices #word-pop.show{animation:none}#notices #word-pop.show{opacity:1;transform:none}}
+@media(max-width:700px){#notices{top:142px}#notices #toast{font-size:11px}}
+@media(max-height:620px){#notices{top:112px}#notices #word-pop strong{font-size:28px}}
+/* Ventanas muy bajas: HUD compacto para que quede lugar para el paisaje. */
+@media(max-height:480px){
+ #hud .mission p,#hud .mission .progress-track,#guide-label,#hud .kit>span,#hud .kit small,.controls-hint{display:none}
+ #hud .mission{padding:8px 12px;width:auto;max-width:42vw}#hud .mission h2{font-size:16px;margin-top:2px}
+ #hud .kit{padding:7px 10px;min-width:0}#notices{top:70px;gap:5px}
+ .joystick{width:92px;height:92px}.touch-jump{width:50px;height:50px}.touch-controls{bottom:58px}
+ .trail-status{bottom:auto;top:70px;left:auto;right:15px;max-width:130px;justify-content:flex-end}
+ #notices{width:min(300px,calc(100vw - 300px))}
+}
+@media(max-height:480px) and (max-width:700px){#notices{top:64px;width:calc(100vw - 160px);left:15px;transform:none;align-items:flex-start}.trail-status{top:64px}}
+
+/* Energía de la mula, avisos de peligro y ficha real del tramo. */
+.energy{height:7px;border-radius:5px;background:rgba(241,234,217,.2);margin:8px 0 6px;overflow:hidden;min-width:104px}
+#energy-bar{height:100%;width:100%;background:linear-gradient(90deg,#9dbb6c,#cfe08c);border-radius:5px;transition:width .25s,background .3s}
+.energy.mid #energy-bar{background:linear-gradient(90deg,#d8a544,#ecd27a)}.energy.low #energy-bar{background:#d9634a;animation:energy-low .7s ease-in-out infinite alternate}
+.energy.drinking #energy-bar{background:linear-gradient(90deg,#4f9aa3,#9fd6dc)}
+@keyframes energy-low{to{opacity:.45}}
+.warning-flag{padding:9px 18px;border-radius:22px;background:rgba(190,74,40,.86);color:#fff6e4;font-weight:700;font-size:14px;letter-spacing:.04em;box-shadow:0 0 0 1px #ffd9b688,0 0 26px #d9634a88;animation:notice-in .2s ease-out}
+.route-fact{display:flex;align-items:flex-start;gap:9px;font-size:11.5px;line-height:1.55;opacity:.88;margin-top:12px;max-width:460px}.route-fact .icon{width:16px;height:16px;margin-top:2px}.route-fact.tired{color:#ffd9a8;opacity:1}
+.tired-note{font-size:12px!important;background:#f0dcc4;color:#6a3d1c!important;padding:12px 15px;border-radius:4px;margin-top:14px;display:block}.tired-note .icon{width:15px;height:15px;margin-right:4px}
+@media(prefers-reduced-motion:reduce){.energy.low #energy-bar,.warning-flag{animation:none}}
+@media(max-height:480px){.energy{margin:5px 0 0;min-width:86px}}
+
+/* Voz real del documental dentro del encuentro. */
+.real-voice{margin:18px 0 4px;padding:14px 16px;border-left:3px solid #b98a3e;background:#ece4d0;border-radius:0 4px 4px 0}
+.real-voice figcaption{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#7a5a22;margin-bottom:8px}.real-voice figcaption .icon{width:15px;height:15px}
+.real-voice audio{width:100%;height:36px;display:block}
+.real-voice blockquote{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.35;margin:10px 0 0;padding:0;border:0;color:#3d4a36}
+@media(max-width:700px){.real-voice blockquote{font-size:17px}}

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "reyes-1",
+    "speaker": "Ladislao Reyes",
+    "file": "reyes-1.mp3",
+    "seconds": 8.33,
+    "text": "Yo les voy a enviar hoy unos tres o cuatro cuadernos que contienen algo así como doscientos temas."
+  },
+  {
+    "id": "reyes-2",
+    "speaker": "Ladislao Reyes",
+    "file": "reyes-2.mp3",
+    "seconds": 9.46,
+    "text": "Tengo muchas ilusiones con que el país entero conozca parte de este trabajo que he podido realizar."
+  },
+  {
+    "id": "rosalia-1",
+    "speaker": "Rosalía",
+    "file": "rosalia-1.mp3",
+    "seconds": 9.1,
+    "text": "Pero yo en esta huerta, a cada pedacito de tierra, no vas a ver ningún pedacito vacío. Está todo ocupado. Pastito, plantas, todo."
+  },
+  {
+    "id": "rosalia-2",
+    "speaker": "Rosalía",
+    "file": "rosalia-2.mp3",
+    "seconds": 7.5,
+    "text": "Las herramientas principales, ¿qué lo que es? La educación, el aprender esas cosas, para las nuevas generaciones que están viniendo ahora."
+  },
+  {
+    "id": "margarita-1",
+    "speaker": "Margarita",
+    "file": "margarita-1.mp3",
+    "seconds": 8.42,
+    "text": "Yo me dedico a trabajar las obras, a hacer obras, a hilar, a tejer, hago ponchos, hago mantas."
+  },
+  {
+    "id": "margarita-2",
+    "speaker": "Margarita",
+    "file": "margarita-2.mp3",
+    "seconds": 8.26,
+    "text": "Teño con resina de árbol, teño con piquillín, teño con cáscara de cebolla también."
+  },
+  {
+    "id": "monica-1",
+    "speaker": "Mónica",
+    "file": "monica-1.mp3",
+    "seconds": 8.92,
+    "text": "Vamos a ir transcribiendo de a poco, y también conociendo ahí un poco de los sentimientos que él tiene."
+  },
+  {
+    "id": "monica-2",
+    "speaker": "Mónica",
+    "file": "monica-2.mp3",
+    "seconds": 7.5,
+    "text": "Ese es nuestro trabajo ahora: conocer los poemas de Ladislao Reyes."
+  }
+]

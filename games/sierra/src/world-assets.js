@@ -1,4 +1,4 @@
-import { AnimationMixer, Box3, Group, LoopOnce, LoopRepeat, Vector3 } from 'three';
+import { AnimationMixer, Box3, Float32BufferAttribute, Group, LoopOnce, LoopRepeat, Vector3 } from 'three';
 import { fetchBoundedAsset, validateTransform } from './splat-loader.js';
 
 export const WORLD_ASSET_BUDGET = Object.freeze({ maxFileBytes: 18 * 1024 * 1024, maxTriangles: 120000, maxTexturePixels: 16 * 1024 * 1024 });
@@ -117,6 +117,44 @@ export async function loadWorldAsset(asset, { scene, renderer, signal, onProgres
   finally { decoders.forEach(value => value.dispose()); }
 }
 
+/**
+ * Las pieles vienen de una fotografía proyectada: ya traen su propia luz. Se muestran
+ * casi sin sombreado nuevo y con normales suavizadas, para que el relieve irregular de
+ * la reconstrucción no manche el rostro. No cambia la malla ni la textura publicadas.
+ */
+export function tuneHumanSkin(root, { smoothing = 3 } = {}) {
+  root.traverse(object => {
+    if (!object.isMesh || object.userData.skinTuned) return; object.userData.skinTuned = true;
+    const geometry = object.geometry, position = geometry.attributes.position, index = geometry.index;
+    if (position && index && smoothing > 0) {
+      // Vértices duplicados en las costuras de UV comparten posición: se promedian juntos.
+      const weld = new Map(), group = new Uint32Array(position.count); let groups = 0;
+      for (let i = 0; i < position.count; i++) { const key = `${Math.round(position.getX(i) * 4096)},${Math.round(position.getY(i) * 4096)},${Math.round(position.getZ(i) * 4096)}`; let id = weld.get(key); if (id === undefined) { id = groups++; weld.set(key, id); } group[i] = id; }
+      geometry.computeVertexNormals(); const normal = geometry.attributes.normal;
+      let current = new Float32Array(groups * 3);
+      for (let i = 0; i < position.count; i++) { const g = group[i] * 3; current[g] += normal.getX(i); current[g + 1] += normal.getY(i); current[g + 2] += normal.getZ(i); }
+      for (let pass = 0; pass < smoothing; pass++) {
+        const next = Float32Array.from(current);
+        for (let i = 0; i < index.count; i += 3) for (let k = 0; k < 3; k++) {
+          const a = group[index.getX(i + k)] * 3, b = group[index.getX(i + (k + 1) % 3)] * 3;
+          next[a] += current[b]; next[a + 1] += current[b + 1]; next[a + 2] += current[b + 2];
+          next[b] += current[a]; next[b + 1] += current[a + 1]; next[b + 2] += current[a + 2];
+        }
+        for (let g = 0; g < next.length; g += 3) { const length = Math.hypot(next[g], next[g + 1], next[g + 2]) || 1; next[g] /= length; next[g + 1] /= length; next[g + 2] /= length; }
+        current = next;
+      }
+      const smooth = new Float32Array(position.count * 3);
+      for (let i = 0; i < position.count; i++) { const g = group[i] * 3, length = Math.hypot(current[g], current[g + 1], current[g + 2]) || 1; smooth[i * 3] = current[g] / length; smooth[i * 3 + 1] = current[g + 1] / length; smooth[i * 3 + 2] = current[g + 2] / length; }
+      geometry.setAttribute('normal', new Float32BufferAttribute(smooth, 3));
+    }
+    for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+      if (!material?.map) continue;
+      material.emissiveMap = material.map; material.emissive.set('#ffffff'); material.emissiveIntensity = .4;
+      material.color.setScalar(.4); material.roughness = 1; material.metalness = 0; material.envMapIntensity = 0; material.needsUpdate = true;
+    }
+  });
+}
+
 /** Independent bones/mixer; immutable mesh resources stay owned by the source actor. */
 export async function cloneWorldAsset(source,asset){
   const {clone}=await import('three/addons/utils/SkeletonUtils.js');
@@ -124,9 +162,19 @@ export async function cloneWorldAsset(source,asset){
   if(asset.guideLightLoad){
     result.ownedGeometries=[];
     result.model.traverse(o=>{if(!o.isMesh)return;o.geometry=o.geometry.clone();result.ownedGeometries.push(o.geometry);const p=o.geometry.attributes.position;
-      // Guide carries a folded load behind the seat. Player's original pack is unchanged.
+      // The guide rides where the player's mule carries its pack. Only the pack (between the
+      // withers and the croup) is lowered, onto a rounded back line that rises toward the
+      // croup; the croup itself and everything in front keep their anatomy.
       // glTF +X forward / +Y up, before the 1.85m instance scale.
-      for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i);if(x<.30&&y>1.29){let t=Math.max(0,Math.min(1,(.30-x)/.15));t=t*t*(3-2*t);p.setY(i,y-t*(y-1.29)*.94);}}
+      const smooth=v=>{const t=Math.max(0,Math.min(1,v));return t*t*(3-2*t);};
+      for(let i=0;i<p.count;i++){
+        const x=p.getX(i),y=p.getY(i),z=p.getZ(i);if(x>=.30||x<=-.62||y<=1.29)continue;
+        const t=smooth((.30-x)/.15)*smooth((x+.62)/.14),along=(x+.62)/.92;
+        const back=1.46-along*.15-Math.sin(along*Math.PI)*.03;            // lomo: de la grupa a la cruz
+        const across=Math.max(-1,Math.min(1,z/.62)),dome=Math.cos(across*Math.PI/2)**.7;
+        const lowered=1.29+(back-1.29)*dome+(y-1.29)*.02,narrow=z*(1-.42*smooth((y-1.29)/.25));
+        p.setXYZ(i,x,y+(lowered-y)*t,z+(narrow-z)*t);
+      }
       p.needsUpdate=true;o.geometry.computeVertexNormals();o.geometry.computeBoundingBox();o.geometry.computeBoundingSphere();
     });
   }

@@ -18,8 +18,8 @@
   },
   "mule": {
     "file": "mule.glb",
-    "bytes": 15424336,
-    "sha256": "f517136e78f97668ea1f85c142c4443139e203d557d42e0e1b83dad1345ea426",
+    "bytes": 5669204,
+    "sha256": "e1b9088d7ab0c02d2f09bedcf20ef85efff33f922351ac2447ada91a64618bb2",
     "animations": {
       "walk": "Walk",
       "idle": "Idle"
@@ -48,7 +48,7 @@
     },
     "attribution": {
       "id": "donkey-13",
-      "changes": "Optimizaci\u00f3n de geometr\u00eda, rig y animaci\u00f3n para SIERRA."
+      "changes": "Optimizaci\u00f3n de geometr\u00eda, rig, animaci\u00f3n y texturas JPEG para SIERRA."
     }
   },
   "goat": {
@@ -267,6 +267,939 @@
       "kind": "single-image-inference",
       "tool": "Local TripoSR body and dedicated head; reference projection 2K; Blender mounted 20-joint rig",
       "description": "Recreaci\u00f3n basada en fotograf\u00edas identificadas de Ruly Ch\u00e1vez; no es un escaneo. Su presencia continua como gu\u00eda es una adaptaci\u00f3n l\u00fadica."
+    }
+  },
+  "condor": {
+    "file": "v5-condor.glb",
+    "bytes": 480088,
+    "sha256": "c3022336e37374059c2212fc734c90dd42bd42f529ff7e467c9ce487880ef248",
+    "animations": {
+      "soar": "Soar",
+      "flap": "Flap",
+      "idle": "Soar"
+    },
+    "requiredAnimations": [
+      "Soar",
+      "Flap"
+    ],
+    "geometry": {
+      "triangles": 8480,
+      "skins": 1,
+      "animationClips": [
+        "Soar",
+        "Flap"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "cabra": {
+    "file": "v5-cabra.glb",
+    "bytes": 669932,
+    "sha256": "87704bd60feb4716a3b9003a4f8e2e06f96fbafae79aa1655997acf88478ec3f",
+    "animations": {
+      "idle": "Idle",
+      "walk": "Walk",
+      "graze": "Graze"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Walk",
+      "Graze"
+    ],
+    "geometry": {
+      "triangles": 12500,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Walk",
+        "Graze"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "cabra-estatica": {
+    "file": "v5-cabra-estatica.glb",
+    "bytes": 208040,
+    "sha256": "1d0e582d2fe6008495b84c2521175b0d17e0498c19bdf3bd4b14e01c3c22f6d9",
+    "animations": {},
+    "requiredAnimations": [],
+    "geometry": {
+      "triangles": 2392,
+      "skins": 0,
+      "animationClips": []
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "gallina": {
+    "file": "v5-gallina.glb",
+    "bytes": 392800,
+    "sha256": "3b4e1791acc00f81e184d32ae1c8bee7718ba4783ab61cc7921e0da5edb2996b",
+    "animations": {
+      "idle": "Idle",
+      "walk": "Walk",
+      "peck": "Peck"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Walk",
+      "Peck"
+    ],
+    "geometry": {
+      "triangles": 6748,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Walk",
+        "Peck"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "pavo": {
+    "file": "v5-pavo.glb",
+    "bytes": 419512,
+    "sha256": "3b5eddfca6ea56f521ed478aac1da8b65fcafc5002d37ef3bfd5ec8e84953077",
+    "animations": {
+      "idle": "Idle",
+      "walk": "Walk",
+      "peck": "Peck"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Walk",
+      "Peck"
+    ],
+    "geometry": {
+      "triangles": 6944,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Walk",
+        "Peck"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "culebra": {
+    "file": "v5-culebra.glb",
+    "bytes": 349124,
+    "sha256": "4dc791f70a5d9df50ab30e9fecc54c5b0c58727100cdbeeb73119316e9f14616",
+    "animations": {
+      "idle": "Idle",
+      "slither": "Slither"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Slither"
+    ],
+    "geometry": {
+      "triangles": 2832,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Slither"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "zorro": {
+    "file": "v5-zorro.glb",
+    "bytes": 578264,
+    "sha256": "f82e9afc26b433c810117c931c8ef3c49aaabb20b9e370cab8cca52a7b5d5afc",
+    "animations": {
+      "idle": "Idle",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 11998,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "puma": {
+    "file": "v5-puma.glb",
+    "bytes": 570876,
+    "sha256": "b4963f4682f3344d70e27fc3b40ed4c39cdae5d0953c705caa3f78d8a834b905",
+    "animations": {
+      "idle": "Idle",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 11998,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "lagarto": {
+    "file": "v5-lagarto.glb",
+    "bytes": 477652,
+    "sha256": "a5503c3b9e1f15125717d654f4f1cd9974a99ce2e0651860ece8f6574598d652",
+    "animations": {
+      "idle": "Idle",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 10000,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Modelo art\u00edstico con rig y animaciones; textura proyectada desde una imagen de referencia generada con IA. No es un escaneo documental."
+    }
+  },
+  "escuela": {
+    "file": "v6-escuela.glb",
+    "bytes": 459632,
+    "sha256": "ebea7e538d44b78af330576c5c74680d08fb05aeb7bfa74c50502db4d4d98a55",
+    "animations": {},
+    "requiredAnimations": [],
+    "geometry": {
+      "triangles": 604,
+      "skins": 0,
+      "animationClips": []
+    },
+    "sizeMeters": [
+      23.9,
+      4.93,
+      12.9
+    ],
+    "footprint": [
+      {
+        "x": -2.18,
+        "z": -7.9,
+        "halfX": 9.17,
+        "halfZ": 3.5,
+        "height": 4.6
+      },
+      {
+        "x": 0,
+        "z": -5.7,
+        "halfX": 11.65,
+        "halfZ": 5.7,
+        "height": 1
+      },
+      {
+        "x": -8.19,
+        "z": 0.33,
+        "halfX": 0.28,
+        "halfZ": 0.28,
+        "height": 3.5
+      },
+      {
+        "x": -1.49,
+        "z": 0.33,
+        "halfX": 0.27,
+        "halfZ": 0.28,
+        "height": 3.5
+      },
+      {
+        "x": 5.2,
+        "z": 0.33,
+        "halfX": 0.28,
+        "halfZ": 0.28,
+        "height": 3.5
+      },
+      {
+        "x": 1.72,
+        "z": 0.6,
+        "halfX": 0.71,
+        "halfZ": 0.6,
+        "height": 0.8
+      }
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Geometr\u00eda sencilla modelada a escala sobre las tomas del documental, con texturas recortadas de esas mismas tomas. No es un escaneo ni un relevamiento de la construcci\u00f3n."
+    }
+  },
+  "rancho": {
+    "file": "v6-rancho.glb",
+    "bytes": 434256,
+    "sha256": "6825ec74a1eec893a89c8b8b7c9c783f647b90a1c0fb8d39131d768b58ec7d12",
+    "animations": {},
+    "requiredAnimations": [],
+    "geometry": {
+      "triangles": 400,
+      "skins": 0,
+      "animationClips": []
+    },
+    "sizeMeters": [
+      8.3,
+      2.59,
+      7.51
+    ],
+    "footprint": [
+      {
+        "x": 0,
+        "z": -2,
+        "halfX": 3.84,
+        "halfZ": 2.04,
+        "height": 2.5
+      },
+      {
+        "x": -2.75,
+        "z": 3,
+        "halfX": 1.15,
+        "halfZ": 0.08,
+        "height": 1.2
+      },
+      {
+        "x": 1.85,
+        "z": 3,
+        "halfX": 2.05,
+        "halfZ": 0.08,
+        "height": 1.2
+      }
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Geometr\u00eda sencilla modelada a escala sobre las tomas del documental, con texturas recortadas de esas mismas tomas. No es un escaneo ni un relevamiento de la construcci\u00f3n."
+    }
+  },
+  "rancho-piedra": {
+    "file": "v6-rancho-piedra.glb",
+    "bytes": 252912,
+    "sha256": "c3f95b5812a36bb11920dc8997ef8c39adf04510c918241497342f088af49600",
+    "animations": {},
+    "requiredAnimations": [],
+    "geometry": {
+      "triangles": 166,
+      "skins": 0,
+      "animationClips": []
+    },
+    "sizeMeters": [
+      18.05,
+      2.35,
+      4.95
+    ],
+    "footprint": [
+      {
+        "x": 0,
+        "z": -2.1,
+        "halfX": 7,
+        "halfZ": 2.1,
+        "height": 2.25
+      }
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Geometr\u00eda sencilla modelada a escala sobre las tomas del documental, con texturas recortadas de esas mismas tomas. No es un escaneo ni un relevamiento de la construcci\u00f3n."
+    }
+  },
+  "corral": {
+    "file": "v6-corral.glb",
+    "bytes": 813108,
+    "sha256": "906c556a7635360da4eb4e9526828a1ff5e8a1b97e02152277b511bc20c27027",
+    "animations": {},
+    "requiredAnimations": [],
+    "geometry": {
+      "triangles": 438,
+      "skins": 0,
+      "animationClips": []
+    },
+    "sizeMeters": [
+      15.39,
+      1.85,
+      17.33
+    ],
+    "footprint": [
+      {
+        "x": 1.26,
+        "z": -0.13,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 2.03,
+        "z": -0.39,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 2.64,
+        "z": -0.68,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 3.19,
+        "z": -0.99,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 3.67,
+        "z": -1.34,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 4.24,
+        "z": -1.86,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 4.76,
+        "z": -2.63,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.05,
+        "z": -3.54,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.19,
+        "z": -4.47,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.28,
+        "z": -5.31,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.33,
+        "z": -6.12,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.39,
+        "z": -6.84,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.45,
+        "z": -7.48,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.51,
+        "z": -8.13,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.61,
+        "z": -8.72,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.76,
+        "z": -9.25,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.66,
+        "z": -9.98,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.35,
+        "z": -10.68,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 5.06,
+        "z": -11.17,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 4.69,
+        "z": -11.68,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 4.24,
+        "z": -12.19,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 3.72,
+        "z": -12.66,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 3.12,
+        "z": -13.07,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 2.51,
+        "z": -13.43,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 1.88,
+        "z": -13.73,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 1.28,
+        "z": -13.97,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": 0.7,
+        "z": -14.15,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -0.08,
+        "z": -14.37,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -0.77,
+        "z": -14.1,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -1.08,
+        "z": -13.39,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -1.3,
+        "z": -12.77,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -1.6,
+        "z": -12.19,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -1.98,
+        "z": -11.65,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -2.47,
+        "z": -11.13,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -3.06,
+        "z": -10.65,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -3.64,
+        "z": -10.11,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -4.22,
+        "z": -9.52,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -4.8,
+        "z": -8.92,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -5.38,
+        "z": -8.31,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -5.85,
+        "z": -7.77,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -6.23,
+        "z": -7.3,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -6.61,
+        "z": -6.84,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -7.05,
+        "z": -6.33,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -7.56,
+        "z": -5.77,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -7.98,
+        "z": -5.23,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -8.33,
+        "z": -4.72,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -8.63,
+        "z": -3.99,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -8.64,
+        "z": -3.14,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 1.1
+      },
+      {
+        "x": -8.09,
+        "z": -2.6,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -7.37,
+        "z": -2.36,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -6.8,
+        "z": -2.23,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -6.23,
+        "z": -2.11,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -5.66,
+        "z": -1.99,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -4.92,
+        "z": -1.76,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -4.09,
+        "z": -1.3,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -3.62,
+        "z": -0.83,
+        "halfX": 0.42,
+        "halfZ": 0.42,
+        "height": 0.85
+      },
+      {
+        "x": -3.59,
+        "z": -0.35,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -3.7,
+        "z": 0.26,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -3.82,
+        "z": 0.87,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -3.94,
+        "z": 1.48,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -3.69,
+        "z": 1.85,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -3.06,
+        "z": 1.96,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -2.44,
+        "z": 2.08,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -1.81,
+        "z": 2.2,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -1.41,
+        "z": 1.88,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -1.24,
+        "z": 1.12,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": -1.07,
+        "z": 0.37,
+        "halfX": 0.3,
+        "halfZ": 0.3,
+        "height": 1.25
+      },
+      {
+        "x": 4.44,
+        "z": -4.17,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 3.6,
+        "z": -4.29,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 3.46,
+        "z": -5.24,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 3.56,
+        "z": -5.88,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 3.66,
+        "z": -6.52,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 3.75,
+        "z": -7.16,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 4.91,
+        "z": -7.74,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 4.24,
+        "z": -7.91,
+        "halfX": 0.25,
+        "halfZ": 0.25,
+        "height": 0.6
+      },
+      {
+        "x": 1.37,
+        "z": -1.74,
+        "halfX": 0.75,
+        "halfZ": 0.65,
+        "height": 0.75
+      }
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.3",
+      "description": "Geometr\u00eda sencilla modelada a escala sobre las tomas del documental, con texturas recortadas de esas mismas tomas. No es un escaneo ni un relevamiento de la construcci\u00f3n."
     }
   }
 }

@@ -7,3 +7,4 @@ node_modules/
 games/sierra/dist/
 public/jugar/
 public/assets/galeria_web/stills/_originals/
+__pycache__/
