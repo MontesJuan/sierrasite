@@ -1,7 +1,7 @@
 import * as THREE from 'three';
+import {JourneyDetails} from './journey-details.js';
 
-// A compact, deterministic landscape. All geometry and textures are local;
-// there are no network requests and no third-party models at runtime.
+// Authored playable landscape. Documentary Gaussian reconstruction is a separate bounded view.
 const LENGTH = 180;
 const UP = new THREE.Vector3(0, 1, 0);
 const clamp = THREE.MathUtils.clamp;
@@ -17,7 +17,7 @@ function fbm(x, z) { return noise(x, z) * .55 + noise(x * 2.07, z * 2.07) * .27 
 function seeded(seed) { let n = seed; return () => { n = (n * 1664525 + 1013904223) >>> 0; return n / 4294967296; }; }
 function disposeObject(root) {
   const geometries = new Set(), materials = new Set(), textures = new Set();
-  root.traverse(obj => { if (obj.geometry) geometries.add(obj.geometry); for (const m of Array.isArray(obj.material) ? obj.material : [obj.material]) { if (!m) continue; materials.add(m); if (m.map) textures.add(m.map); if (m.normalMap) textures.add(m.normalMap); if(m.bumpMap) textures.add(m.bumpMap); } });
+  root.traverse(obj => { if (obj.geometry) geometries.add(obj.geometry); for (const m of Array.isArray(obj.material) ? obj.material : [obj.material]) { if (!m) continue; materials.add(m); if (m.map) textures.add(m.map); if (m.normalMap) textures.add(m.normalMap); if(m.bumpMap) textures.add(m.bumpMap); if(m.roughnessMap) textures.add(m.roughnessMap); } });
   geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose());
 }
 
@@ -47,7 +47,7 @@ export class SierraWorld {
     this.scene.fog = new THREE.FogExp2('#b7c2bb', .0038);
     this.camera = new THREE.PerspectiveCamera(65, 1, .09, 1500);
     this.scene.add(this.camera);
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance', alpha: false });
+    this.renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance', alpha: false });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -72,6 +72,7 @@ export class SierraWorld {
     this.scene.add(new THREE.HemisphereLight('#b6d6e3', '#6c5c41', 2.15));
     this.createSky();
     this.createMule();
+    this.createTruckCabin();
     this.resize = () => {
       const width = container.clientWidth || window.innerWidth, height = container.clientHeight || window.innerHeight;
       this.renderer.setSize(width, height, false); this.camera.aspect = width / height; this.camera.updateProjectionMatrix();
@@ -82,6 +83,7 @@ export class SierraWorld {
     this.onContextLost = e => { e.preventDefault(); this.running = false; this.callbacks.onError?.('La vista 3D se interrumpió. Recargá la página para continuar desde tu capítulo guardado.'); };
     this.renderer.domElement.addEventListener('webglcontextlost', this.onContextLost);
     this.setChapter(0);
+    this.details=new JourneyDetails(this);
     this.animate = this.animate.bind(this);
     this.frame = requestAnimationFrame(this.animate);
     requestAnimationFrame(() => this.callbacks.onReady?.());
@@ -123,7 +125,9 @@ export class SierraWorld {
     }
     ctx.putImageData(image, 0, 0);
     for (let i = 0; i < 750; i++) { const x = random() * 512, y = random() * 512, r = random() * 2.5 + .3; ctx.fillStyle = i % 3 === 0 ? '#7c705b' : '#b4a386'; ctx.beginPath(); ctx.ellipse(x, y, r, r * .6, random() * 6, 0, Math.PI * 2); ctx.fill(); }
-    const texture = new THREE.CanvasTexture(canvas); texture.wrapS = texture.wrapT = THREE.RepeatWrapping; texture.repeat.set(42, 58); texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = Math.min(8, this.renderer.capabilities.getMaxAnisotropy());
+    const texture = new THREE.CanvasTexture(canvas); texture.wrapS = texture.wrapT = THREE.RepeatWrapping; texture.repeat.set(90, 130); texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = Math.min(8, this.renderer.capabilities.getMaxAnisotropy());
+    const chapter=this.chapter;
+    new THREE.ImageLoader().load(`${import.meta.env.BASE_URL}textures/ground-color.webp`,img=>{if(this.chapter!==chapter||this.destroyed)return;texture.image=img;texture.needsUpdate=true;});
     return texture;
   }
 
@@ -141,7 +145,9 @@ export class SierraWorld {
       colors.set([c.r, c.g, c.b], i * 3);
     }
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3)); geo.computeVertexNormals();
-    const mat = new THREE.MeshStandardMaterial({ map: this.groundTexture, vertexColors: true, roughness: .98, metalness: 0 });
+    const normal=new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}textures/ground-normal.webp`);normal.wrapS=normal.wrapT=THREE.RepeatWrapping;normal.repeat.copy(this.groundTexture.repeat);
+    const roughness=new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}textures/ground-roughness.webp`);roughness.wrapS=roughness.wrapT=THREE.RepeatWrapping;roughness.repeat.copy(this.groundTexture.repeat);
+    const mat = new THREE.MeshStandardMaterial({ map: this.groundTexture, normalMap:normal,normalScale:new THREE.Vector2(.8,.8),roughnessMap:roughness, vertexColors: true, roughness: .94, metalness: 0 });
     const terrain = new THREE.Mesh(geo, mat); terrain.receiveShadow = true; this.world.add(terrain);
     // A continuous worn trail, with irregular feathered edges.
     const roadPositions = [], roadColors = [], uv = [], indices = [];
@@ -152,7 +158,7 @@ export class SierraWorld {
       if (i < 210) { const a = i * 2; indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
     }
     const roadGeo = new THREE.BufferGeometry(); roadGeo.setAttribute('position', new THREE.Float32BufferAttribute(roadPositions, 3)); roadGeo.setAttribute('color', new THREE.Float32BufferAttribute(roadColors, 3)); roadGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); roadGeo.setIndex(indices); roadGeo.computeVertexNormals();
-    const roadTexture = this.groundTexture.clone(); roadTexture.repeat.set(1, 1); roadTexture.needsUpdate = true;
+    const roadTexture = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}textures/ground-color.webp`); roadTexture.colorSpace=THREE.SRGBColorSpace; roadTexture.wrapS=roadTexture.wrapT=THREE.RepeatWrapping; roadTexture.repeat.set(1, 1); roadTexture.anisotropy=this.groundTexture.anisotropy;
     const road = new THREE.Mesh(roadGeo, new THREE.MeshStandardMaterial({ map: roadTexture, roughness: 1, vertexColors: true, polygonOffset: true, polygonOffsetFactor: -1 })); road.receiveShadow = true; this.world.add(road);
     this.createMountains();
   }
@@ -320,6 +326,19 @@ export class SierraWorld {
     this.mule.scale.setScalar(.62);this.mule.position.set(0,-.83,-.55);this.mule.visible=false;this.camera.add(this.mule);
   }
 
+  createTruckCabin(){
+    const g=new THREE.Group();this.truckCabin=g;this.camera.add(g);g.visible=false;
+    const paint=new THREE.MeshStandardMaterial({color:'#deddd1',metalness:.22,roughness:.42});
+    const dark=new THREE.MeshStandardMaterial({color:'#252a26',roughness:.8});
+    const hood=this.mesh(new THREE.BoxGeometry(1.85,.15,1.25),paint,0,-.94,-1.45,g);hood.rotation.x=-.12;
+    this.mesh(new THREE.BoxGeometry(2,.28,.38),dark,0,-.82,-.45,g);
+    for(const x of [-.89,.89]){const pillar=this.mesh(new THREE.BoxGeometry(.055,1.75,.055),paint,x,.07,-.7,g);pillar.rotation.x=.14;}
+    const wheel=this.mesh(new THREE.TorusGeometry(.24,.022,8,32),dark,-.42,-.65,-.34,g);wheel.rotation.x=-.25;
+    for(const angle of [0,Math.PI*2/3,Math.PI*4/3]){const spoke=this.mesh(new THREE.BoxGeometry(.02,.23,.018),dark,-.42,-.65,-.34,g);spoke.rotation.z=angle;}
+    this.mesh(new THREE.BoxGeometry(.23,.025,.018),paint,-.42,-.6,-.40,g);
+    this.mesh(new THREE.BoxGeometry(.27,.1,.055),dark,.08,.65,-.78,g);
+  }
+
   createObstacles() {
     const configs = [
       [{type:'rock',distance:57,lateral:0,radius:1.35}],
@@ -348,11 +367,16 @@ export class SierraWorld {
     if(this.chapter===4)this.createBuilding(false);
     const postMat=new THREE.MeshStandardMaterial({color:'#6d5940',roughness:1});
     for(const side of [-1,1])this.mesh(new THREE.CylinderGeometry(.07,.11,1.5,8),postMat,this.pathX(LENGTH)+side*3.1,this.baseHeight(LENGTH)+.7,-LENGTH);
+    this.details?.reset(this.chapter);
     this.setQuality(this.quality);this.updateCamera(0);this.callbacks.onProgress?.({progress:0,distance:0,speed:0});
   }
 
   setRunning(value) { this.running=Boolean(value); if(!value)this.input={forward:0,strafe:0,turn:0,jump:false}; }
-  setMounted(value) { this.mounted=Boolean(value);this.mule.visible=this.mounted; }
+  setMounted(value) { this.mounted=Boolean(value);this.mule.visible=this.mounted&&this.details?.era!==2024&&!this.details?.packMule;this.truckCabin.visible=this.mounted&&this.details?.era===2024;this.details?.setMounted(this.mounted); }
+  setEra(era) { this.details.reset(this.chapter,era===2024?2024:2019);this.setMounted(this.mounted); }
+  interact() { return this.details.interact(); }
+  getInteraction() { return this.details.interaction(); }
+  setSuspended(value) { this.suspended=Boolean(value); }
   setInput(input) { this.input={...this.input,...input}; }
   setLook(dx,dy) { this.yaw=clamp(this.yaw-(Number(dx)||0)*.0022,-1.3,1.3);this.pitch=clamp(this.pitch-(Number(dy)||0)*.0019,-.6,.55); }
   setQuality(quality) {
@@ -367,14 +391,14 @@ export class SierraWorld {
   }
   setReducedMotion(value) { this.reducedMotion=Boolean(value); }
   reset() { this.setChapter(this.chapter); }
-  getState() { return { chapter:this.chapter,progress:this.distance/LENGTH,distance:this.distance,lateral:this.lateral,mounted:this.mounted,running:this.running,arrived:this.arrived,jumping:this.jumpY>.15,obstacles:this.obstacles.map(o=>({...o})),quality:this.quality,reducedMotion:this.reducedMotion }; }
+  getState() { return { expedition:{...this.details?.state},assets:this.details?.actors.map(a=>({id:a.travel.id,...a.getState()})), chapter:this.chapter,progress:this.distance/LENGTH,distance:this.distance,lateral:this.lateral,mounted:this.mounted,running:this.running,arrived:this.arrived,jumping:this.jumpY>.15,obstacles:this.obstacles.map(o=>({...o})),quality:this.quality,reducedMotion:this.reducedMotion }; }
 
   updateCamera(dt) {
     const d=this.distance,x=this.pathX(d)+this.lateral,y=this.terrainHeight(x,-d);
     const moving=this.running&&Math.abs(this.input.forward)>.02;
     const animateMotion=!this.reducedMotion;
     const bob=animateMotion?(moving?Math.sin(this.elapsed*(this.mounted?9:11))*(this.mounted?.065:.034):Math.sin(this.elapsed*.7)*.007):0;
-    this.camera.position.set(x,y+(this.mounted?2.5:1.72)+this.jumpY+bob,-d);
+    this.camera.position.set(x,y+(this.mounted?(this.details?.era===2024?2.05:2.5):1.72)+this.jumpY+bob,-d);
     const ahead=this.pathX(d+7),direction=new THREE.Vector3(ahead-this.pathX(d),0,-7).normalize();
     const pathYaw=Math.atan2(-direction.x,-direction.z);
     this.camera.rotation.order='YXZ';this.camera.rotation.set(this.pitch-.055,pathYaw+this.yaw,0);
@@ -387,12 +411,12 @@ export class SierraWorld {
   animate() {
     if(this.destroyed)return;
     this.frame=requestAnimationFrame(this.animate);
-    const dt=Math.min(this.clock.getDelta(),.05);this.elapsed+=dt;
+    const dt=Math.min(this.clock.getDelta(),.05);if(this.suspended)return;this.elapsed+=dt;
     let speed=0;
     if(this.running&&!this.arrived){
       const forward=clamp(Number(this.input.forward)||0,-1,1),strafe=clamp(Number(this.input.strafe)||0,-1,1);
-      speed=forward*(this.mounted?13:8);
-      this.distance=clamp(this.distance+speed*dt,0,LENGTH);this.lateral=clamp(this.lateral+strafe*dt*5.5,-7,7);
+      speed=forward*(this.mounted?(this.details?.era===2024?16:13):8);
+      this.distance=clamp(this.details.constrain(this.distance,this.distance+speed*dt),0,LENGTH);this.lateral=clamp(this.lateral+strafe*dt*5.5,-7,7);
       this.yaw=clamp(this.yaw-(Number(this.input.turn)||0)*dt*1.4,-1.3,1.3);
       if(this.input.jump&&this.jumpY===0&&this.jumpVelocity===0){this.jumpVelocity=6.6;this.input.jump=false;}
       if(this.jumpVelocity!==0||this.jumpY>0){this.jumpVelocity-=17*dt;this.jumpY+=this.jumpVelocity*dt;if(this.jumpY<=0){this.jumpY=0;this.jumpVelocity=0;}}
@@ -408,6 +432,8 @@ export class SierraWorld {
       }
       if(this.distance>=LENGTH){this.arrived=true;this.running=false;this.callbacks.onArrive?.();}
     }
+    this.details?.update(dt);
+    this.mule.visible=this.mounted&&this.details?.era!==2024&&!this.details?.packMule;
     this.updateCamera(dt);
     if(this.water&&!this.reducedMotion){const p=this.water.geometry.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i);p.setY(i,Math.sin(x*.8+this.elapsed*2.1)*.035+Math.cos(z*1.5+this.elapsed*2.8)*.025);}p.needsUpdate=true;this.water.geometry.computeVertexNormals();if(this.foam)this.foam.position.x=this.pathX(87)+Math.sin(this.elapsed*.5)*.55;}
     if(this.flag&&!this.reducedMotion){const p=this.flag.geometry.attributes.position;for(let i=0;i<p.count;i++)p.setZ(i,Math.sin(p.getX(i)*4+this.elapsed*4+p.getY(i))*.12*(p.getX(i)+1.15)/2.3);p.needsUpdate=true;}
@@ -418,6 +444,6 @@ export class SierraWorld {
   }
 
   destroy() {
-    this.destroyed=true;cancelAnimationFrame(this.frame);this.resizeObserver.disconnect();this.renderer.domElement.removeEventListener('webglcontextlost',this.onContextLost);disposeObject(this.scene);this.renderer.dispose();this.renderer.domElement.remove();
+    this.details?.destroy();this.destroyed=true;cancelAnimationFrame(this.frame);this.resizeObserver.disconnect();this.renderer.domElement.removeEventListener('webglcontextlost',this.onContextLost);disposeObject(this.scene);this.renderer.dispose();this.renderer.domElement.remove();
   }
 }

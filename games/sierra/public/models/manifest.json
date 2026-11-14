@@ -1,0 +1,88 @@
+{
+  "iguana": {
+    "file": "iguana.glb",
+    "bytes": 878292,
+    "animations": {
+      "walk": "Walk",
+      "idle": "Idle"
+    },
+    "requiredAnimations": [
+      "Walk",
+      "Idle"
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.2.1",
+      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+    }
+  },
+  "mule": {
+    "file": "mule.glb",
+    "bytes": 1607216,
+    "animations": {
+      "walk": "Walk",
+      "idle": "Idle"
+    },
+    "requiredAnimations": [
+      "Walk",
+      "Idle"
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.2.1",
+      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+    }
+  },
+  "goat": {
+    "file": "goat.glb",
+    "bytes": 875832,
+    "animations": {
+      "walk": "Walk",
+      "idle": "Idle"
+    },
+    "requiredAnimations": [
+      "Walk",
+      "Idle"
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.2.1",
+      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+    }
+  },
+  "truck": {
+    "file": "pickup.glb",
+    "bytes": 699680,
+    "animations": {
+      "drive": "Drive",
+      "idle": "Drive"
+    },
+    "requiredAnimations": [
+      "Drive"
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.2.1",
+      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+    }
+  },
+  "chicken": {
+    "file": "chicken.glb",
+    "bytes": 672616,
+    "animations": {
+      "walk": "Walk",
+      "idle": "Idle",
+      "peck": "Peck"
+    },
+    "requiredAnimations": [
+      "Walk",
+      "Idle",
+      "Peck"
+    ],
+    "provenance": {
+      "kind": "authored",
+      "tool": "Blender 5.2.1",
+      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+    }
+  }
+}
