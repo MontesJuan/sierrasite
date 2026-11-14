@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import {JourneyDetails} from './journey-details.js';
+import {ROUTE_LENGTH, trailHeight, cliffSection, movementDelta, resolveMovement} from './trail-physics.js';
 
 // Authored playable landscape. Documentary Gaussian reconstruction is a separate bounded view.
-const LENGTH = 180;
+const LENGTH = ROUTE_LENGTH;
 const UP = new THREE.Vector3(0, 1, 0);
 const clamp = THREE.MathUtils.clamp;
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -90,14 +91,16 @@ export class SierraWorld {
   }
 
   pathX(distance) { return Math.sin(distance * .025) * 8 + Math.sin(distance * .057) * 2.3; }
-  baseHeight(distance) { return Math.sin(distance * .018) * 1.7 + Math.sin(distance * .049) * .55; }
+  baseHeight(distance) { return trailHeight(distance,this.chapter) + Math.sin(distance * .018) * 1.7 + Math.sin(distance * .049) * .55; }
   terrainHeight(x, z) {
     const d = -z, offset = Math.abs(x - this.pathX(d));
     const local = this.baseHeight(d) + (fbm(x * .12, z * .12) - .5) * 1.7 * smooth(2.6, 12, offset);
     const rising = Math.max(0, offset - 17);
     const ridge = rising * (.30 + fbm(x * .017, z * .017) * .87);
     const strata = Math.sin(z * .022 + x * .041) * .17 + .84;
-    return local + ridge * strata + smooth(10, 80, offset) * (fbm(x * .054, z * .054) - .38) * 24;
+    const cliff=cliffSection(d,this.chapter),lateral=x-this.pathX(d);
+    const drop=cliff.depth*smooth(cliff.edge,cliff.edge+.12,lateral);
+    return local + ridge * strata + smooth(10, 80, offset) * (fbm(x * .054, z * .054) - .38) * 24 - drop;
   }
 
   createSky() {
@@ -132,7 +135,15 @@ export class SierraWorld {
   }
 
   createTerrain() {
-    const geo = new THREE.PlaneGeometry(460, 650, 150, 200); geo.rotateX(-Math.PI / 2); geo.translate(0, 0, -130);
+    const geo=new THREE.BufferGeometry(),points=[],faces=[],tex=[];
+    const rows=[];for(let d=-195;d<-10;d+=5)rows.push(d);for(let d=-10;d<=125;d+=.65)rows.push(d);for(let d=130;d<=455;d+=5)rows.push(d);
+    const columns=31;
+    rows.forEach((d,row)=>{
+      const edge=cliffSection(d,this.chapter).edge;
+      const bands=[-230,-180,-130,-90,-65,-45,-30,-20,-14,-10,-7,-5,-3.5,-2.5,-1.5,-.5,.5,edge-.28,edge,edge+.04,edge+.12,edge+.5,edge+2,edge+5,edge+10,25,40,65,100,160,230];
+      bands.forEach((l,col)=>{points.push(this.pathX(d)+l,0,-d);tex.push((this.pathX(d)+l+230)/460,(d+195)/650);if(row<rows.length-1&&col<columns-1){const i=row*columns+col;faces.push(i,i+1,i+columns,i+1,i+columns+1,i+columns);}});
+    });
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(points,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(tex,2));geo.setIndex(faces);
     const positions = geo.attributes.position, colors = new Float32Array(positions.count * 3), c = new THREE.Color();
     for (let i = 0; i < positions.count; i++) {
       const x = positions.getX(i), z = positions.getZ(i), h = this.terrainHeight(x, z); positions.setY(i, h);
@@ -153,7 +164,7 @@ export class SierraWorld {
     const roadPositions = [], roadColors = [], uv = [], indices = [];
     for (let i = 0; i <= 210; i++) {
       const d = -20 + i * 1.1, x = this.pathX(d), y = this.baseHeight(d) + .055;
-      const width = 2.55 + Math.sin(d * .2) * .17;
+      const cliff=cliffSection(d,this.chapter);const width=THREE.MathUtils.lerp(2.55+Math.sin(d*.2)*.17,cliff.edge-.35,cliff.strength);
       for (const side of [-1, 1]) { roadPositions.push(x + width * side, y, -d); roadColors.push(.91, .85, .71); uv.push(side < 0 ? 0 : 1, d * .07); }
       if (i < 210) { const a = i * 2; indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
     }
@@ -188,7 +199,10 @@ export class SierraWorld {
     const rockMat = new THREE.MeshStandardMaterial({ color: '#a39b85', roughness: .98, bumpMap:this.rockDetail, bumpScale:.22 });
     const rocks = new THREE.InstancedMesh(rockGeo, rockMat, 450); rocks.castShadow = true; rocks.receiveShadow = true;
     const color = new THREE.Color();
-    for (let i = 0; i < 450; i++) { const d = random() * 340 - 30, side = random() > .5 ? 1 : -1, offset = 4 + random() * 100, x = this.pathX(d) + offset * side, size = .3 + random() ** 3 * 5; dummy.position.set(x, this.terrainHeight(x, -d) + size * .27, -d); dummy.rotation.set(random(), random() * 6, random()); dummy.scale.set(size * (1 + random()), size * .7, size); dummy.updateMatrix(); rocks.setMatrixAt(i, dummy.matrix); color.setHSL(.09 + random() * .035, .12 + random() * .13, .34 + random() * .18); rocks.setColorAt(i, color); }
+    for (let i = 0; i < 450; i++) { const d = random() * 340 - 30, side = random() > .5 ? 1 : -1, offset = 4 + random() * 100, x = this.pathX(d) + offset * side, size = .3 + random() ** 3 * 5; dummy.position.set(x, this.terrainHeight(x, -d) + size * .27, -d); dummy.rotation.set(random(), random() * 6, random()); dummy.scale.set(size * (1 + random()), size * .7, size);
+      if(d>=-2&&d<=LENGTH+5&&offset-dummy.scale.x<4.5){dummy.position.x=this.pathX(d)+side*(4.5+dummy.scale.x);dummy.position.y=this.terrainHeight(dummy.position.x,-d)+size*.27;}
+      if(d>=-3&&d<=LENGTH+5&&Math.abs(dummy.position.x-this.pathX(d))-dummy.scale.x<13)this.colliders.push({id:`stone-${i}`,x:dummy.position.x,z:-d,radius:Math.max(dummy.scale.x,dummy.scale.z)*1.02,height:size*1.25,baseY:this.terrainHeight(dummy.position.x,-d)});
+      dummy.updateMatrix(); rocks.setMatrixAt(i, dummy.matrix); color.setHSL(.09 + random() * .035, .12 + random() * .13, .34 + random() * .18); rocks.setColorAt(i, color); }
     this.world.add(rocks); this.rocks = rocks;
     // Multi-stem bunchgrass instead of single upright billboard planes.
     const grassPositions = [], grassColors = [], grassIndices = [];
@@ -245,6 +259,7 @@ export class SierraWorld {
   }
 
   createTree(x,z,scale=1){
+    this.colliders.push({id:`tree-${x}-${z}`,x,z,radius:.25*scale,height:3.6*scale,baseY:this.terrainHeight(x,z)});
     const group=new THREE.Group(),wood=new THREE.MeshStandardMaterial({color:'#6d624b',roughness:1,bumpMap:this.rockDetail,bumpScale:.12}),leaf=new THREE.MeshStandardMaterial({map:this.foliageTexture,color:'#cccfa4',alphaTest:.42,side:THREE.DoubleSide,roughness:1});
     const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.07,.22,3.6,9),wood);trunk.position.y=1.8;trunk.rotation.z=.07;trunk.castShadow=true;group.add(trunk);
     const foliage=this.makeFoliageGeometry();
@@ -253,7 +268,7 @@ export class SierraWorld {
   }
 
   createRiver() {
-    const d = 87, y = this.baseHeight(d) + .075;
+    const d = 10, y = this.baseHeight(d) + .075;
     const waterGeo = new THREE.PlaneGeometry(100, 13, 80, 16); waterGeo.rotateX(-Math.PI / 2);
     const waterMat = new THREE.MeshStandardMaterial({ color: '#487c79', roughness: .25, metalness: .34, transparent: true, opacity: .9 });
     const water = new THREE.Mesh(waterGeo, waterMat); water.position.set(this.pathX(d), y, -d); water.receiveShadow = true;
@@ -268,7 +283,7 @@ export class SierraWorld {
   mesh(geometry, material, x, y, z, parent = this.world) { const mesh = new THREE.Mesh(geometry, material); mesh.position.set(x,y,z); mesh.castShadow=true; mesh.receiveShadow=true; parent.add(mesh); return mesh; }
 
   createBuilding(school = false) {
-    const d = 188, x = this.pathX(d) + 5, y = this.baseHeight(d), group = new THREE.Group();
+    const d = LENGTH+8, x = this.pathX(d) + 5, y = this.baseHeight(d), group = new THREE.Group();
     const wall = new THREE.MeshStandardMaterial({ color: school ? '#e1d8bf' : '#bfa67f', roughness: .95 });
     const roof = new THREE.MeshStandardMaterial({ color: '#6d675e', roughness: .8, metalness: .12 });
     const dark = new THREE.MeshStandardMaterial({ color: '#343c39', roughness: .9 });
@@ -290,7 +305,7 @@ export class SierraWorld {
       const table=this.mesh(new THREE.BoxGeometry(2.8,.14,1.1),wood,3,1.15,5,group);for(const tx of [1.9,4.1])for(const tz of [4.6,5.4])this.mesh(new THREE.BoxGeometry(.12,1.1,.12),wood,tx,.55,tz,group);
       const bookMat=new THREE.MeshStandardMaterial({color:'#efe6c9',roughness:1});this.mesh(new THREE.BoxGeometry(.48,.1,.65),bookMat,3,1.28,5,group);
     }
-    group.position.set(x,y,-d);this.world.add(group);
+    group.position.set(x,y,-d);this.world.add(group);this.colliders.push({id:"building",x,z:-d,halfX:6.5,halfZ:5.5,height:5,baseY:y});
   }
 
   createAnimal(type, d, offset) {
@@ -300,7 +315,7 @@ export class SierraWorld {
     const head=this.mesh(new THREE.SphereGeometry(1,12,8),tawny,-.86,1.1,0,group);head.scale.set(.33,.22,.21);
     const snout=this.mesh(new THREE.SphereGeometry(1,10,6),tawny,-1.1,1.04,0,group);snout.scale.set(.2,.12,.13);
     for(const ez of [-.13,.13]){const ear=this.mesh(new THREE.ConeGeometry(.1,.22,8),tawny,-.78,1.32,ez,group);ear.rotation.z=.18;}
-    for(const lx of [-.53,.52])for(const lz of [-.17,.17])this.mesh(new THREE.CylinderGeometry(.065,.055,.65,8),tawny,lx,.35,lz,group);
+    group.userData.legs=[];for(const lx of [-.53,.52])for(const lz of [-.17,.17])group.userData.legs.push(this.mesh(new THREE.CylinderGeometry(.065,.055,.65,8),tawny,lx,.35,lz,group));
     const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(.7,.8,0),new THREE.Vector3(1.2,.62,0),new THREE.Vector3(1.7,.42,.15)]);this.mesh(new THREE.TubeGeometry(curve,12,type==='fox'?.12:.05,6,false),tawny,0,0,0,group);
     if(type==='fox')group.scale.setScalar(.8);else group.scale.setScalar(1.25);
     const x=this.pathX(d)+offset;group.position.set(x,this.terrainHeight(x,-d),-d);group.rotation.y=.25;this.world.add(group);
@@ -341,28 +356,42 @@ export class SierraWorld {
 
   createObstacles() {
     const configs = [
-      [{type:'rock',distance:57,lateral:0,radius:1.35}],
-      [{type:'river',distance:87,lateral:0,radius:9}],
-      [{type:'rock',distance:67,lateral:1,radius:1.25}],
-      [{type:'wildlife',distance:64,lateral:-.3,radius:1.8},{type:'rock',distance:119,lateral:1.3,radius:1.35}],
-      [{type:'rock',distance:72,lateral:-.9,radius:1.35}],
-      [{type:'wildlife',distance:83,lateral:.7,radius:1.5}],
+      [{type:'rock',distance:28,lateral:0,radius:1.35}],
+      [{type:'river',distance:10,lateral:0,radius:9}],
+      [{type:'rock',distance:27,lateral:1,radius:1.25}],
+      [{type:'wildlife',distance:25,lateral:-.3,radius:1.8},{type:'rock',distance:82,lateral:1.3,radius:1.35}],
+      [{type:'rock',distance:27,lateral:-.9,radius:1.35}],
+      [{type:'wildlife',distance:26,lateral:.7,radius:1.5}],
     ];
     this.obstacles=configs[this.chapter].map(o=>({...o,hit:false,passed:false}));
     const mat=new THREE.MeshStandardMaterial({color:'#9c927a',roughness:1,bumpMap:this.rockDetail,bumpScale:.22});
     for(const o of this.obstacles){
-      if(o.type==='rock'){const x=this.pathX(o.distance)+o.lateral;const rock=this.mesh(new THREE.SphereGeometry(1,20,14),mat,x,this.baseHeight(o.distance)+.23,-o.distance);rock.scale.set(o.radius,.65,.82);rock.rotation.set(.3,.7,.15);}
-      if(o.type==='wildlife')this.createAnimal(this.chapter===3?'puma':'fox',o.distance,o.lateral);
+      if(o.type==='rock'){const x=this.pathX(o.distance)+o.lateral;const rock=this.mesh(new THREE.SphereGeometry(1,20,14),mat,x,this.baseHeight(o.distance)+.23,-o.distance);rock.scale.set(o.radius,.65,.82);rock.rotation.set(.3,.7,.15);this.colliders.push({id:'obstacle-'+o.distance,x,z:-o.distance,radius:o.radius,height:.95,baseY:this.baseHeight(o.distance),hazard:true});}
+      if(o.type==='wildlife'){o.actor=this.createAnimal(this.chapter===3?'puma':'fox',o.distance,o.lateral);o.originLateral=o.lateral;}
     }
     if(this.chapter===1)this.createRiver();
   }
 
+  createFinds(){
+    const labels=['Una huella del camino','Un sonido para recordar','Una palabra para el libro'];
+    this.finds=[12,46,81].map((distance,id)=>{
+      const lateral=[0,-.6,-1.1][id],g=new THREE.Group(),paper=new THREE.MeshStandardMaterial({color:'#f1ddaa',roughness:.9}),cover=new THREE.MeshStandardMaterial({color:'#6e754d',roughness:.85});
+      this.mesh(new THREE.BoxGeometry(.48,.06,.37),cover,0,0,0,g);this.mesh(new THREE.BoxGeometry(.43,.075,.32),paper,0,.025,0,g);
+      const ring=new THREE.Mesh(new THREE.TorusGeometry(.42,.018,6,36),new THREE.MeshBasicMaterial({color:'#ebd39a'}));ring.rotation.x=Math.PI/2;ring.position.y=-.17;g.add(ring);
+      g.position.set(this.pathX(distance)+lateral,this.baseHeight(distance)+1.05,-distance);this.world.add(g);return{id,distance,lateral,label:labels[id],mesh:g,found:false};
+    });
+  }
+  createCliffMarkers(){
+    const mat=new THREE.MeshStandardMaterial({color:'#8c7e62',roughness:1,bumpMap:this.rockDetail,bumpScale:.15});
+    for(let d=47;d<=73;d+=2){const edge=cliffSection(d,this.chapter).edge;for(const lateral of [edge-.08,-2.8]){const x=this.pathX(d)+lateral;const m=this.mesh(new THREE.SphereGeometry(1,10,7),mat,x,this.baseHeight(d)-.06,-d);m.scale.set(.12,.12,.28);}}
+  }
+
   setChapter(index) {
     this.chapter=Number.isFinite(Number(index))?clamp(Math.floor(Number(index)),0,5):0;
-    this.running=false;this.distance=0;this.lateral=0;this.yaw=0;this.pitch=0;this.jumpY=0;this.jumpVelocity=0;this.arrived=false;this.hazardCooldown=0;this.reportAt=0;
+    this.running=false;this.distance=0;this.lateral=0;this.travelSpeed=0;this.yaw=0;this.pitch=0;this.jumpY=0;this.jumpVelocity=0;this.arrived=false;this.hazardCooldown=0;this.reportAt=0;this.colliders=[];this.fallTime=0;this.fallStart=0;this.warnedCornice=false;this.found=[];
     this.input={forward:0,strafe:0,turn:0,jump:false};
     disposeObject(this.world);this.world.clear();this.water=null;this.foam=null;this.flag=null;
-    this.groundTexture=this.makeGroundTexture();this.createTerrain();this.createVegetation();this.createObstacles();this.createBirds();
+    this.groundTexture=this.makeGroundTexture();this.createTerrain();this.createVegetation();this.createObstacles();this.createBirds();this.createFinds();this.createCliffMarkers();
     if([2,5].includes(this.chapter))this.createBuilding(true);
     if(this.chapter===4)this.createBuilding(false);
     const postMat=new THREE.MeshStandardMaterial({color:'#6d5940',roughness:1});
@@ -371,14 +400,17 @@ export class SierraWorld {
     this.setQuality(this.quality);this.updateCamera(0);this.callbacks.onProgress?.({progress:0,distance:0,speed:0});
   }
 
+  solidColliders(){return this.colliders.map(c=>({...c,height:(c.baseY||0)+c.height}));}
   setRunning(value) { this.running=Boolean(value); if(!value)this.input={forward:0,strafe:0,turn:0,jump:false}; }
   setMounted(value) { this.mounted=Boolean(value);this.mule.visible=this.mounted&&this.details?.era!==2024&&!this.details?.packMule;this.truckCabin.visible=this.mounted&&this.details?.era===2024;this.details?.setMounted(this.mounted); }
   setEra(era) { this.details.reset(this.chapter,era===2024?2024:2019);this.setMounted(this.mounted); }
+  setSpeaker(speaker) { this.details?.setSpeaker(speaker); }
   interact() { return this.details.interact(); }
   getInteraction() { return this.details.interaction(); }
   setSuspended(value) { this.suspended=Boolean(value); }
   setInput(input) { this.input={...this.input,...input}; }
-  setLook(dx,dy) { this.yaw=clamp(this.yaw-(Number(dx)||0)*.0022,-1.3,1.3);this.pitch=clamp(this.pitch-(Number(dy)||0)*.0019,-.6,.55); }
+  setLook(dx,dy) { this.yaw=THREE.MathUtils.euclideanModulo(this.yaw-(Number(dx)||0)*.003+Math.PI,Math.PI*2)-Math.PI;this.pitch=clamp(this.pitch-(Number(dy)||0)*.002,-1.15,.9); }
+  setSpeed(value) { this.speedMultiplier=value===2?2:1; }
   setQuality(quality) {
     this.quality=['auto','low','high'].includes(quality)?quality:'auto';
     const low=this.quality==='low';
@@ -386,22 +418,23 @@ export class SierraWorld {
     this.renderer.shadowMap.enabled=!low;
     if(this.grass)this.grass.count=low?1800:4200;
     if(this.shrubs)this.shrubs.count=low?850:2200;
-    if(this.rocks)this.rocks.count=low?300:450;
+    if(this.rocks)this.rocks.count=450;
     this.resize();
   }
   setReducedMotion(value) { this.reducedMotion=Boolean(value); }
   reset() { this.setChapter(this.chapter); }
-  getState() { return { expedition:{...this.details?.state},assets:this.details?.actors.map(a=>({id:a.travel.id,...a.getState()})), chapter:this.chapter,progress:this.distance/LENGTH,distance:this.distance,lateral:this.lateral,mounted:this.mounted,running:this.running,arrived:this.arrived,jumping:this.jumpY>.15,obstacles:this.obstacles.map(o=>({...o})),quality:this.quality,reducedMotion:this.reducedMotion }; }
+  getState() { return { expedition:{...this.details?.state},assets:this.details?.actors.map(a=>({id:a.travel.id,...a.getState()})), chapter:this.chapter,progress:this.distance/LENGTH,distance:this.distance,lateral:this.lateral,mounted:this.mounted,running:this.running,arrived:this.arrived,jumping:this.jumpY>.15,speedMultiplier:this.speedMultiplier||1,finds:[...this.found],elevation:this.baseHeight(this.distance),cliff:cliffSection(this.distance,this.chapter),falling:this.fallTime>0,guide:this.details?.guideState(),obstacles:this.obstacles.map(({actor,...o})=>({...o})),quality:this.quality,reducedMotion:this.reducedMotion }; }
 
   updateCamera(dt) {
     const d=this.distance,x=this.pathX(d)+this.lateral,y=this.terrainHeight(x,-d);
-    const moving=this.running&&Math.abs(this.input.forward)>.02;
+    const moving=this.running&&Math.abs(this.travelSpeed||0)>.02;
     const animateMotion=!this.reducedMotion;
     const bob=animateMotion?(moving?Math.sin(this.elapsed*(this.mounted?9:11))*(this.mounted?.065:.034):Math.sin(this.elapsed*.7)*.007):0;
-    this.camera.position.set(x,y+(this.mounted?(this.details?.era===2024?2.05:2.5):1.72)+this.jumpY+bob,-d);
-    const ahead=this.pathX(d+7),direction=new THREE.Vector3(ahead-this.pathX(d),0,-7).normalize();
+    const surface=this.fallTime?this.fallStart-8*this.fallTime*this.fallTime:y;
+    this.camera.position.set(x,surface+(this.mounted?(this.details?.era===2024?2.05:2.5):1.72)+this.jumpY+bob,-d);
+    const ahead=this.pathX(d+2),direction=new THREE.Vector3(ahead-this.pathX(d),0,-2).normalize();
     const pathYaw=Math.atan2(-direction.x,-direction.z);
-    this.camera.rotation.order='YXZ';this.camera.rotation.set(this.pitch-.055,pathYaw+this.yaw,0);
+    this.camera.rotation.order='YXZ';const grade=Math.atan2(this.baseHeight(d+2)-this.baseHeight(d),2);this.camera.rotation.set(this.pitch-.055+grade*.48,pathYaw+this.yaw,this.fallTime&&!this.reducedMotion?Math.sin(this.fallTime*3)*.04:0);
     this.mule.rotation.z=moving&&animateMotion?Math.sin(this.elapsed*5)*.018:0;
     this.mule.position.y=-.83+(moving&&animateMotion?Math.sin(this.elapsed*9)*.018:0);
     this.sky.position.copy(this.camera.position);
@@ -412,30 +445,67 @@ export class SierraWorld {
     if(this.destroyed)return;
     this.frame=requestAnimationFrame(this.animate);
     const dt=Math.min(this.clock.getDelta(),.05);if(this.suspended)return;this.elapsed+=dt;
+    const previousDistance=this.distance,previousX=this.pathX(this.distance)+this.lateral;
     let speed=0;
     if(this.running&&!this.arrived){
-      const forward=clamp(Number(this.input.forward)||0,-1,1),strafe=clamp(Number(this.input.strafe)||0,-1,1);
-      speed=forward*(this.mounted?(this.details?.era===2024?16:13):8);
-      this.distance=clamp(this.details.constrain(this.distance,this.distance+speed*dt),0,LENGTH);this.lateral=clamp(this.lateral+strafe*dt*5.5,-7,7);
-      this.yaw=clamp(this.yaw-(Number(this.input.turn)||0)*dt*1.4,-1.3,1.3);
-      if(this.input.jump&&this.jumpY===0&&this.jumpVelocity===0){this.jumpVelocity=6.6;this.input.jump=false;}
-      if(this.jumpVelocity!==0||this.jumpY>0){this.jumpVelocity-=17*dt;this.jumpY+=this.jumpVelocity*dt;if(this.jumpY<=0){this.jumpY=0;this.jumpVelocity=0;}}
-      this.hazardCooldown=Math.max(0,this.hazardCooldown-dt);
-      for(const obstacle of this.obstacles){
-        if(obstacle.hit||obstacle.passed)continue;
-        if(this.distance>obstacle.distance+3){obstacle.passed=true;continue;}
-        if(Math.abs(this.distance-obstacle.distance)<1.6&&this.hazardCooldown===0){
-          let hit=Math.abs(this.lateral-obstacle.lateral)<obstacle.radius&&this.jumpY<.6;
-          if(obstacle.type==='river')hit=Math.abs(this.lateral+1.8)>1.15&&this.jumpY<.6;
-          if(hit){obstacle.hit=true;this.hazardCooldown=2.2;this.callbacks.onHazard?.({type:obstacle.type,message:obstacle.type==='river'?'La corriente te hizo perder el equilibrio. Buscá las piedras de la izquierda.':obstacle.type==='wildlife'?'Dale espacio a la fauna. Rodeá al animal sin acercarte.':'Una roca en la huella. Podés saltarla o pasar por un costado.'});}
+      if(this.fallTime>0){
+        this.fallTime+=dt;
+        if(this.fallTime>.65){this.running=false;this.callbacks.onHazard?.({type:'fall',fatal:true,message:'Nos salimos de la cornisa. Sigamos la huella por el lado de la montaña.'});}
+      }else{
+        this.yaw=THREE.MathUtils.euclideanModulo(this.yaw-(Number(this.input.turn)||0)*dt*1.7+Math.PI,Math.PI*2)-Math.PI;
+        const pathYaw=-Math.atan2(this.pathX(this.distance+2)-this.pathX(this.distance),2);
+        const grade=(this.baseHeight(this.distance+1)-this.baseHeight(this.distance-1))/2;
+        const pace=(this.mounted?(this.details?.era===2024?5:1.85):1.6)*(this.speedMultiplier||1)/Math.sqrt(1+grade*grade);
+        const delta=movementDelta({...this.input,yaw:pathYaw+this.yaw,speed:pace,dt});
+        const x=this.pathX(this.distance)+this.lateral;
+        const collision=resolveMovement({x,z:-this.distance,dx:delta.dx,dz:delta.dz,radius:this.mounted?.52:.3,feet:this.terrainHeight(x,-this.distance)+this.jumpY,colliders:[...this.solidColliders(),...(this.details?.actorColliders()||[]),...this.obstacles.filter(o=>o.actor).map(o=>({id:'fauna-'+o.distance,x:o.actor.position.x,z:o.actor.position.z,radius:.65,height:o.actor.position.y+1.3}))]});
+        const nextDistance=clamp(this.details.constrain(this.distance,-collision.z),0,LENGTH);
+        const nextLateral=clamp(collision.x-this.pathX(nextDistance),-12,12);
+        const nextHeight=this.terrainHeight(this.pathX(nextDistance)+nextLateral,-nextDistance),oldHeight=this.terrainHeight(x,-this.distance);
+        const stride=Math.hypot(collision.x-x,nextDistance-this.distance);
+        // Climb the authored trail; rock walls cannot be scaled sideways.
+        if(nextHeight-oldHeight<=Math.max(.08,stride*1.3)){this.distance=nextDistance;this.lateral=nextLateral;}
+        if(this.input.jump&&this.jumpY===0&&this.jumpVelocity===0){this.jumpVelocity=this.mounted?5.4:6.6;this.input.jump=false;}
+        if(this.jumpVelocity!==0||this.jumpY>0){this.jumpVelocity-=17*dt;this.jumpY+=this.jumpVelocity*dt;if(this.jumpY<=0){this.jumpY=0;this.jumpVelocity=0;}}
+        this.hazardCooldown=Math.max(0,this.hazardCooldown-dt);
+        const cliff=cliffSection(this.distance,this.chapter);
+        if(this.distance>42&&!this.warnedCornice){this.warnedCornice=true;this.callbacks.onNotice?.('Cornisa: quedate del lado de la montaña. Podés volver al paso normal con ×2.');}
+        if(cliff.strength>.5&&this.lateral>cliff.edge-.1){this.fallTime=.001;this.fallStart=oldHeight;this.jumpY=0;}
+        const contact=collision.contacts.find(c=>this.colliders.find(s=>s.id===(typeof c==='string'?c:c.id))?.hazard);
+        if(contact&&this.hazardCooldown===0){this.hazardCooldown=2.2;this.callbacks.onHazard?.({type:'rock',message:'La roca es sólida. Rodeala por la izquierda o saltá por encima.'});}
+        for(const obstacle of this.obstacles){
+          if(obstacle.actor){
+            const near=Math.abs(this.distance-obstacle.distance)<7;
+            const target=near?4.2:obstacle.originLateral+Math.sin(this.elapsed*.7)*1.8;
+            const step=clamp(target-obstacle.lateral,-dt*1.6,dt*1.6);obstacle.lateral+=step;
+            obstacle.actor.position.set(this.pathX(obstacle.distance)+obstacle.lateral,this.baseHeight(obstacle.distance),-obstacle.distance);
+            obstacle.actor.rotation.y=step<0?0:Math.PI;
+            obstacle.actor.userData.legs.forEach((leg,i)=>leg.rotation.z=Math.abs(step)>.001?Math.sin(this.elapsed*8+i*Math.PI)*.4:0);
+          }
+          if(!obstacle.passed&&this.distance>obstacle.distance+3){obstacle.passed=true;if(!obstacle.hit)this.callbacks.onNotice?.(obstacle.type==='wildlife'?'¡Buen paso! Le diste espacio a la fauna.':'¡Paso superado! Seguimos juntos.');}
+          if(obstacle.hit||obstacle.passed||this.hazardCooldown>0)continue;
+          let hit=obstacle.type==='river'&&Math.abs(this.distance-obstacle.distance)<5.5&&Math.abs(this.lateral+1.8)>1.1&&this.jumpY<.5;
+          if(obstacle.type==='wildlife')hit=Math.hypot(this.distance-obstacle.distance,this.lateral-obstacle.lateral)<1.25;
+          if(hit){obstacle.hit=true;this.hazardCooldown=2.2;this.callbacks.onHazard?.({type:obstacle.type,message:obstacle.type==='river'?'La corriente nos desequilibró. Buscá las piedras de la izquierda.':'Dale espacio a la fauna. Esperá a que se aparte.'});}
+        }
+        for(const item of this.finds){
+          if(item.found)continue;
+          item.mesh.rotation.y=this.elapsed*.7;item.mesh.position.y=this.baseHeight(item.distance)+1.05+(this.reducedMotion?0:Math.sin(this.elapsed*2+item.id)*.12);
+          if(Math.hypot(this.distance-item.distance,this.lateral-item.lateral)<1.65){item.found=true;item.mesh.visible=false;this.found.push(item.id);this.callbacks.onFind?.({count:this.found.length,total:this.finds.length,label:item.label});}
         }
       }
       if(this.distance>=LENGTH){this.arrived=true;this.running=false;this.callbacks.onArrive?.();}
     }
+    // Drive footsteps and camera motion from actual travel, after the gate and
+    // route limits. Include lateral travel and curvature instead of input intent.
+    const distanceDelta=this.distance-previousDistance;
+    const xDelta=this.pathX(this.distance)+this.lateral-previousX;
+    speed=dt>0?Math.hypot(xDelta,distanceDelta)/dt*(distanceDelta<0?-1:1):0;
+    this.travelSpeed=speed;
     this.details?.update(dt);
     this.mule.visible=this.mounted&&this.details?.era!==2024&&!this.details?.packMule;
     this.updateCamera(dt);
-    if(this.water&&!this.reducedMotion){const p=this.water.geometry.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i);p.setY(i,Math.sin(x*.8+this.elapsed*2.1)*.035+Math.cos(z*1.5+this.elapsed*2.8)*.025);}p.needsUpdate=true;this.water.geometry.computeVertexNormals();if(this.foam)this.foam.position.x=this.pathX(87)+Math.sin(this.elapsed*.5)*.55;}
+    if(this.water&&!this.reducedMotion){const p=this.water.geometry.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i);p.setY(i,Math.sin(x*.8+this.elapsed*2.1)*.035+Math.cos(z*1.5+this.elapsed*2.8)*.025);}p.needsUpdate=true;this.water.geometry.computeVertexNormals();if(this.foam)this.foam.position.x=this.pathX(10)+Math.sin(this.elapsed*.5)*.55;}
     if(this.flag&&!this.reducedMotion){const p=this.flag.geometry.attributes.position;for(let i=0;i<p.count;i++)p.setZ(i,Math.sin(p.getX(i)*4+this.elapsed*4+p.getY(i))*.12*(p.getX(i)+1.15)/2.3);p.needsUpdate=true;}
     for(let i=0;!this.reducedMotion&&i<this.birds.length;i++){const bird=this.birds[i],angle=this.elapsed*.06+i*1.5;bird.position.x=Math.sin(angle)*55;bird.position.z=-100-i*28+Math.cos(angle)*30;bird.rotation.y=-angle;bird.rotation.z=Math.sin(angle)*.15;}
     if(!this.reducedMotion)this.sky.material.uniforms.time.value=this.elapsed;

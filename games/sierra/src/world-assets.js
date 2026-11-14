@@ -3,6 +3,14 @@ import { fetchBoundedAsset, validateTransform } from './splat-loader.js';
 
 export const WORLD_ASSET_BUDGET = Object.freeze({ maxFileBytes: 18 * 1024 * 1024, maxTriangles: 120000, maxTexturePixels: 16 * 1024 * 1024 });
 
+export async function verifyWorldAssetChecksum(bytes, expected) {
+  if (expected === undefined) return; // Legacy fauna entries predate reviewed checksums.
+  if (!/^[a-f0-9]{64}$/.test(expected) || !globalThis.crypto?.subtle) throw new Error('Cannot verify reviewed GLB checksum');
+  const digest = await globalThis.crypto.subtle.digest('SHA-256', bytes);
+  const actual = Array.from(new Uint8Array(digest), value => value.toString(16).padStart(2, '0')).join('');
+  if (actual !== expected) throw new Error('GLB checksum does not match reviewed manifest');
+}
+
 /** Validate GLB before GLTFLoader can request any referenced resources. */
 export function inspectGlb(bytes, budget = WORLD_ASSET_BUDGET) {
   if (!(bytes instanceof Uint8Array) || bytes.length < 20) throw new Error('Truncated GLB');
@@ -61,14 +69,14 @@ export class AnimatedWorldAsset {
     const clipName = this.aliases[name] || name, clip = this.clips.find(value => value.name === clipName);
     if (!clip) return false;
     const next = this.mixer.clipAction(clip);
-    if (next === this.action) return true;
+    if (next === this.action) { next.timeScale = timeScale; return true; }
     next.reset(); next.setLoop(once ? LoopOnce : LoopRepeat, once ? 1 : Infinity); next.clampWhenFinished = once; next.timeScale = timeScale;
     if (this.action) this.action.fadeOut(fade);
     next.fadeIn(fade).play(); this.action = next; return true;
   }
   update(dt) { if (!this.disposed && Number.isFinite(dt) && dt > 0) this.mixer.update(Math.min(dt, .1)); }
   getState() { return { animations: this.clips.map(clip => clip.name), playing: this.action?.getClip().name || null, disposed: this.disposed }; }
-  dispose() { if (this.disposed) return; this.disposed = true; this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.model); this.root.removeFromParent(); disposeScene(this.model); }
+  dispose() { if (this.disposed) return; this.disposed = true; this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.model); this.root.removeFromParent(); if(this.sharedResources){const skeletons=new Set();this.model.traverse(o=>{if(o.skeleton)skeletons.add(o.skeleton);});skeletons.forEach(s=>s.dispose());this.ownedGeometries?.forEach(g=>g.dispose());}else disposeScene(this.model); }
 }
 
 export async function loadWorldAsset(asset, { scene, renderer, signal, onProgress, budget = WORLD_ASSET_BUDGET, decoderPaths = {} } = {}) {
@@ -76,6 +84,7 @@ export async function loadWorldAsset(asset, { scene, renderer, signal, onProgres
   if (!Number.isSafeInteger(asset.bytes) || asset.bytes <= 0 || asset.bytes > budget.maxFileBytes) throw new Error('GLB byte count missing or above budget');
   validateTransform(asset);
   const bytes = await fetchBoundedAsset(asset.url, { maxBytes: budget.maxFileBytes, expectedBytes: asset.bytes, signal, onProgress });
+  await verifyWorldAssetChecksum(bytes, asset.sha256);
   const metadata = inspectGlb(bytes, budget);
   const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
   signal?.throwIfAborted();
@@ -106,4 +115,20 @@ export async function loadWorldAsset(asset, { scene, renderer, signal, onProgres
     const actor = new AnimatedWorldAsset(gltf, asset); scene?.add(actor.root); return actor;
   } catch (error) { if (gltf?.scene) disposeScene(gltf.scene); throw error; }
   finally { decoders.forEach(value => value.dispose()); }
+}
+
+/** Independent bones/mixer; immutable mesh resources stay owned by the source actor. */
+export async function cloneWorldAsset(source,asset){
+  const {clone}=await import('three/addons/utils/SkeletonUtils.js');
+  const result=new AnimatedWorldAsset({scene:clone(source.model),animations:source.clips},asset);result.sharedResources=true;
+  if(asset.guideLightLoad){
+    result.ownedGeometries=[];
+    result.model.traverse(o=>{if(!o.isMesh)return;o.geometry=o.geometry.clone();result.ownedGeometries.push(o.geometry);const p=o.geometry.attributes.position;
+      // Guide carries a folded load behind the seat. Player's original pack is unchanged.
+      // glTF +X forward / +Y up, before the 1.85m instance scale.
+      for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i);if(x<.30&&y>1.29){let t=Math.max(0,Math.min(1,(.30-x)/.15));t=t*t*(3-2*t);p.setY(i,y-t*(y-1.29)*.94);}}
+      p.needsUpdate=true;o.geometry.computeVertexNormals();o.geometry.computeBoundingBox();o.geometry.computeBoundingSphere();
+    });
+  }
+  return result;
 }

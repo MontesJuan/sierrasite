@@ -1,9 +1,9 @@
 /** Pure expedition rules. Distances and lateral offsets are game units, not metres. */
 export const EXPEDITION_RULES = Object.freeze({
-  keyDistance: 35,
+  keyDistance: 18,
   keyLateral: 4,
   keyReach: 3,
-  gateDistance: 72,
+  gateDistance: 38,
   gateReach: 5,
   gateClearance: 2,
   gateOpeningSeconds: 1.2,

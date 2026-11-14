@@ -21,8 +21,41 @@ test('una partida nueva empieza desbloqueando sólo el primer capítulo y no com
   assert.deepEqual(first.completed, []);
   first.completed.push(0);
   first.photos.push(0);
+  first.finds[0] = 3;
   assert.deepEqual(second.completed, []);
   assert.deepEqual(second.photos, []);
+  assert.deepEqual(second.finds, [0, 0, 0, 0, 0, 0]);
+  assert.equal(second.speedMultiplier, 1);
+});
+
+test('guardados anteriores recuperan velocidad normal y seis contadores vacíos', () => {
+  const restored = readSave(stored({ version: 1, chapter: 1, completed: [0], photos: [0] }));
+  assert.equal(restored.speedMultiplier, 1);
+  assert.deepEqual(restored.finds, [0, 0, 0, 0, 0, 0]);
+  assert.deepEqual(restored.completed, [0]);
+});
+
+test('sólo acepta velocidad normal o doble y seis contadores enteros entre cero y tres', () => {
+  for (const speedMultiplier of [undefined, null, '2', 0, -1, 1.5, 3, Infinity]) {
+    assert.equal(readSave(stored({ ...freshSave(), speedMultiplier })).speedMultiplier, 1);
+  }
+  const restored = readSave(stored({ ...freshSave(), speedMultiplier: 2, finds: [3, 1, 99, -4, 1.5, '2', 3] }));
+  assert.equal(restored.speedMultiplier, 2);
+  assert.deepEqual(restored.finds, [3, 1, 3, 0, 0, 0]);
+  assert.deepEqual(readSave(stored({ ...freshSave(), finds: [2] })).finds, [2, 0, 0, 0, 0, 0]);
+  for (const finds of [null, '123123', { 0: 3, 1: 2 }, true]) {
+    assert.deepEqual(readSave(stored({ ...freshSave(), finds })).finds, [0, 0, 0, 0, 0, 0]);
+  }
+});
+
+test('velocidad y hallazgos sobreviven guardado y avance de capítulo sin perder logros', () => {
+  const storage = memoryStorage();
+  const original = { ...freshSave(), speedMultiplier: 2, finds: [3, 0, 0, 0, 0, 0] };
+  const completed = completeChapter(original, 0);
+  assert.equal(writeSave(storage, completed), true);
+  assert.deepEqual(readSave(storage), completed);
+  assert.deepEqual(original.completed, []);
+  assert.deepEqual(original.finds, [3, 0, 0, 0, 0, 0]);
 });
 
 test('JSON corrupto, ausencia de partida y versiones incompatibles permiten volver a empezar', () => {

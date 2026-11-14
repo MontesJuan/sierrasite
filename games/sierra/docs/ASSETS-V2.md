@@ -1,5 +1,7 @@
 # SIERRA v2 — procedencia y límites de los recursos visuales
 
+Documento histórico de preparación de v2. Las sustituciones de personajes y animal del candidato siguiente se describen en [ASSETS-V3.md](ASSETS-V3.md); los pendientes y medidas de esta nota corresponden a su fecha original.
+
 Estado documental al 13 de noviembre de 2026: recursos preparados e integración en validación. Este documento no acredita despliegue de v2 ni reemplaza la QA del juego. La primera versión publicada tiene su propio registro de entrega.
 
 ## Qué representa cada recurso

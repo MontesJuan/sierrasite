@@ -5,15 +5,24 @@ import {
   interactExpedition, advanceExpedition, gateOpenness, constrainExpeditionMovement,
   retryExpedition, startEpilogue,
 } from '../src/expedition.js';
+import { ROUTE_LENGTH } from '../src/trail-physics.js';
 
-const keyPosition = { distance: 35, lateral: -4 };
-const gatePosition = { distance: 70, lateral: 0 };
+const keyPosition = { distance: 18, lateral: -4 };
+const gatePosition = { distance: 36, lateral: 0 };
 const withKey = () => interactExpedition(createExpedition(), keyPosition).state;
+
+test('la ruta corta conserva la llave antes del candado y ambos antes de la cornisa', () => {
+  assert.equal(ROUTE_LENGTH, 96);
+  assert.equal(EXPEDITION_RULES.keyDistance, 18);
+  assert.equal(EXPEDITION_RULES.gateDistance, 38);
+  assert.ok(EXPEDITION_RULES.keyDistance + EXPEDITION_RULES.keyReach < EXPEDITION_RULES.gateDistance - EXPEDITION_RULES.gateReach);
+  assert.ok(EXPEDITION_RULES.gateDistance + EXPEDITION_RULES.gateClearance < 44);
+});
 
 test('la llave exige acercarse fuera del centro del sendero y no se recoge a distancia', () => {
   const state = Object.freeze(createExpedition());
-  for (const position of [{ distance: 0, lateral: -4 }, { distance: 35, lateral: 0 },
-    { distance: 35, lateral: 4 }, { distance: NaN, lateral: -4 }, {}]) {
+  for (const position of [{ distance: 0, lateral: -4 }, { distance: 18, lateral: 0 },
+    { distance: 18, lateral: 4 }, { distance: NaN, lateral: -4 }, {}]) {
     assert.equal(interactionAt(state, position), null);
     assert.deepEqual(interactExpedition(state, position), { state, event: 'out-of-range', target: null });
   }
@@ -31,18 +40,18 @@ test('la tranquera con candado informa qué falta y bloquea el paso completo', (
   assert.equal(result.event, 'key-required');
   assert.strictEqual(result.state, state);
   assert.equal(interactionAt(state, gatePosition).enabled, false);
-  for (const requested of [71, 72, 73, 180, 10000]) {
-    assert.equal(constrainExpeditionMovement(state, 69, requested), 70);
+  for (const requested of [37, 38, 39, 96, 10000]) {
+    assert.equal(constrainExpeditionMovement(state, 35, requested), 36);
   }
-  assert.equal(constrainExpeditionMovement(state, 0, 180), 70, 'un salto desde el inicio no atraviesa el candado');
-  assert.equal(constrainExpeditionMovement(state, 70, 60), 60, 'se puede retroceder a buscar la llave');
-  assert.equal(constrainExpeditionMovement(state, 90, 30), 74, 'también bloquea un cruce en sentido inverso');
+  assert.equal(constrainExpeditionMovement(state, 0, 96), 36, 'un salto desde el inicio no atraviesa el candado');
+  assert.equal(constrainExpeditionMovement(state, 36, 26), 26, 'se puede retroceder a buscar la llave');
+  assert.equal(constrainExpeditionMovement(state, 60, 10), 40, 'también bloquea un cruce en sentido inverso');
 });
 
 test('tener la llave no abre a distancia y requiere una interacción junto al candado', () => {
   const state = Object.freeze(withKey());
-  assert.equal(constrainExpeditionMovement(state, 69, 80), 70);
-  for (const position of [keyPosition, { distance: 70, lateral: 7 }, { distance: 60, lateral: 0 }]) {
+  assert.equal(constrainExpeditionMovement(state, 35, 46), 36);
+  for (const position of [keyPosition, { distance: 36, lateral: 7 }, { distance: 26, lateral: 0 }]) {
     const result = interactExpedition(state, position);
     assert.equal(result.event, 'out-of-range');
     assert.strictEqual(result.state, state);
@@ -61,13 +70,13 @@ test('la animación abre de forma gradual y mantiene la colisión hasta terminar
   assert.equal(quarter.gateProgress, 0.25);
   assert.equal(gateOpenness(quarter), 0.15625);
   assert.equal(gateOpenness(half), 0.5);
-  assert.equal(constrainExpeditionMovement(half, 70, 80), 70);
+  assert.equal(constrainExpeditionMovement(half, 36, 46), 36);
   assert.equal(interactExpedition(half, gatePosition).event, 'gate-busy');
   const open = advanceExpedition(half, 5);
   assert.equal(open.gateProgress, 1);
   assert.equal(open.gateOpening, false);
   assert.equal(gateOpenness(open), 1);
-  assert.equal(constrainExpeditionMovement(open, 70, 180), 180);
+  assert.equal(constrainExpeditionMovement(open, 36, 96), 96);
   const repeated = interactExpedition(open, gatePosition);
   assert.equal(repeated.event, 'gate-already-open');
   assert.strictEqual(repeated.state, open);
@@ -101,14 +110,14 @@ test('el candado sólo se repite en capítulo cero salvo configuración expresa'
       const state = createExpedition({ chapter, era });
       assert.equal(state.enabled, false);
       assert.equal(interactionAt(state, gatePosition), null);
-      assert.equal(constrainExpeditionMovement(state, 0, 180), 180);
+      assert.equal(constrainExpeditionMovement(state, 0, 96), 96);
       assert.equal(retryExpedition(state).enabled, false);
     }
     assert.equal(createExpedition({ era }).enabled, true);
   }
   const configured = createExpedition({ chapter: 1, enabled: true });
-  assert.deepEqual(expeditionPositions(configured).key, { distance: 35, lateral: 4 });
-  assert.equal(interactExpedition(configured, { distance: 35, lateral: 4 }).event, 'key-found');
+  assert.deepEqual(expeditionPositions(configured).key, { distance: 18, lateral: 4 });
+  assert.equal(interactExpedition(configured, { distance: 18, lateral: 4 }).event, 'key-found');
 });
 
 test('el epílogo requiere seis capítulos, cambia a camioneta y conserva el recorrido', () => {

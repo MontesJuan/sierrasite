@@ -13,12 +13,13 @@
     "provenance": {
       "kind": "authored",
       "tool": "Blender 5.2.1",
-      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+      "description": "Modelo art\u00edstico con rig y animaciones; no es un escaneo documental."
     }
   },
   "mule": {
     "file": "mule.glb",
-    "bytes": 1607216,
+    "bytes": 15424336,
+    "sha256": "f517136e78f97668ea1f85c142c4443139e203d557d42e0e1b83dad1345ea426",
     "animations": {
       "walk": "Walk",
       "idle": "Idle"
@@ -27,10 +28,27 @@
       "Walk",
       "Idle"
     ],
+    "geometry": {
+      "triangles": 85000,
+      "skins": 1,
+      "animationClips": [
+        "Walk",
+        "Idle"
+      ]
+    },
+    "motion": {
+      "walkSpeedMps": 0.9734840698869476,
+      "cycleSeconds": 1,
+      "sourceCycleDistanceMeters": 1
+    },
     "provenance": {
-      "kind": "authored",
+      "kind": "ai-generated-adapted",
       "tool": "Blender 5.2.1",
-      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+      "description": "DONKEY 13, generado con IA por amoreno; optimizaci\u00f3n, rig y animaci\u00f3n para SIERRA. Recreaci\u00f3n art\u00edstica, no escaneo documental."
+    },
+    "attribution": {
+      "id": "donkey-13",
+      "changes": "Optimizaci\u00f3n de geometr\u00eda, rig y animaci\u00f3n para SIERRA."
     }
   },
   "goat": {
@@ -47,7 +65,7 @@
     "provenance": {
       "kind": "authored",
       "tool": "Blender 5.2.1",
-      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+      "description": "Modelo art\u00edstico con rig y animaciones; no es un escaneo documental."
     }
   },
   "truck": {
@@ -63,7 +81,7 @@
     "provenance": {
       "kind": "authored",
       "tool": "Blender 5.2.1",
-      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+      "description": "Modelo art\u00edstico con rig y animaciones; no es un escaneo documental."
     }
   },
   "chicken": {
@@ -82,7 +100,173 @@
     "provenance": {
       "kind": "authored",
       "tool": "Blender 5.2.1",
-      "description": "Modelo artístico con rig y animaciones; no es un escaneo documental."
+      "description": "Modelo art\u00edstico con rig y animaciones; no es un escaneo documental."
+    }
+  },
+  "reyes": {
+    "kind": "human",
+    "available": true,
+    "approved": true,
+    "file": "reyes.glb",
+    "bytes": 5362324,
+    "sha256": "f61430a2f32fbded28b3a1991e942fad677931973ce864835bb71007986c9b2a",
+    "heightMeters": 1.65,
+    "rotationY": 0,
+    "animations": {
+      "idle": "Idle",
+      "talk": "Talk",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Talk",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 115680,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Talk",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "single-image-inference",
+      "tool": "Local TripoSR body and dedicated head; reference projection UV 2K; Blender 20-joint rig; lossless geometry Meshopt",
+      "description": "Adaptaci\u00f3n tridimensional inferida desde una referencia basada en el archivo; no es un escaneo de la persona."
+    }
+  },
+  "rosalia": {
+    "kind": "human",
+    "available": true,
+    "approved": true,
+    "file": "rosalia.glb",
+    "bytes": 5078704,
+    "sha256": "2c1aa31937f90a0465e7e46c4de0c9930437361e565de7ee596d5a0efceed91b",
+    "heightMeters": 1.55,
+    "rotationY": 0,
+    "animations": {
+      "idle": "Idle",
+      "talk": "Talk",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Talk",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 107012,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Talk",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "single-image-inference",
+      "tool": "Local TripoSR body and dedicated head; reference projection UV 2K; Blender 20-joint rig; lossless geometry Meshopt",
+      "description": "Adaptaci\u00f3n tridimensional inferida desde una referencia basada en el archivo; no es un escaneo de la persona."
+    }
+  },
+  "margarita": {
+    "kind": "human",
+    "available": true,
+    "approved": true,
+    "file": "margarita.glb",
+    "bytes": 4524936,
+    "sha256": "8e4acb66a7dbc6131418f1316edfd175a9d406862152621bc2f80dc3e5f8b39d",
+    "heightMeters": 1.6,
+    "rotationY": 0,
+    "animations": {
+      "idle": "Idle",
+      "talk": "Talk",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Talk",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 89528,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Talk",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "single-image-inference",
+      "tool": "Local TripoSR body and dedicated head; reference projection UV 2K; Blender 20-joint rig; lossless geometry Meshopt",
+      "description": "Adaptaci\u00f3n tridimensional inferida desde una referencia basada en el archivo; no es un escaneo de la persona."
+    }
+  },
+  "monica": {
+    "kind": "human",
+    "available": true,
+    "approved": true,
+    "file": "monica.glb",
+    "bytes": 4401308,
+    "sha256": "a9fe8aaf4594f2a7d4066dde06aca2faf09b12aac17b4990a541de4502139dd1",
+    "heightMeters": 1.62,
+    "rotationY": 0,
+    "animations": {
+      "idle": "Idle",
+      "talk": "Talk",
+      "walk": "Walk"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Talk",
+      "Walk"
+    ],
+    "geometry": {
+      "triangles": 88548,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Talk",
+        "Walk"
+      ]
+    },
+    "provenance": {
+      "kind": "single-image-inference",
+      "tool": "Local TripoSR body and dedicated head; reference projection UV 2K; Blender 20-joint rig; lossless geometry Meshopt",
+      "description": "Adaptaci\u00f3n tridimensional inferida desde una referencia basada en el archivo; no es un escaneo de la persona."
+    }
+  },
+  "ruly": {
+    "kind": "human",
+    "available": true,
+    "approved": true,
+    "file": "ruly.glb",
+    "bytes": 4503492,
+    "sha256": "de6a9d01b31d70f70b6e2c8a3f3b478199b9d766dd91582d6023f0f5d59c5a4b",
+    "heightMeters": 1.72,
+    "animations": {
+      "idle": "Idle",
+      "ride": "Ride"
+    },
+    "requiredAnimations": [
+      "Idle",
+      "Ride"
+    ],
+    "geometry": {
+      "triangles": 93332,
+      "skins": 1,
+      "animationClips": [
+        "Idle",
+        "Ride"
+      ]
+    },
+    "provenance": {
+      "kind": "single-image-inference",
+      "tool": "Local TripoSR body and dedicated head; reference projection 2K; Blender mounted 20-joint rig",
+      "description": "Recreaci\u00f3n basada en fotograf\u00edas identificadas de Ruly Ch\u00e1vez; no es un escaneo. Su presencia continua como gu\u00eda es una adaptaci\u00f3n l\u00fadica."
     }
   }
 }
