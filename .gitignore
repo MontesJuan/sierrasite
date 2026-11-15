@@ -8,3 +8,7 @@ games/sierra/dist/
 public/jugar/
 public/assets/galeria_web/stills/_originals/
 __pycache__/
+
+.env*
+!.env.example
+.impeccable/review/

@@ -1,117 +1,262 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T10:18:44.670595+00:00",
+  "generatedAt": "2026-11-15T08:41:59.883696+00:00",
   "title": "Design System: SIERRA",
   "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Piedra",
+        "tonalRamp": [
+          "oklch(15.00% 0.00561 117.95)",
+          "oklch(26.43% 0.00561 117.95)",
+          "oklch(37.86% 0.00561 117.95)",
+          "oklch(49.29% 0.00561 117.95)",
+          "oklch(60.71% 0.00561 117.95)",
+          "oklch(72.14% 0.00561 117.95)",
+          "oklch(83.57% 0.00561 117.95)",
+          "oklch(95.00% 0.00561 117.95)"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Tinta",
+        "tonalRamp": [
+          "oklch(15.00% 0.00552 51.81)",
+          "oklch(26.43% 0.00552 51.81)",
+          "oklch(37.86% 0.00552 51.81)",
+          "oklch(49.29% 0.00552 51.81)",
+          "oklch(60.71% 0.00552 51.81)",
+          "oklch(72.14% 0.00552 51.81)",
+          "oklch(83.57% 0.00552 51.81)",
+          "oklch(95.00% 0.00552 51.81)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "tonalRamp": [
+          "oklch(15.00% 0.00598 117.99)",
+          "oklch(26.43% 0.00598 117.99)",
+          "oklch(37.86% 0.00598 117.99)",
+          "oklch(49.29% 0.00598 117.99)",
+          "oklch(60.71% 0.00598 117.99)",
+          "oklch(72.14% 0.00598 117.99)",
+          "oklch(83.57% 0.00598 117.99)",
+          "oklch(95.00% 0.00598 117.99)"
+        ]
+      },
+      "photo-ground": {
+        "role": "neutral",
+        "displayName": "Fondo de producto",
+        "tonalRamp": [
+          "oklch(15.00% 0.01241 96.44)",
+          "oklch(26.43% 0.01241 96.44)",
+          "oklch(37.86% 0.01241 96.44)",
+          "oklch(49.29% 0.01241 96.44)",
+          "oklch(60.71% 0.01241 96.44)",
+          "oklch(72.14% 0.01241 96.44)",
+          "oklch(83.57% 0.01241 96.44)",
+          "oklch(95.00% 0.01241 96.44)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "SIERRA principal",
+        "purpose": "Titulares de páginas; la marca conserva su archivo original."
+      },
+      "headline": {
+        "displayName": "SIERRA de sección",
+        "purpose": "Títulos fluidos de la película y la tienda."
+      },
+      "title": {
+        "displayName": "SIERRA de detalle",
+        "purpose": "Nombres y subtítulos; códigos operativos usan la letra de lectura."
+      },
+      "hand": {
+        "displayName": "La mano de Reyes",
+        "purpose": "Intervenciones puntuales de escritura original."
+      },
+      "school-hand": {
+        "displayName": "La mano de la escuela",
+        "purpose": "Frase manuscrita de la portada."
+      },
+      "body": {
+        "displayName": "Lectura única",
+        "purpose": "Párrafos y datos; American Typewriter del sistema con Courier New de respaldo."
+      },
+      "control": {
+        "displayName": "Acciones",
+        "purpose": "Botones y controles con la misma familia de lectura."
+      },
+      "label": {
+        "displayName": "Etiquetas",
+        "purpose": "Campos, estado y datos auxiliares."
+      }
+    },
     "shadows": [
       {
-        "name": "assistant-modal",
+        "name": "assistant-dialog",
         "value": "0 16px 60px #0003",
-        "purpose": "Separación ambiental del diálogo de consulta."
+        "purpose": "Sombra ambiental del diálogo existente; no se usa en compra o gestión."
       }
     ],
     "motion": [
       {
-        "name": "button-state",
+        "name": "control-inversion",
         "value": "background 0.2s, color 0.2s",
-        "purpose": "Cambio de estado de botones editoriales; desactivado con movimiento reducido."
+        "purpose": "Inversión de tinta y piedra al pasar el puntero."
+      },
+      {
+        "name": "ink-settle",
+        "value": ".35s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Ajuste breve de contraste de la imagen de producto, de .92 a 1."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce)",
+        "purpose": "Sin animaciones, transiciones ni desplazamiento suave."
       }
     ],
     "breakpoints": [
       {
-        "name": "compact",
+        "name": "cart-compact",
+        "value": "1050px"
+      },
+      {
+        "name": "editorial-compact",
         "value": "900px"
       },
       {
-        "name": "mobile",
-        "value": "600px"
+        "name": "store-stack",
+        "value": "760px"
       },
       {
-        "name": "wide",
-        "value": "1800px"
+        "name": "navigation-menu",
+        "value": "600px"
       }
     ]
   },
   "components": [
     {
-      "name": "Botón editorial",
+      "name": "Botón principal",
       "kind": "button",
-      "html": "<button class=\"ds-button\">Material de prensa</button>",
-      "css": ".ds-button { color:var(--ink); background:transparent; border:1px solid var(--ink); padding:13px 24px; min-height:48px; font:13px var(--sans); border-radius:0; cursor:pointer; transition:background .2s,color .2s; } .ds-button:hover { background:var(--ink); color:var(--paper); } .ds-button:focus-visible { outline:3px solid var(--clay); outline-offset:5px; }",
-      "refersTo": "button"
+      "refersTo": "button-primary",
+      "description": "Acción principal de compra o gestión; tinta que se invierte a piedra.",
+      "html": "<button class=\"ds-button-primary\">Continuar y cotizar envío <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button-primary{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:48px;padding:13px 24px;font-size:13px;line-height:1.7;border:1px solid var(--ink,#080605);border-radius:0;background:var(--ink,#080605);color:var(--paper,#C4C5C1);cursor:pointer;text-decoration:none;transition:background .2s,color .2s}.ds-button-primary:hover{background:var(--paper,#C4C5C1);color:var(--ink,#080605);text-decoration:none}.ds-button-primary:focus-visible{outline:2px solid currentColor;outline-offset:4px}.ds-button-primary:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}}"
     },
     {
-      "name": "Botón sobre afiche",
+      "name": "Botón delineado",
       "kind": "button",
-      "html": "<button class=\"ds-light\">Ver tráiler</button>",
-      "css": ".ds-light { color:#fff9ea; background:rgba(28,30,22,.18); border:1px solid #f8edda; padding:13px 24px; min-height:48px; font:13px var(--sans); border-radius:0; cursor:pointer; transition:background .2s,color .2s; } .ds-light:hover { background:var(--paper); color:var(--ink); } .ds-light:focus-visible { outline:3px solid var(--clay); outline-offset:5px; }"
+      "refersTo": "button-outline",
+      "description": "Acción secundaria explícita, como conservar el enlace del pedido.",
+      "html": "<button class=\"ds-button-outline\">Copiar enlace del pedido</button>",
+      "css": ".ds-button-outline{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:48px;padding:13px 24px;font-size:13px;line-height:1.7;border:1px solid var(--ink,#080605);border-radius:0;background:transparent;color:var(--ink,#080605);cursor:pointer;text-decoration:none;transition:background .2s,color .2s}.ds-button-outline:hover{background:var(--ink,#080605);color:var(--paper,#C4C5C1);text-decoration:none}.ds-button-outline:focus-visible{outline:2px solid currentColor;outline-offset:4px}.ds-button-outline:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-button-outline{transition:none}}"
     },
     {
-      "name": "Acceso al asistente",
+      "name": "Botón sobre tinta",
       "kind": "button",
-      "html": "<button class=\"ds-assistant\">Conversar <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 18 18 6M6 6h12v12\"/></svg></button>",
-      "css": ".ds-assistant { display:flex; align-items:center; gap:10px; color:var(--ink); background:transparent; border:1px solid var(--line); box-shadow:none; padding:9px 14px; min-height:44px; font:11px var(--sans); border-radius:0; white-space:nowrap; cursor:pointer; } .ds-assistant:focus-visible { outline:3px solid var(--clay); outline-offset:5px; }",
-      "refersTo": "assistant-entry"
+      "refersTo": "button-on-ink",
+      "description": "Acción clara dentro de una banda oscura del sitio.",
+      "html": "<div class=\"ds-ink-surface\"><a class=\"ds-button-on-ink\" href=\"#trailer\">Ver el tráiler <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a></div>",
+      "css": ".ds-ink-surface{background:var(--ink,#080605);padding:24px}.ds-button-on-ink{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:48px;padding:13px 24px;font-size:13px;line-height:1.7;border:1px solid var(--paper,#C4C5C1);border-radius:0;background:transparent;color:var(--paper,#C4C5C1);cursor:pointer;text-decoration:none;transition:background .2s,color .2s}.ds-button-on-ink:hover{background:var(--paper,#C4C5C1);color:var(--ink,#080605);text-decoration:none}.ds-button-on-ink:focus-visible{outline:2px solid currentColor;outline-offset:4px}.ds-button-on-ink:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-button-on-ink{transition:none}}"
     },
     {
-      "name": "Consulta",
-      "kind": "input",
-      "html": "<input class=\"ds-input\" aria-label=\"Tu consulta\" placeholder=\"Preguntá sobre la película…\">",
-      "css": ".ds-input { width:100%; min-width:0; background:transparent; color:var(--ink); border:0; border-bottom:1px solid var(--olive); padding:10px; font:13px var(--sans); border-radius:0; } .ds-input:focus-visible { outline:3px solid var(--clay); outline-offset:5px; }"
-    },
-    {
-      "name": "Navegación",
-      "kind": "nav",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Navegación\"><a href=\"#pelicula\" aria-current=\"page\">La película</a><a href=\"#imagenes\">Imágenes</a><a href=\"#prensa\">Prensa</a></nav>",
-      "css": ".ds-nav { display:flex; gap:36px; align-items:center; color:var(--ink); font:12px var(--sans); } .ds-nav a { color:inherit; text-decoration:none; padding:12px 0; } .ds-nav a:hover { text-decoration:underline; text-underline-offset:5px; } .ds-nav a[aria-current] { text-decoration:underline; text-underline-offset:6px; } .ds-nav a:focus-visible { outline:3px solid var(--clay); outline-offset:5px; }"
-    },
-    {
-      "name": "Sugerencia de consulta",
+      "name": "Opciones de diseño",
       "kind": "chip",
-      "html": "<button class=\"ds-option\">Dossier de prensa</button>",
-      "css": ".ds-option { background:transparent; color:var(--ink); border:1px solid var(--line); padding:8px 10px; min-height:40px; font:11px var(--sans); border-radius:0; cursor:pointer; } .ds-option:disabled { cursor:wait; opacity:.6; } .ds-option:focus-visible { outline:3px solid var(--clay); outline-offset:5px; }"
+      "refersTo": "choice",
+      "description": "Selección por contorno e inversión de tinta; aria-pressed comunica el estado.",
+      "html": "<div class=\"ds-choices\" role=\"group\" aria-label=\"Diseño\"><button aria-pressed=\"true\">Reyes y sus chivos</button><button aria-pressed=\"false\">El chivo</button></div>",
+      "css": ".ds-choices{display:flex;flex-wrap:wrap;gap:8px}.ds-choices button{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);font-size:15px;line-height:1.7;display:flex;align-items:center;gap:10px;min-height:48px;padding:11px 16px;background:transparent;color:var(--ink,#080605);border:1px solid var(--line,#8b8c88);border-radius:0;cursor:pointer}.ds-choices button[aria-pressed=\"true\"]{background:var(--ink,#080605);color:var(--paper,#C4C5C1);border-color:var(--ink,#080605)}.ds-choices button:focus-visible{outline:2px solid currentColor;outline-offset:4px}"
+    },
+    {
+      "name": "Campo de dirección",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Etiqueta visible y campo transparente; foco de tinta separado del contorno.",
+      "html": "<label class=\"ds-field\">Localidad<input name=\"city\" autocomplete=\"address-level2\" required /></label>",
+      "css": ".ds-field{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:grid;gap:7px;font-size:12px;min-width:0;color:var(--ink,#080605)}.ds-field input{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);width:100%;min-width:0;min-height:48px;background:transparent;border:1px solid var(--line,#8b8c88);color:var(--ink,#080605);padding:12px;font-size:14px;border-radius:0}.ds-field input:focus-visible{outline:2px solid var(--ink,#080605);outline-offset:3px}"
+    },
+    {
+      "name": "Navegación y carrito",
+      "kind": "nav",
+      "description": "Fragmento de navegación real con estado activo y contador de prendas; el logo original se conserva en la cabecera de la aplicación.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Navegación de la tienda\"><a class=\"ds-nav-cart\" href=\"/tienda/carrito\" aria-label=\"Carrito, 2 remeras\">Carrito <span>2</span></a><a href=\"/sinopsis\">La película</a><a href=\"/tienda\" aria-current=\"page\">Remeras</a><a href=\"/jugar\">Jugar</a></nav>",
+      "css": ".ds-nav{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:flex;align-items:center;flex-wrap:wrap;gap:18px;color:var(--ink,#080605);font-size:12px;background:var(--paper,#C4C5C1)}.ds-nav a{color:inherit;text-decoration:none;padding:12px 0}.ds-nav a:hover,.ds-nav a[aria-current]{text-decoration:underline;text-underline-offset:6px}.ds-nav a:focus-visible{outline:2px solid currentColor;outline-offset:4px}.ds-nav .ds-nav-cart{display:inline-flex;gap:8px;align-items:center;white-space:nowrap}.ds-nav-cart span{display:inline-flex;justify-content:center;align-items:center;min-width:24px;height:24px;border:1px solid var(--ink,#080605);font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Resumen del carrito",
+      "kind": "card",
+      "refersTo": "order-summary",
+      "description": "Panel plano que separa subtotal, envío y plazo de preparación antes del pago.",
+      "html": "<aside class=\"ds-summary\" aria-label=\"Resumen del carrito\"><h2>Tu resumen</h2><dl><div><dt>2 remeras</dt><dd>$ 140.000</dd></div><div><dt>Correo Argentino</dt><dd>A cotizar</dd></div></dl><div class=\"ds-summary-total\"><span>Subtotal</span><strong>$ 140.000</strong></div><p>El total final incluye el envío. Lo vas a ver antes de pagar.</p><p class=\"ds-summary-promise\">Hasta 7 días hábiles para preparar y despachar después del pago. El tiempo del correo se suma.</p></aside>",
+      "css": ".ds-summary{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);color:var(--ink,#080605);background:var(--paper,#C4C5C1);border:1px solid var(--ink,#080605);padding:28px}.ds-summary h2{font-family:var(--serif,\"SIERRA CF\",\"Courier New\",monospace);font-weight:300;line-height:1.02;font-size:2.4rem;margin:0 0 26px}.ds-summary dl{margin:0 0 22px}.ds-summary dl>div{display:flex;justify-content:space-between;gap:15px;font-size:13px;margin:12px 0}.ds-summary dd{margin:0;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.ds-summary-total{display:flex;justify-content:space-between;gap:15px;border-top:1px solid var(--ink,#080605);padding-top:20px;font-size:20px}.ds-summary-total strong{font-weight:400;white-space:nowrap}.ds-summary p{font-size:12px;line-height:1.6;margin:14px 0 25px}.ds-summary-promise{border-top:1px solid var(--line,#8b8c88);padding-top:20px}@media(max-width:1050px){.ds-summary{padding:20px}}"
+    },
+    {
+      "name": "Sello de estado",
+      "kind": "chip",
+      "refersTo": "status-stamp",
+      "description": "Etiqueta operativa en español, con borde de tinta y sin color semántico adicional.",
+      "html": "<span class=\"ds-status\">En preparación</span>",
+      "css": ".ds-status{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:inline-block;border:1px solid var(--ink,#080605);padding:9px 14px;font-size:12px;color:var(--ink,#080605);background:transparent;border-radius:0;flex-shrink:0}@media(max-width:760px){.ds-status{font-size:10px}}"
+    },
+    {
+      "name": "Enlace de texto",
+      "kind": "custom",
+      "description": "Navegación secundaria con filete y flecha SVG; el subrayado refuerza el hover.",
+      "html": "<a class=\"ds-text-link\" href=\"/tienda/carrito\">Ver mi carrito <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-text-link{font-family:var(--sans,\"American Typewriter\",\"Courier New\",monospace);display:inline-flex;align-items:center;gap:8px;color:var(--ink,#080605);font-size:12px;border-bottom:1px solid var(--ink,#080605);padding:8px 0;margin-top:20px;text-decoration:none}.ds-text-link:hover{text-decoration:underline;text-underline-offset:5px}.ds-text-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}"
     }
   ],
   "narrative": {
-    "northStar": "Un afiche cinematográfico que se abre en un cuaderno de campo",
-    "overview": "Cine clásico, tierra pastel, calidez orgánica e identidad serrana. La dirección visual acordada por Juan sigue siendo la autoridad: portada blend apaisada, título y dibujos originales, fotografía documental y amplios silencios. Esta actualización reconcilia la dirección anterior con el código construido; no propone otra identidad ni requiere un torneo de conceptos.\n\nEl interior combina papel cálido, columnas asimétricas y una voz editorial serif. La imagen recibe espacio propio; los controles tienen una función concreta y la conversación ocupa un acceso reservado en la cabecera.",
+    "northStar": "La película y sus dibujos en el centro; tinta, grabado y cuaderno",
+    "overview": "El manual v03 aplicado al sitio fija un mundo de piedra, tinta y letras propias. La imagen documental y los dibujos originales llevan el carácter de SIERRA; la interfaz toma la austeridad del cuaderno, la impresión y el afiche de cine. El resultado es crudo, rústico, abierto y legible, con amplios espacios entre la imagen, la lectura y la acción.\n\nSIERRA CF construye los titulares. Don Reyes y Alumnos de Sierra aportan voces originales en intervenciones puntuales; American Typewriter sostiene toda la lectura y los controles, con Courier New de respaldo. La tienda prolonga este mundo dentro del sitio de la película. La dirección es autoral y está implementada: no es una exploración de identidad ni un nuevo diseño para el juego existente.",
     "keyCharacteristics": [
-      "Afiche 16:9 y marcas originales recuperadas.",
-      "Papel tierra, tinta cálida, oliva y detalles de arcilla.",
-      "Cormorant Garamond editorial y Manrope funcional.",
-      "Fotografías completas por defecto y dibujos originales integrados al papel.",
-      "Composición abierta, filetes finos y controles rectangulares."
+      "Piedra y Tinta como fondo, lectura e inversión de estados.",
+      "Letras originales de la película y una sola familia de lectura.",
+      "Fotogramas e imágenes completos, con texto fuera de las personas.",
+      "Dibujos originales y visualizaciones de producto con procedencia conservada.",
+      "Esquinas rectas, filetes, columnas abiertas y controles sin sombra."
     ],
     "rules": [
       {
-        "name": "The Paper Rule",
-        "body": "El papel es el fondo continuo del interior; las fotografías y los dibujos aportan la textura visual, sin añadir texturas generadas.",
+        "name": "The Stone and Ink Rule",
+        "body": "Las acciones y sus estados se distinguen con tinta, piedra, contorno y texto; no necesitan un color de marca adicional.",
         "section": "colors"
       },
       {
-        "name": "The Original Title Rule",
-        "body": "El título SIERRA se reproduce desde su archivo original; Cormorant acompaña la película sin sustituir su marca.",
+        "name": "The One Reading Voice Rule",
+        "body": "American Typewriter es la única letra de lectura y controles; Courier New es su respaldo. Las letras originales se reservan para su función expresiva.",
         "section": "typography"
       },
       {
         "name": "The Complete Frame Rule",
-        "body": "La fotografía documental conserva su encuadre por defecto. Todo recorte nuevo requiere una decisión editorial cuidadosa, no una cuadrícula uniforme.",
+        "body": "Los personajes conservan el encuadre completo y el texto ocupa su propio espacio. La composición se adapta a la imagen.",
         "section": "layout"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Las superficies de compra y gestión permanecen planas; la jerarquía se construye con espacio, filetes e inversión de tinta y piedra.",
+        "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** conservar logos, título e ilustraciones originales recuperados.",
-      "**Do** preservar la portada apaisada y los encuadres fotográficos por defecto.",
-      "**Do** mantener papel cálido, serif editorial y sans funcional.",
-      "**Do** reservar espacio de navegación y conversación antes de superponer controles.",
-      "**Do** conservar foco visible, etiquetas accesibles y movimiento reducido."
+      "**Do** usar los logos y dibujos originales recuperados, manteniendo su procedencia.",
+      "**Do** conservar imágenes completas y separar la lectura de las personas fotografiadas.",
+      "**Do** mantener Piedra y Tinta, letras originales y una única familia de lectura.",
+      "**Do** ofrecer estados seleccionados, foco visible, mensajes y etiquetas comprensibles.",
+      "**Do** conservar el orden móvil de artículos, resumen y dirección; mostrar los plazos antes del pago.",
+      "**Do** escribir las citas con comillas dobles y las cantidades monetarias con formato argentino."
     ],
     "donts": [
-      "**Don't** generar sustitutos o reinterpretaciones de las marcas e ilustraciones originales.",
-      "**Don't** introducir tarjetas de producto, métricas inventadas o filas decorativas de antetítulos.",
-      "**Don't** convertir los retratos en recortes uniformes ni el afiche móvil en vertical.",
-      "**Don't** recuperar el botón flotante del asistente o los iconos hechos con caracteres.",
-      "**Don't** interpretar este registro o el cierre de cuatro hallazgos como autorización de producción."
+      "**Don't** generar sustitutos o reinterpretaciones de la marca ni de las ilustraciones originales.",
+      "**Don't** reintroducir Cochin, Baskerville, Cormorant Garamond o Manrope en la implementación activa.",
+      "**Don't** recortar personajes, poner texto encima de ellos ni convertir la imagen documental en un recorte uniforme.",
+      "**Don't** trasladar colores heredados, sombras de diálogos o estilos anulados a nuevos controles de la tienda.",
+      "**Don't** usar comillas angulares ni reemplazar las flechas de navegación por glifos tipográficos.",
+      "**Don't** confundir las visualizaciones de producto, las capturas de QA o este registro con aprobación editorial o evidencia de producción."
     ]
   }
 }

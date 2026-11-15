@@ -1,0 +1,10 @@
+{
+  "url": "https://sierradoc.site/tienda",
+  "liveCart": true,
+  "persistence": true,
+  "quantities": true,
+  "removeUndo": true,
+  "errors": [],
+  "submittedOrder": false,
+  "paid": false
+}

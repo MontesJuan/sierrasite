@@ -11,3 +11,7 @@ scripts/*
 !scripts/sync-game.mjs
 content
 *.md
+
+docs
+.impeccable
+tests

@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "plazo visible antes de pagar, centavos en dos dígitos",
+    "panel en español y sin overflow móvil",
+    "asistente preservado en menú móvil"
+  ],
+  "errors": [],
+  "dimensions": {
+    "width": 390,
+    "scroll": 390
+  },
+  "environment": "Next production build, PostgreSQL LOCAL, Mercado Pago disabled"
+}

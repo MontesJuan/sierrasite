@@ -47,8 +47,8 @@ export default function ChatBot() {
         {
           role: "assistant",
           text: en
-            ? "The assistant is unavailable. Try again or write to mulanimavisual@gmail.com."
-            : "El asistente no está disponible. Volvé a intentar o escribí a mulanimavisual@gmail.com.",
+            ? "The assistant is unavailable. Try again or write to montesjuanfrancisco@gmail.com."
+            : "El asistente no está disponible. Volvé a intentar o escribí a montesjuanfrancisco@gmail.com.",
         },
       ]);
     } finally {

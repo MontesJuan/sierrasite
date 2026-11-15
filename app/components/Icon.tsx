@@ -1,5 +1,7 @@
-type Name = "arrow" | "play" | "close" | "plus" | "minus" | "send" | "download";
+type Name = "arrowLeft" | "arrowRight" | "arrow" | "play" | "close" | "plus" | "minus" | "send" | "download";
 const paths: Record<Name, string> = {
+  arrowLeft: "M19 12H5m6-6-6 6 6 6",
+  arrowRight: "M5 12h14m-6-6 6 6-6 6",
   arrow: "M6 18 18 6M6 6h12v12",
   play: "m8 5 11 7-11 7V5Z",
   close: "m6 6 12 12M6 18 18 6",

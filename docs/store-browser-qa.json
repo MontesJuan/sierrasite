@@ -1,0 +1,40 @@
+{
+  "checks": [
+    "carrito persistente, cantidades y quitar/deshacer",
+    "pedido real persistido en PostgreSQL LOCAL",
+    "cotización admin y total visible al comprador sin redondear centavos",
+    "administración sin sesión y origen ajeno rechazados",
+    "seguimiento público no expone dirección ni correo",
+    "arrepentimiento sin registro con código inmediato"
+  ],
+  "pages": [
+    {
+      "route": "/tienda",
+      "viewport": "desktop",
+      "overflow": false,
+      "errors": [],
+      "missing": []
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "overflow": false,
+      "errors": [],
+      "missing": []
+    },
+    {
+      "route": "/tienda",
+      "viewport": "mobile",
+      "overflow": false,
+      "errors": [],
+      "missing": []
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "overflow": false,
+      "errors": [],
+      "missing": []
+    }
+  ]
+}

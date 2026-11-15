@@ -1,0 +1,12 @@
+{
+  "deployment": "https://sierra-abrjvp81a-janaas-projects-47034055.vercel.app",
+  "publicRoutes": 200,
+  "unauthenticatedAdmin": 401,
+  "invalidPrivateOrder": 404,
+  "invalidWebhook": 401,
+  "foreignOrigin": 400,
+  "adminAuthenticated": true,
+  "paymentReady": true,
+  "orders": 0,
+  "realPurchaseTested": false
+}

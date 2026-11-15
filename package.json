@@ -10,17 +10,17 @@
     "start": "next start",
     "kb:clean": "rm -f public/kb/kb.json",
     "kb:build": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/build-kb.mjs",
-    "kb:test": "node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync('public/kb/kb.json','utf8'));console.log('items:',j.items.length);console.log('ejemplo:',j.items[0]?.source,j.items[0]?.id)\""
+    "kb:test": "node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync('public/kb/kb.json','utf8'));console.log('items:',j.items.length);console.log('ejemplo:',j.items[0]?.source,j.items[0]?.id)\"",
+    "test:store": "tsx --test tests/store.test.ts"
   },
   "dependencies": {
-    "@fontsource/cormorant-garamond": "^5.3.0",
-    "@fontsource/manrope": "^5.3.0",
     "@google/generative-ai": "^0.24.1",
     "archiver": "^7.0.1",
     "b4a": "^1.7.2",
     "clsx": "2.1.1",
     "fast-glob": "^3.3.3",
     "next": "15.5.29",
+    "pg": "^8.23.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "2.5.2"
@@ -29,11 +29,14 @@
     "postcss": "8.5.23"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@types/archiver": "^6.0.3",
     "@types/node": "^20.19.14",
+    "@types/pg": "^8.23.1",
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "dotenv-cli": "^10.0.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.2"
   }
 }

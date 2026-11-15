@@ -257,8 +257,8 @@ function Contact({ en = false }: { en?: boolean }) {
             ? "Screenings, festivals, press and conversations about the film. Contact the production team."
             : "Funciones, festivales, prensa y conversaciones alrededor de la película. Escribile al equipo de producción."}
         </p>
-        <a className="contact-mail" href="mailto:mulanimavisual@gmail.com">
-          mulanimavisual@gmail.com <Icon name="arrow" />
+        <a className="contact-mail" href="mailto:montesjuanfrancisco@gmail.com">
+          montesjuanfrancisco@gmail.com <Icon name="arrow" />
         </a>
         <div className="contact-links">
           <a
@@ -311,6 +311,7 @@ function Home({ en = false }: { en?: boolean }) {
           </a>
         </div>
       </section>
+      <section className="store-invitation section"><div><h2>{en ? "Take SIERRA with you." : "La sierra, puesta."}</h2><p>{en ? "Original illustrations. Oversized tees in black and white. Made to order, shipped across Argentina." : "Las ilustraciones originales, en remeras oversize. Blanco y negro. A demanda, desde San Juan."}</p></div><Link href="/tienda" className="button">{en ? "Explore the tees" : "Elegir mi remera"} <Icon name="arrow" /></Link></section>
       <Film en={en} />
       <People en={en} />
       <Territory en={en} />
@@ -538,7 +539,7 @@ export function renderRoute(path: string) {
       <article className="page-wrap section legal">
         <h1>Privacidad</h1>
         <p>
-          El asistente consulta una selección pública sobre SIERRA. No envíes
+          La tienda guarda los datos que completás para cotizar, cobrar, preparar y enviar tu pedido. Los pagos se procesan en Mercado Pago; SIERRA no recibe los datos de tu tarjeta. El enlace privado del pedido permite consultar su estado: no lo compartas públicamente. Correo Argentino recibe los datos necesarios para entregar el paquete. Podés consultar, corregir o solicitar la eliminación de tus datos escribiéndonos, según las obligaciones de conservación aplicables. El asistente consulta una selección pública sobre SIERRA. No envíes
           información personal o documentos privados. Las consultas se procesan
           para responderte; esta versión no guarda el historial en una base de
           datos. El proveedor de alojamiento puede conservar registros técnicos.
@@ -550,7 +551,7 @@ export function renderRoute(path: string) {
         </p>
         <p>
           Contacto y solicitudes sobre tus datos:{" "}
-          <a href="mailto:mulanimavisual@gmail.com">mulanimavisual@gmail.com</a>
+          <a href="mailto:montesjuanfrancisco@gmail.com">montesjuanfrancisco@gmail.com</a>
           .
         </p>
       </article>

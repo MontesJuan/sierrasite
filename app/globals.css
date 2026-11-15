@@ -1,11 +1,11 @@
 :root {
-  --paper: #eee6d7;
-  --ink: #332f25;
-  --olive: #515741;
-  --clay: #a86047;
-  --line: #bfb5a2;
-  --serif: "Cormorant Garamond", Georgia, serif;
-  --sans: Manrope, Arial, sans-serif;
+  --paper: #C4C5C1;
+  --ink: #080605;
+  --olive: #080605;
+  --clay: #080605;
+  --line: #8b8c88;
+  --serif: "SIERRA CF", "Courier New", monospace;
+  --sans: "American Typewriter", "Courier New", monospace;
 }
 * {
   box-sizing: border-box;
@@ -190,6 +190,8 @@ img {
   font-size: clamp(20px, 2.1vw, 30px);
 }
 .button {
+  background: transparent;
+  color: inherit;
   border: 1px solid var(--ink);
   padding: 13px 24px;
   display: inline-flex;
@@ -1189,4 +1191,62 @@ img {
   .footer {
     padding-bottom: 30px;
   }
+}
+
+@font-face{font-family:"SIERRA CF";src:url("/fonts/SIERRACF-Light.ttf") format("truetype");font-weight:300;font-display:swap}
+@font-face{font-family:"SIERRA CF";src:url("/fonts/SIERRACF-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"SIERRA CF";src:url("/fonts/SIERRACF-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Don Reyes";src:url("/fonts/DonReyes-Regular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Alumnos de Sierra";src:url("/fonts/AlumnosDeSierra-Regular.ttf") format("truetype");font-display:swap}
+/* SIERRA v03: the original film lettering, stone and ink. */
+body{font-size:15px;line-height:1.7;caret-color:var(--ink)}
+h1,h2{font-weight:300;text-wrap:balance;max-width:100%}
+h3{font-weight:400}em{color:inherit}
+::selection{background:var(--ink);color:var(--paper)}
+html{scrollbar-color:var(--ink) var(--paper)}
+button,input,select,textarea{font-family:var(--sans)}
+button:disabled{cursor:not-allowed;opacity:.55}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.header{border-bottom:1px solid var(--line);gap:18px}
+.nav-logo{filter:brightness(0);width:124px;height:auto}
+.hero{display:flex;flex-direction:column;padding:0;aspect-ratio:auto;height:auto;min-height:0;max-height:none;background:var(--ink);color:var(--paper)}
+.hero:after{display:none}
+.hero-title{position:static;order:0;width:100%;padding:34px 7% 30px}
+.hero-title h1{width:min(420px,70%);margin:0 auto}
+.hero-art{position:static;order:1;z-index:auto;width:100%;height:auto;object-fit:contain;max-height:none;aspect-ratio:1672/941}
+.hero-foot{position:static;order:2;padding:25px 7%;gap:20px;left:auto;right:auto;bottom:auto}
+.hero-foot>span{font-family:"Alumnos de Sierra",var(--sans);font-size:26px;font-style:normal;line-height:1.2}
+.button-light{border-color:var(--paper);background:transparent;color:var(--paper)}
+.button-light:hover{background:var(--paper);color:var(--ink)}
+.store-invitation{display:flex;align-items:center;justify-content:space-between;gap:45px;border-bottom:1px solid var(--line)}
+.store-invitation h2{font-family:"Don Reyes",var(--serif);font-size:clamp(3rem,4.8vw,5.5rem)}
+.store-invitation p{margin-top:22px;max-width:58ch}
+.store-invitation .button{flex-shrink:0}
+.territory{background:var(--ink);color:var(--paper)}
+.territory>img,.trailer img{object-fit:contain;height:auto}
+.territory-copy p{color:var(--paper)}
+.trailer{background:var(--ink)}
+.press-teaser{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.footer{background:var(--ink);color:var(--paper)}
+.footer-bottom{color:var(--paper);flex-wrap:wrap}
+.footer-bottom a{font-size:12px}
+.contact-mail{overflow-wrap:anywhere}
+.editorial-note,.gallery-caption{color:var(--ink)}
+.chat-trigger{color:var(--ink);background:transparent;border-color:var(--ink);box-shadow:none}
+.chat-dialog{border:1px solid var(--ink)}
+.chat-head h2{font-size:2rem}
+.chat-messages{font-size:14px}
+.chat-message.user{background:transparent;border:1px solid var(--line)}
+.section-mark{font-family:var(--sans)}
+@media(max-width:760px){
+ .hero{height:auto;min-height:0}
+ .hero-title{padding:26px 6%}
+ .hero-title h1{width:65%}
+ .hero-art{height:auto;min-height:0;object-fit:contain}
+ .hero-foot{position:static;display:flex;flex-direction:column;align-items:flex-start;padding:24px 6%;gap:18px}
+ .hero-foot>span{font-size:23px}
+ .store-invitation{display:block}
+ .store-invitation .button{margin-top:24px}
+ .footer-bottom{gap:20px}
+ .chat-dialog{max-width:calc(100vw - 24px)}
 }

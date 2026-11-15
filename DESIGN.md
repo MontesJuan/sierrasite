@@ -1,161 +1,243 @@
 ---
 name: SIERRA
-description: Un afiche cinematográfico que se abre en un cuaderno de campo.
+description: La película y sus dibujos en el centro; tinta, grabado y cuaderno.
 colors:
-  paper: "#eee6d7"
-  ink: "#332f25"
-  olive: "#515741"
-  clay: "#a86047"
-  line: "#bfb5a2"
-  dark-land: "#292e24"
+  paper: "#C4C5C1"
+  ink: "#080605"
+  line: "#8b8c88"
+  photo-ground: "#d6d4cb"
 typography:
   display:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
+    fontFamily: '"SIERRA CF", "Courier New", monospace'
     fontSize: "clamp(3rem, 7vw, 6rem)"
-    fontWeight: 400
+    fontWeight: 300
     lineHeight: 1.02
   headline:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
+    fontFamily: '"SIERRA CF", "Courier New", monospace'
     fontSize: "clamp(2.8rem, 5.1vw, 5.5rem)"
-    fontWeight: 400
+    fontWeight: 300
     lineHeight: 1.02
   title:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
+    fontFamily: '"SIERRA CF", "Courier New", monospace'
     fontSize: "2.5rem"
     fontWeight: 400
     lineHeight: 1.02
+  hand:
+    fontFamily: '"Don Reyes", "SIERRA CF", "Courier New", monospace'
+  school-hand:
+    fontFamily: '"Alumnos de Sierra", "American Typewriter", "Courier New", monospace'
   body:
-    fontFamily: "Manrope, Arial, sans-serif"
+    fontFamily: '"American Typewriter", "Courier New", monospace'
     fontSize: "15px"
-    lineHeight: 1.75
+    lineHeight: 1.7
   control:
-    fontFamily: "Manrope, Arial, sans-serif"
+    fontFamily: '"American Typewriter", "Courier New", monospace'
     fontSize: "13px"
+  label:
+    fontFamily: '"American Typewriter", "Courier New", monospace'
+    fontSize: "12px"
 rounded:
   square: "0"
+  circle: "50%"
+spacing:
+  xs: "8px"
+  sm: "12px"
+  md: "16px"
+  lg: "20px"
+  xl: "24px"
+  panel: "28px"
 components:
-  button:
-    textColor: "{colors.ink}"
-    typography: "{typography.control}"
-    padding: "13px 24px"
-    rounded: "{rounded.square}"
-  button-hover:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
-  assistant-entry:
+  button-outline:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
-    padding: "9px 14px"
+    typography: "{typography.control}"
     rounded: "{rounded.square}"
+    padding: "13px 24px"
+  button-outline-hover:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+  button-primary:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    typography: "{typography.control}"
+    rounded: "{rounded.square}"
+    padding: "13px 24px"
+  button-primary-hover:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+  button-on-ink:
+    backgroundColor: "transparent"
+    textColor: "{colors.paper}"
+    typography: "{typography.control}"
+    rounded: "{rounded.square}"
+    padding: "13px 24px"
+  choice:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    rounded: "{rounded.square}"
+    padding: "11px 16px"
+  choice-selected:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+  field:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.square}"
+    padding: "12px"
+  order-summary:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.square}"
+    padding: "28px"
+  status-stamp:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.square}"
+    padding: "9px 14px"
 ---
 
 # Design System: SIERRA
 
 ## Overview
 
-**Creative North Star: "Un afiche cinematográfico que se abre en un cuaderno de campo"**
+**Creative North Star: "La película y sus dibujos en el centro; tinta, grabado y cuaderno"**
 
-Cine clásico, tierra pastel, calidez orgánica e identidad serrana. La dirección visual acordada por Juan sigue siendo la autoridad: portada blend apaisada, título y dibujos originales, fotografía documental y amplios silencios. Esta actualización reconcilia la dirección anterior con el código construido; no propone otra identidad ni requiere un torneo de conceptos.
+El manual v03 aplicado al sitio fija un mundo de piedra, tinta y letras propias. La imagen documental y los dibujos originales llevan el carácter de SIERRA; la interfaz toma la austeridad del cuaderno, la impresión y el afiche de cine. El resultado es crudo, rústico, abierto y legible, con amplios espacios entre la imagen, la lectura y la acción.
 
-El interior combina papel cálido, columnas asimétricas y una voz editorial serif. La imagen recibe espacio propio; los controles tienen una función concreta y la conversación ocupa un acceso reservado en la cabecera.
+SIERRA CF construye los titulares. Don Reyes y Alumnos de Sierra aportan voces originales en intervenciones puntuales; American Typewriter sostiene toda la lectura y los controles, con Courier New de respaldo. La tienda prolonga este mundo dentro del sitio de la película. La dirección es autoral y está implementada: no es una exploración de identidad ni un nuevo diseño para el juego existente.
 
 **Key Characteristics:**
-- Afiche 16:9 y marcas originales recuperadas.
-- Papel tierra, tinta cálida, oliva y detalles de arcilla.
-- Cormorant Garamond editorial y Manrope funcional.
-- Fotografías completas por defecto y dibujos originales integrados al papel.
-- Composición abierta, filetes finos y controles rectangulares.
 
-Registro de implementación: `app/site.tsx`, `app/globals.css` y `app/components/`, con fuentes cargadas en `app/layout.tsx`. Estado: preview pendiente de revisión, sin certificación ni publicación de producción. Según la verificación de esta sesión, el build pasó y se probaron menú, galería, chat y carga del tráiler. El revisor dio por resueltos los cuatro hallazgos de su lista y disposición «ship» sólo para ese alcance. El primer detector automático no llegó a ejecutarse por falta de Puppeteer: no constituye un pase. Capturas de referencia: `/Volumes/AZORES/SIERRA/Control/web-ig-2026-10-26/desktop-fixed.jpg` y `/Volumes/AZORES/SIERRA/Control/web-ig-2026-10-26/mobile-fixed.jpg`.
+- Piedra y Tinta como fondo, lectura e inversión de estados.
+- Letras originales de la película y una sola familia de lectura.
+- Fotogramas e imágenes completos, con texto fuera de las personas.
+- Dibujos originales y visualizaciones de producto con procedencia conservada.
+- Esquinas rectas, filetes, columnas abiertas y controles sin sombra.
+
+Registro del código construido, actualizado el 15/11/2026. Autoridad: decisión de Juan y manual v03, documentado en `/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Manual de marca v03 - tinta grabado y cuaderno.md`. Fuentes de implementación: `app/layout.tsx`, `app/globals.css`, `app/tienda/store.css`, `app/components/{Nav,Icon,CartProvider}.tsx`, las vistas de tienda, carrito, pedido y gestión, y `lib/store/catalog.ts`. La autoridad de identidad no equivale a aprobar créditos ni materiales de prensa.
+
+La evidencia visual de esta revisión está en `.impeccable/review/`: `desktop-viewport.png`, `mobile-viewport.png`, `home-desktop-viewport.png`, `home-mobile-viewport.png`, `cart-desktop.png`, `cart-mobile-top.png`, `cart-mobile-summary.png`, `cart-mobile-address.png`, `cart-mobile-checkout.png`, `order-desktop.png`, `order-mobile.png`, `admin-desktop.png`, `admin-mobile-order.png` y `admin-mobile-withdrawals.png`. Son capturas locales del build con datos ficticios; el aviso de Mercado Pago del entorno de QA no describe la configuración de producción. Este documento no establece un estado público de despliegue.
 
 ## Colors
 
-La paleta nace del papel, la tinta, la tierra y el monte; los valores normativos están en el frontmatter.
+El lienzo gris piedra recibe tinta casi negra. La fotografía y los dibujos aportan las variaciones materiales; los valores normativos están en el frontmatter.
 
 ### Primary
-- **Oliva serrano** (`olive`): énfasis editorial en cursiva, respuestas del usuario y envío del asistente.
-- **Arcilla** (`clay`): foco de teclado y filetes de enlaces de texto.
+
+- **Tinta** (`ink`): lectura, marca, filetes fuertes, botones principales y variantes seleccionadas. También forma las bandas oscuras del sitio y la tienda.
 
 ### Neutral
-- **Papel tierra** (`paper`): lienzo, cabecera, márgenes laterales del afiche y diálogos.
-- **Tinta cálida** (`ink`): lectura, botones delineados y sus fondos al pasar el puntero.
-- **Filete de papel** (`line`): separaciones de créditos, pies de foto, conversación y navegación.
-- **Monte oscuro** (`dark-land`): banda territorial y pie de página.
 
-**The Paper Rule.** El papel es el fondo continuo del interior; las fotografías y los dibujos aportan la textura visual, sin añadir texturas generadas.
+- **Piedra** (`paper`): fondo continuo de páginas, formularios y navegación; texto sobre tinta.
+- **Filete** (`line`): separaciones, contornos de campos y opciones sin seleccionar.
+- **Fondo de producto** (`photo-ground`): apoyo neutro de la vista de producto y las miniaturas del carrito. No es un acento para las acciones.
+
+Los nombres heredados `olive` y `clay` en CSS resuelven a Tinta. No representan colores adicionales del sistema vigente. Los valores de blanco y negro de las muestras de prenda describen el producto, no una segunda paleta de interfaz.
+
+**The Stone and Ink Rule.** Las acciones y sus estados se distinguen con tinta, piedra, contorno y texto; no necesitan un color de marca adicional.
 
 ## Typography
 
-**Display Font:** Cormorant Garamond, con Georgia y serif de respaldo.
-**Body Font:** Manrope, con Arial y sans-serif de respaldo.
+**Display Font:** SIERRA CF, cargada desde los archivos originales en pesos Light y Regular, con su variante Italic. El logo se reproduce desde el archivo de marca; no se recompone con texto.
 
-La serif ligera sostiene titulares, nombres, citas y contacto. Manrope mantiene navegación y lectura funcional. La escala no tiene una razón matemática uniforme: los titulares son fluidos y los textos funcionales se ajustan por contexto.
+**Body Font:** American Typewriter, con Courier New y monospace de respaldo. La implementación usa la fuente disponible en el sistema; las tres letras propias se cargan desde `/fonts/`.
+
+**Original hands:** Don Reyes para intervenciones de escritura; Alumnos de Sierra para la frase manuscrita de portada. Son usos expresivos concretos, no familias alternativas para formularios o párrafos.
 
 ### Hierarchy
-- **Display:** título textual de páginas interiores. En la portada, SIERRA es el logo original dentro del h1; no se recompone con una fuente.
-- **Headline:** titulares editoriales amplios, con cursivas oliva en palabras seleccionadas. En móvil el h2 base pasa a 3rem, con variaciones locales.
-- **Title:** nombres de protagonistas; en móvil pasan a 2.3rem.
-- **Body:** lectura general con interlínea abierta; en móvil pasa a 14px. La sinopsis limita el ancho a 450px.
-- **Control:** botones principales; navegación y metadatos usan tamaños menores según su función. No se añaden filas de antetítulos para decorar secciones.
 
-**The Original Title Rule.** El título SIERRA se reproduce desde su archivo original; Cormorant acompaña la película sin sustituir su marca.
+- **Display:** titulares principales fluidos. La tienda adapta el titular a su composición; en móvil, tienda y carrito llegan a 3rem.
+- **Headline:** títulos de sección en SIERRA CF, de peso ligero y línea compacta. Los tamaños locales responden al ancho y la función, sin una progresión matemática única.
+- **Title:** nombres y subtítulos en SIERRA CF Regular. Los códigos operativos del panel usan la familia de lectura para que se puedan leer y partir correctamente.
+- **Body:** lectura general de 15px con interlínea 1.7; los bloques de apoyo de tienda y carrito usan 12–14px según contexto. Los párrafos de producto limitan la longitud, habitualmente a 44–48ch; las páginas de pedido y condiciones llegan a 70ch.
+- **Control / Label:** acciones de 13px y etiquetas de 12px. Los importes, cantidades y códigos emplean cifras tabulares cuando se alinean. Los importes enteros no fuerzan decimales; cuando hay centavos, se muestran dos cifras.
+
+**The One Reading Voice Rule.** American Typewriter es la única letra de lectura y controles; Courier New es su respaldo. Las letras originales se reservan para su función expresiva.
 
 ## Layout
 
-El contenedor editorial llega a 1680px y usa márgenes internos de 7%, con secciones de 88px verticales. A 900px se reduce a 65px y 6%; a 600px, a 50px y 6%. La introducción usa dos columnas 1.3:1 con un vacío de 9%; la galería usa dos columnas y los retratos tres, escalonados 0/70/140px. En móvil se apilan y desaparece el escalonamiento.
+El contenedor editorial y la tienda llegan a 1680px, con márgenes laterales habituales de 7%; los márgenes móviles pasan a 6%. Las secciones editoriales conservan la cadencia amplia del sitio. La tienda organiza imagen y elección en dos columnas de proporción 1.15:1 con un vacío del 8%; a 760px se apilan. Las vistas de producto caben completas mediante `contain`, incluso cuando la superficie de exhibición es vertical y el archivo es horizontal.
 
-La cabecera mide 80px; a 600px pasa a 68px. Navegación, acceso al asistente y menú tienen espacio en el flujo. El afiche de escritorio mantiene 16:9 y limita su ancho con `min(100%, calc((100svh - 80px) * 16 / 9))`: en pantallas bajas se centra entre márgenes de papel para mantener el CTA dentro del primer viewport. Este ajuste pertenece a la portada, no a todas las imágenes del sitio.
+El carrito llega a 1500px. En escritorio tiene artículos y dirección a la izquierda, resumen a la derecha; el resumen se mantiene visible con posición sticky. A 1050px se estrechan columnas y miniaturas. A 760px el orden pasa a artículos, resumen y dirección, y el resumen vuelve al flujo normal. Así, el importe pendiente de envío y los pasos de compra se leen antes del formulario final.
 
-En móvil el arte conserva 16:9; debajo se reserva una extensión de 128px para frase y CTA. No se transforma el afiche en una imagen vertical. Las fotos de galería, retratos y figura ancha usan ancho disponible y altura automática. La banda territorial actual usa `object-fit: cover` en escritorio y `contain` al apilarse en móvil; esa excepción no autoriza recortes nuevos.
+Los formularios usan dos columnas que se vuelven una a 760px. Gestión también apila sus columnas en ese ancho. Códigos, correos e identificadores largos pueden partirse; no deben estirar el viewport. El estado del pedido conserva un ancho máximo de 1000px.
 
-**The Complete Frame Rule.** La fotografía documental conserva su encuadre por defecto. Todo recorte nuevo requiere una decisión editorial cuidadosa, no una cuadrícula uniforme.
+La cabecera mide 80px y pasa a 68px a 600px, donde el menú reemplaza los enlaces desplegados. El carrito conserva su contador y acceso global. El acceso al asistente ocupa un lugar propio; en los anchos pequeños se ofrece dentro del menú. La portada separa título, fotograma y pie en bloques sucesivos, manteniendo la proporción del arte y sin superponer su texto a los personajes.
+
+**The Complete Frame Rule.** Los personajes conservan el encuadre completo y el texto ocupa su propio espacio. La composición se adapta a la imagen.
 
 ## Elevation & Depth
 
-Predomina la superficie plana: papel, filetes y alternancia con monte oscuro. El afiche tiene un velo gradual para legibilidad de sus controles. El asistente modal conserva una sombra ambiental (`0 16px 60px #0003`) y un fondo traslúcido; la galería ampliada oscurece el entorno. No hay sombra en el acceso del asistente ni elevación de tarjetas editoriales.
+La tienda, el carrito, el pedido y la gestión usan superficies planas. Los filetes separan artículos y datos; el resumen recibe un contorno de tinta. No se levantan tarjetas de producto mediante sombras. La alternancia entre piedra y tinta organiza el relato del sitio.
 
-Las transiciones de los botones duran 0.2s y afectan fondo y color. La preferencia de movimiento reducido desactiva transiciones, animaciones y desplazamiento suave.
+El diálogo del asistente conserva una sombra ambiental (`0 16px 60px #0003`) y los diálogos usan fondos traslúcidos para separarse del contenido. Esta excepción modal no se traslada a botones, filas ni paneles de compra.
+
+Las acciones invierten fondo y texto en 0.2s. Las imágenes de producto tienen un ajuste breve de contraste de 0.35s con `cubic-bezier(.16,1,.3,1)` sólo cuando se permite movimiento. La preferencia de movimiento reducido elimina animaciones, transiciones y desplazamiento suave.
+
+**The Flat Surface Rule.** Las superficies de compra y gestión permanecen planas; la jerarquía se construye con espacio, filetes e inversión de tinta y piedra.
 
 ## Shapes
 
-Predominan esquinas rectas y bordes de 1px. Las imágenes no se encierran en tarjetas redondeadas. El círculo de reproducción es una excepción funcional, centrada en el tráiler. Los dibujos originales usan transparencia y mezcla multiplicar para integrarse al papel.
+Predominan esquinas rectas y bordes de 1px. El círculo queda limitado a funciones concretas ya existentes: muestras de color de prenda y reproducción del tráiler. Las fotografías se presentan sin máscaras decorativas; el dibujo original del chivo puede invertirse para contrastar sobre tinta. Esa inversión no altera su trazo ni autoriza a redibujarlo.
 
 ## Components
 
 ### Buttons
 
-Controles rectangulares, delineados y discretos. El botón editorial tiene altura mínima de 48px y separación interna de 16px entre icono y texto. Su hover invierte tinta y papel. La variante sobre afiche usa borde claro y fondo oscuro traslúcido; al pasar el puntero se vuelve papel con tinta. El foco compartido es un contorno de arcilla de 3px separado 5px. No se interpreta esto como auditoría global de contraste o tamaño: las sugerencias del chat mantienen su mínimo actual de 40px.
+Rectangulares y directos. El botón delineado invierte a tinta al pasar el puntero; el principal empieza en tinta y se invierte a piedra. La variante sobre tinta tiene texto y contorno piedra. El patrón compartido tiene altura mínima de 48px, padding de 13px por 24px y espacio entre icono y texto de 16px. El foco visible usa un contorno de 2px separado 4px; el estado desactivado baja la opacidad y bloquea la acción.
+
+Las acciones de añadir y continuar ocupan el ancho de su columna. Las acciones secundarias de quitar, deshacer y consultar estado se expresan como texto subrayado. Los símbolos +/− de sumar y cantidades representan operaciones aritméticas; las flechas de navegación son SVG.
+
+### Choices and status stamps
+
+Diseño, color y talle se eligen con grupos de botones delineados. El seleccionado invierte piedra y tinta y expone `aria-pressed`. Las opciones tienen altura mínima de 48px; los talles mantienen un ancho mínimo de 56px. La selección se comunica también con texto, sin depender de la muestra circular de color.
+
+Los estados de gestión son sellos rectangulares delineados, con nombres en español. Conservan texto legible y evitan códigos internos como única explicación al usuario.
+
+### Cards / Containers
+
+El catálogo presenta una imagen y su información en una composición abierta. El resumen del carrito es un panel delimitado por tinta, sin sombra, con padding de 28px que pasa a 20px a 1050px. Las filas de carrito y gestión se separan con filetes. No hay una regla que convierta cada contenido en tarjeta.
+
+### Inputs / Fields
+
+Campos transparentes, rectos, con contorno Filete, texto Tinta, padding de 12px y altura mínima de 48px. Las etiquetas permanecen visibles. El foco de los campos de tienda usa 2px de tinta separados 3px. Los mensajes de error se explican con texto dentro de un borde de tinta y usan `role="alert"`; los avisos de progreso y resultado usan `role="status"`. La dirección conserva sus campos, ayudas y aceptación explícita.
 
 ### Navigation
 
-Logo original a la izquierda; enlaces y selector de idioma a la derecha. La página activa se subraya. En móvil aparece el botón Menú y los enlaces se despliegan bajo la cabecera, con `aria-expanded` y `aria-controls`. El acceso Conversar conserva espacio propio y no flota sobre la página.
+Logo original, enlaces de la película, Remeras, Jugar, idioma, carrito con contador y acceso al asistente. La página activa se subraya. El menú pequeño incluye nombre visible, control SVG y estado accesible con `aria-expanded` y `aria-controls`. El contador del carrito muestra cantidad de prendas, no cantidad de variantes.
 
-### Assistant
+### Product media and original imagery
 
-El botón se inserta mediante portal en el espacio reservado de cabecera. Abre un `dialog` nativo con `showModal()`, título, cierre SVG, historial, sugerencias, consulta y envío. El diálogo se ubica bajo la cabecera, con ancho de 390px limitado por el viewport. La caja de texto es transparente y lleva un filete oliva inferior. El estado ocupado desactiva las acciones y el error ofrece una alternativa de contacto. La lógica y el CSS del componente histórico en `components/ChatBot.tsx` no forman parte de este sistema activo.
+La vista de producto alterna entre la visualización en Franco y el frente y espalda de la remera. Mantiene la imagen completa y una leyenda que la identifica como visualización del diseño. Las estampas son originales; las visualizaciones no se presentan como fotografías documentales de fabricación. Fotogramas, dibujos y logos conservan sus fuentes y procedencia. No añadir texto sobre las personas.
 
-### Photography and gallery
+### Order, totals and management
 
-Figuras abiertas con pies de foto, sin contenedores de producto. La galería abre la imagen completa en un diálogo nativo y ofrece descarga. La portada usa el arte blend recuperado y su logo original superpuesto. Mantener la procedencia de los archivos; esta documentación no recalifica como original fotográfico ninguna base editada por IA.
+El resumen distingue prendas, envío por cotizar y subtotal. El pedido privado muestra la cotización y el total confirmado antes de ofrecer el pago. Los plazos de preparación y de tránsito se leen por separado. Los códigos usan cifras tabulares y pueden partirse en móvil. Gestión conserva los mismos campos, botones y filetes; los estados y acciones tienen nombres comprensibles en español. Los datos del entorno de revisión no se convierten en contenido real.
 
-### Trailer and icons
+### Assistant, gallery and icons
 
-El tráiler mantiene 16:9, una imagen de espera, control circular de reproducción y carga del reproductor al activarlo. Flechas, reproducción, cierre, menú, envío y descarga son SVG en línea, trazo de 1.5 y terminaciones redondeadas. No usar glifos tipográficos como sustitutos.
+Los diálogos conservan su función y tratamiento existente: fondo Piedra, texto Tinta y cierre accesible. El acceso al asistente pertenece a la cabecera o al menú, sin botón flotante sobre la imagen. La galería permite abrir el encuadre completo. Las flechas, reproducción, cierre, envío y descarga usan SVG en línea, trazo de 1.5 y extremos redondeados; el tamaño habitual renderizado es de 18px, con variaciones funcionales de cierre y reproducción.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** conservar logos, título e ilustraciones originales recuperados.
-- **Do** preservar la portada apaisada y los encuadres fotográficos por defecto.
-- **Do** mantener papel cálido, serif editorial y sans funcional.
-- **Do** reservar espacio de navegación y conversación antes de superponer controles.
-- **Do** conservar foco visible, etiquetas accesibles y movimiento reducido.
+
+- **Do** usar los logos y dibujos originales recuperados, manteniendo su procedencia.
+- **Do** conservar imágenes completas y separar la lectura de las personas fotografiadas.
+- **Do** mantener Piedra y Tinta, letras originales y una única familia de lectura.
+- **Do** ofrecer estados seleccionados, foco visible, mensajes y etiquetas comprensibles.
+- **Do** conservar el orden móvil de artículos, resumen y dirección; mostrar los plazos antes del pago.
+- **Do** escribir las citas con comillas dobles y las cantidades monetarias con formato argentino.
 
 ### Don't:
-- **Don't** generar sustitutos o reinterpretaciones de las marcas e ilustraciones originales.
-- **Don't** introducir tarjetas de producto, métricas inventadas o filas decorativas de antetítulos.
-- **Don't** convertir los retratos en recortes uniformes ni el afiche móvil en vertical.
-- **Don't** recuperar el botón flotante del asistente o los iconos hechos con caracteres.
-- **Don't** interpretar este registro o el cierre de cuatro hallazgos como autorización de producción.
 
-No canonizado: reglas CSS antiguas anuladas del disparador flotante, estilos de antetítulos sin uso, componente histórico de chat no montado y el recorte local de la banda territorial. Son residuos o excepciones de implementación, no patrones para nuevas superficies.
+- **Don't** generar sustitutos o reinterpretaciones de la marca ni de las ilustraciones originales.
+- **Don't** reintroducir Cochin, Baskerville, Cormorant Garamond o Manrope en la implementación activa.
+- **Don't** recortar personajes, poner texto encima de ellos ni convertir la imagen documental en un recorte uniforme.
+- **Don't** trasladar colores heredados, sombras de diálogos o estilos anulados a nuevos controles de la tienda.
+- **Don't** usar comillas angulares ni reemplazar las flechas de navegación por glifos tipográficos.
+- **Don't** confundir las visualizaciones de producto, las capturas de QA o este registro con aprobación editorial o evidencia de producción.
+
+No canonizado: declaraciones antiguas anuladas en la cascada, la antigua paleta tierra/oliva como identidad vigente, el disparador flotante ya reemplazado y estilos históricos ajenos a las superficies revisadas. Son residuos o antecedentes, no patrones para nuevas pantallas.

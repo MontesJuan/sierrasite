@@ -1,9 +1,11 @@
 "use client";
+import {useCart} from "./CartProvider";
 import Link from "next/link";
 import Icon from "./Icon";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 export default function Nav() {
+  const {count}=useCart();
   const path = usePathname() || "/";
   const en = path.startsWith("/en");
   const [open, setOpen] = useState(false);
@@ -26,6 +28,7 @@ export default function Nav() {
             height="25"
           />
         </Link>
+        <Link className="nav-cart" href="/tienda/carrito" aria-label={"Carrito, " + count + " remeras"}>Carrito <span>{count}</span></Link>
         <div id="assistant-entry" />
         <button
           className="menu-toggle"
@@ -49,6 +52,7 @@ export default function Nav() {
             [en ? "/en/gallery" : "/galeria", en ? "Images" : "Imágenes"],
             [en ? "/en/press" : "/prensa", en ? "Press" : "Prensa"],
             [en ? "/en/contact" : "/contacto", en ? "Contact" : "Contacto"],
+            ["/tienda", en ? "Shop" : "Remeras"],
           ].map(([href, label]) => (
             <Link
               key={href}
@@ -70,6 +74,7 @@ export default function Nav() {
           >
             {en ? "ES" : "EN"}
           </Link>
+          <button className="mobile-chat text-button" onClick={()=>document.querySelector<HTMLButtonElement>("#assistant-entry button")?.click()} aria-haspopup="dialog">{en ? "Ask SIERRA" : "Conversar sobre SIERRA"}</button>
         </nav>
       </header>
     </>
