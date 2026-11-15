@@ -1,5 +1,5 @@
 # Impacto social (ES)
-«SIERRA» trasciende lo cinematográfico para convertirse en una herramienta de memoria, educación y cambio social.
+“SIERRA” trasciende lo cinematográfico para convertirse en una herramienta de memoria, educación y cambio social.
 
 Preservación cultural: difunde y resguarda las tradiciones serranas frente a los cambios del mundo moderno.
 Educación: plataforma pedagógica y de sensibilización sobre la vida rural argentina.
