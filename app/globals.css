@@ -408,10 +408,13 @@ img {
   font-size: 12px;
   letter-spacing: 0.04em;
 }
-.trailer-player iframe {
+.trailer-player iframe,
+.trailer-player video {
   border: 0;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .press-band {
   display: flex;

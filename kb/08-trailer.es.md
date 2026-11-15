@@ -1,3 +1,5 @@
-# Tráiler (ES)
-https://youtu.be/69gDyIS-qMI
-https://youtu.be/D9eAYHrvDjc
+# Tráiler oficial
+
+https://sierradoc.site/trailer
+
+Versión publicada: v06, 3 minutos y 15 segundos.

@@ -2,6 +2,13 @@
 
 Configuración del 15/11/2026. Catálogo: Reyes y sus chivos / El chivo, blanca / negra, S–XL. Cada remera ARS 70.000. Producción a demanda, hasta siete días hábiles para preparación y despacho desde pago aprobado; tránsito adicional.
 
+## Catálogo ampliado
+
+- Trovador Vallisto y Antología Poética, de Ladislao Reyes Chávez; Detrás de la tranquera, de Juan F. Montes: ARS 20.000 cada uno.
+- Póster final v08: cine 60 × 90 cm ARS 50.000; A3 ARS 20.000; A4 ARS 15.000. Sin marco y conservando proporción completa del arte.
+- Las tapas son propuestas visuales de tapa dura y lino, identificadas como tales. Confirmar la edición y la capacidad de preparación antes de cotizar y habilitar el pago. Antología Poética usa Reyes escribiendo por corrección expresa de Juan.
+- Un mismo pedido combina categorías. El servidor descarta precios del navegador y guarda el precio unitario en el pedido; Mercado Pago recibe los mismos artículos y el envío confirmado. Los pedidos anteriores de remeras siguen siendo válidos.
+
 ## Trabajo diario del equipo
 
 1. Entrar a `/tienda/gestion` con acceso de administración. Revisar pedidos “Por cotizar”.
@@ -28,7 +35,7 @@ Si el webhook falla o llega fuera de la ventana temporal, se puede consultar la 
 - Acceso privado y domicilio de remitente están en la configuración protegida local de SIERRA, fuera del repositorio y del sitio. No reenviar esos archivos ni añadirlos al commit.
 - Un administrador habilitado (Juan). Otros miembros deben tener su propio usuario; no se inventaron identidades ni se compartió contraseña.
 - El calendario de despacho contempla feriados argentinos 2026. Actualizar `lib/store/dates.ts` al cambiar el año; si el calendario no está verificado, el sitio mantiene el plazo de siete días y omite una fecha calculada.
-- MiCorreo, etiquetas automáticas, emails transaccionales, libros/póster y sorteo del juego no están activos. Juego conservado.
+- MiCorreo, etiquetas automáticas, emails transaccionales y sorteo del juego no están activos. Juego conservado; 3D detenido por Juan y reservado para Claude.
 
 ## Verificación realizada
 

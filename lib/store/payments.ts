@@ -1,5 +1,5 @@
 import {db,transaction} from './db';
-import {PRICE_ARS,itemName,type CartItem} from './catalog';
+import {checkoutItems,type OrderItem} from './catalog';
 import {dispatchDeadline} from './dates';
 const base=()=>process.env.STORE_PUBLIC_URL||'https://sierradoc.site';
 export function paymentReady(){return !!(process.env.STORE_MP_ACCESS_TOKEN&&process.env.STORE_MP_COLLECTOR_ID&&process.env.STORE_MP_WEBHOOK_SECRET);}
@@ -19,7 +19,7 @@ export async function createCheckout(tokenHash:string,token:string){
   if(o.payment_url)return o.payment_url as string;
   const url=base()+'/tienda/pedido/'+token;
   const result=await mp('/checkout/preferences',{method:'POST',headers:{'X-Idempotency-Key':o.id},body:JSON.stringify({
-   items:(o.items as CartItem[]).map(i=>({id:i.design+'-'+i.color+'-'+i.size,title:'SIERRA · '+itemName(i),description:'Remera oversize a demanda. Hasta siete días hábiles para preparación y despacho.',quantity:i.quantity,unit_price:PRICE_ARS,currency_id:'ARS',category_id:'fashion'})),
+   items:checkoutItems(o.items as OrderItem[],Number(o.subtotal_ars)),
    payer:{name:o.customer.name,email:o.customer.email},
    external_reference:'sierra:order:v1:'+o.id,statement_descriptor:'SIERRA',
    back_urls:{success:url,pending:url,failure:url},auto_return:'approved',

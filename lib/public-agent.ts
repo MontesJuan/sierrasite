@@ -12,9 +12,9 @@ const topics = [
     match:
       /trailer|avance|ver la peli|ver sierra|watch|youtube|pelicula completa|online|stream/,
     title: "Tráiler oficial",
-    url: "https://youtu.be/69gDyIS-qMI",
-    es: "Podés ver el tráiler oficial de SIERRA en https://youtu.be/69gDyIS-qMI. Para solicitar un enlace de visionado de la película, escribí a mulanimavisual@gmail.com. No tengo una plataforma de streaming confirmada.",
-    en: "Watch the official trailer at https://youtu.be/69gDyIS-qMI. For a screening link, contact mulanimavisual@gmail.com. I have no confirmed streaming platform.",
+    url: "https://sierradoc.site/trailer",
+    es: "Podés ver el tráiler oficial de SIERRA en https://sierradoc.site/trailer. Para solicitar un enlace de visionado de la película, escribí a mulanimavisual@gmail.com. No tengo una plataforma de streaming confirmada.",
+    en: "Watch the official trailer at https://sierradoc.site/trailer. For a screening link, contact mulanimavisual@gmail.com. I have no confirmed streaming platform.",
   },
   {
     id: "press",

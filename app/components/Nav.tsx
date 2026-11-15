@@ -28,7 +28,7 @@ export default function Nav() {
             height="25"
           />
         </Link>
-        <Link className="nav-cart" href="/tienda/carrito" aria-label={"Carrito, " + count + " remeras"}>Carrito <span>{count}</span></Link>
+        <Link className="nav-cart" href="/tienda/carrito" aria-label={"Carrito, " + count + " productos"}>Carrito <span>{count}</span></Link>
         <div id="assistant-entry" />
         <button
           className="menu-toggle"
@@ -52,7 +52,7 @@ export default function Nav() {
             [en ? "/en/gallery" : "/galeria", en ? "Images" : "Imágenes"],
             [en ? "/en/press" : "/prensa", en ? "Press" : "Prensa"],
             [en ? "/en/contact" : "/contacto", en ? "Contact" : "Contacto"],
-            ["/tienda", en ? "Shop" : "Remeras"],
+            ["/tienda", en ? "Shop" : "Tienda"],
           ].map(([href, label]) => (
             <Link
               key={href}

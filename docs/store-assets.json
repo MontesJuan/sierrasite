@@ -38,5 +38,34 @@
     "file": "public/tienda/04-franco-chivo-negra-frente.webp",
     "origin": "/Volumes/AZORES/SIERRA/Control/SIERRA-Remeras-Franco-v01-2026-11-15/lookbook/04-franco-chivo-negra-frente.png",
     "type": "generated visualization; originals unchanged"
+  },
+  {
+    "file": "public/tienda/trovador-vallisto.webp",
+    "origin": "/Volumes/AZORES/SIERRA/Control/SIERRA-Libros-Mockups-v01-2026-11-15/trovador-vallisto.png",
+    "type": "generated hardcover proposal; original illustration as reference; not final print art",
+    "prompt": "/Volumes/AZORES/SIERRA/Control/SIERRA-Libros-Mockups-v01-2026-11-15/prompts.json"
+  },
+  {
+    "file": "public/tienda/antologia-poetica.webp",
+    "origin": "/Volumes/AZORES/SIERRA/Control/SIERRA-Libros-Mockups-v01-2026-11-15/antologia-poetica.png",
+    "type": "generated hardcover proposal; original illustration as reference; not final print art",
+    "prompt": "/Volumes/AZORES/SIERRA/Control/SIERRA-Libros-Mockups-v01-2026-11-15/prompts.json"
+  },
+  {
+    "file": "public/tienda/detras-de-la-tranquera.webp",
+    "origin": "/Volumes/AZORES/SIERRA/Control/SIERRA-Libros-Mockups-v01-2026-11-15/detras-de-la-tranquera.png",
+    "type": "generated hardcover proposal; original illustration as reference; not final print art",
+    "prompt": "/Volumes/AZORES/SIERRA/Control/SIERRA-Libros-Mockups-v01-2026-11-15/prompts.json"
+  },
+  {
+    "file": "public/tienda/poster-sierra.webp",
+    "origin": "/Volumes/AZORES/SIERRA/Sierra/09 Relanzamiento/Final/Poster SIERRA - 60x90 cm - 2026-11-09/SIERRA_FINAL_PREVIEW.jpg",
+    "type": "approved final v08; web resize only"
+  },
+  {
+    "file": "public/media/sierra-trailer-v06-20261110.mp4",
+    "origin": "/Volumes/AZORES/SIERRA/Control/Claude-trailer-2026-11-09/entrega/SIERRA - Trailer v06-rev1280 - preview 720p.mp4",
+    "type": "existing v06 selected by user; lossless remux faststart; 195s 1280x720 H264/AAC",
+    "sha256": "3b984697d0309e5f32b3b7f4874f3bae01cd1ac74a1456e186821d3c5e8e681d"
   }
 ]

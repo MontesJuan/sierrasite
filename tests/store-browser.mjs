@@ -17,9 +17,9 @@ try{
  await customer.getByRole('button',{name:'Reyes y sus chivos',exact:true}).click();await customer.getByRole('button',{name:'Blanca',exact:true}).click();await customer.getByRole('button',{name:'S',exact:true}).click();await customer.getByRole('button',{name:'Sumar al pedido'}).click();
  await customer.getByRole('link',{name:/Ver mi carrito/}).first().click();
  await expect(customer.getByRole('heading',{name:'Tu carrito.'})).toBeVisible();
- await customer.getByRole('button',{name:'Sumar una El chivo · negra · XL'}).click();
+ await customer.getByRole('button',{name:'Sumar una unidad de El chivo · Negra · Talle XL · Oversize'}).click();
  await expect(customer.locator('.summary-subtotal')).toContainText('210.000');
- await customer.getByRole('button',{name:'Quitar una El chivo · negra · XL'}).click();
+ await customer.getByRole('button',{name:'Restar una unidad de El chivo · Negra · Talle XL · Oversize'}).click();
  await customer.getByRole('button',{name:'Quitar',exact:true}).first().click();await customer.getByRole('button',{name:'Deshacer',exact:true}).click();await customer.reload();await expect(customer.locator('.summary-subtotal')).toContainText('140.000');evidence.checks.push('carrito persistente, cantidades y quitar/deshacer');
  await customer.screenshot({path:'.impeccable/review/cart-desktop.png',fullPage:true});
  await customer.setViewportSize({width:390,height:844});await customer.screenshot({path:'.impeccable/review/cart-mobile.png',fullPage:true});expect(await customer.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);await customer.setViewportSize({width:1280,height:900});

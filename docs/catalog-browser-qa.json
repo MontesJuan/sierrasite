@@ -1,0 +1,30 @@
+{
+  "environment": "Local PostgreSQL, fake contact data, no outbound payment",
+  "checks": [
+    "Seven mixed variants: ARS 215000; quantity, remove/undo and persistence verified",
+    "Local order and admin quote persisted; total ARS 225500.50, private contact data omitted from tracking",
+    {
+      "trailer": {
+        "duration": 195,
+        "width": 1280,
+        "height": 720,
+        "src": "http://127.0.0.1:3017/media/sierra-trailer-v06-20261110.mp4",
+        "error": null,
+        "time": 0.167233
+      },
+      "clickToLoad": true,
+      "seek": true
+    }
+  ],
+  "screens": [
+    {
+      "name": "desktop",
+      "overflow": false
+    },
+    {
+      "name": "mobile",
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

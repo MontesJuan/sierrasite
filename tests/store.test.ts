@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {createHmac} from 'node:crypto';
-import {validateCart,subtotal,money} from '../lib/store/catalog';import {verifyMpSignature} from '../lib/store/security';import {paymentMatches} from '../lib/store/payments';import {dispatchDeadline} from '../lib/store/dates';
+import {validateCart,subtotal,money,checkoutItems,snapshotItems,itemKey} from '../lib/store/catalog';import {verifyMpSignature} from '../lib/store/security';import {paymentMatches} from '../lib/store/payments';import {dispatchDeadline} from '../lib/store/dates';
 test('precio de catálogo, no del navegador',()=>assert.equal(subtotal(validateCart([{design:'reyes',color:'blanca',size:'XL',quantity:2,price:1}])),140000));
 test('variantes y cantidades inválidas',()=>{for(const r of [{design:'otro',color:'blanca',size:'S',quantity:1},{design:'chivo',color:'negra',size:'XXL',quantity:1},{design:'chivo',color:'negra',size:'M',quantity:-1},{design:'chivo',color:'negra',size:'M',quantity:1.5}])assert.throws(()=>validateCart([r]));const x={design:'chivo',color:'negra',size:'M',quantity:1};assert.throws(()=>validateCart([x,x]));});
 test('límite por pedido, sin inventar stock',()=>{assert.equal(subtotal(validateCart([{design:'reyes',color:'negra',size:'L',quantity:10}])),700000);assert.throws(()=>validateCart([{design:'reyes',color:'negra',size:'L',quantity:10},{design:'chivo',color:'negra',size:'L',quantity:1}]));});
@@ -7,3 +7,15 @@ test('firma MP válida, alterada y vieja',()=>{const secret='test-secret',id='12
 test('monto, moneda, cuenta, pedido y ambiente exactos',()=>{const o={id:'abc',subtotal_ars:'70000',shipping_ars:'10500.50'},p={collector_id:123,currency_id:'ARS',external_reference:'sierra:order:v1:abc',live_mode:true,transaction_amount:80500.50};assert.equal(paymentMatches(p,o,'123',true),true);for(const patch of [{collector_id:222},{currency_id:'USD'},{transaction_amount:1},{external_reference:'otro'},{live_mode:false}])assert.equal(paymentMatches({...p,...patch},o,'123',true),false);assert.equal(paymentMatches(p,{...o,shipping_ars:null},'123',true),false);});
 test('siete días hábiles excluyen fines de semana y feriados',()=>{assert.equal(dispatchDeadline('2026-11-15T12:00:00-03:00'),'2026-11-25');assert.equal(dispatchDeadline('2026-12-01T12:00:00-03:00'),'2026-12-14');assert.equal(dispatchDeadline('2027-01-02T12:00:00-03:00'),null);});
 test('conserva centavos de correo',()=>assert.match(money(1234.5),/1.234,50/));
+
+test('carrito mixto: libros, formatos y precio del servidor',()=>{
+ const cart=validateCart([{design:'reyes',color:'blanca',size:'M',quantity:1},{kind:'book',book:'trovador-vallisto',quantity:1,unitPriceArs:1},{kind:'book',book:'antologia-poetica',quantity:1},{kind:'book',book:'detras-de-la-tranquera',quantity:1},{kind:'poster',format:'cine',quantity:1,price:1},{kind:'poster',format:'a3',quantity:1},{kind:'poster',format:'a4',quantity:1}]);
+ assert.equal(subtotal(cart),215000);assert.equal(new Set(cart.map(itemKey)).size,7);
+ const lines=checkoutItems(snapshotItems(cart),215000);assert.deepEqual(lines.map(i=>i.unit_price),[70000,20000,20000,20000,50000,20000,15000]);assert.ok(lines.every(i=>i.currency_id==='ARS'));assert.match(lines[4].title,/60 × 90 cm/);
+ for(const item of [{kind:'book',book:'inexistente',quantity:1},{kind:'poster',format:'a2',quantity:1},{kind:'other',design:'reyes',color:'blanca',size:'M',quantity:1}])assert.throws(()=>validateCart([item]));
+ assert.throws(()=>validateCart([{kind:'poster',format:'a3',quantity:1},{kind:'poster',format:'a3',quantity:1}]));
+});
+test('checkout conserva precios guardados y rechaza diferencias del subtotal',()=>{
+ const legacy=validateCart([{design:'chivo',color:'negra',size:'XL',quantity:1}]);assert.equal(checkoutItems(legacy,70000)[0].unit_price,70000);
+ const order=snapshotItems(validateCart([{kind:'book',book:'antologia-poetica',quantity:2}]));assert.equal(checkoutItems(order,40000)[0].quantity,2);assert.throws(()=>checkoutItems(order,1),/revisión/);assert.throws(()=>checkoutItems([{...order[0],unitPriceArs:-1}],-2),/revisión/);
+});

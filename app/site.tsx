@@ -311,7 +311,7 @@ function Home({ en = false }: { en?: boolean }) {
           </a>
         </div>
       </section>
-      <section className="store-invitation section"><div><h2>{en ? "Take SIERRA with you." : "La sierra, puesta."}</h2><p>{en ? "Original illustrations. Oversized tees in black and white. Made to order, shipped across Argentina." : "Las ilustraciones originales, en remeras oversize. Blanco y negro. A demanda, desde San Juan."}</p></div><Link href="/tienda" className="button">{en ? "Explore the tees" : "Elegir mi remera"} <Icon name="arrow" /></Link></section>
+      <section className="store-invitation section"><div><h2>{en ? "Take SIERRA with you." : "La sierra, puesta."}</h2><p>{en ? "Oversized tees, three books and the original film poster. Shipped from San Juan across Argentina." : "Remeras oversize, tres libros y el afiche original de la película. Desde San Juan, a toda Argentina."}</p></div><Link href="/tienda" className="button">{en ? "Explore the shop" : "Explorar la tienda"} <Icon name="arrow" /></Link></section>
       <Film en={en} />
       <People en={en} />
       <Territory en={en} />
@@ -545,8 +545,7 @@ export function renderRoute(path: string) {
           datos. El proveedor de alojamiento puede conservar registros técnicos.
         </p>
         <p>
-          El tráiler se carga desde YouTube únicamente cuando elegís
-          reproducirlo. Instagram y el correo abren servicios externos con sus
+          El tráiler se aloja en este sitio y se carga cuando elegís reproducirlo. Instagram y el correo abren servicios externos con sus
           propias políticas.
         </p>
         <p>

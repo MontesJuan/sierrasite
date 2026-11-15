@@ -21,7 +21,7 @@ export default function Footer() {
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} SIERRA</span>
         <span>La memoria también habita el paisaje.</span>
-        <Link href="/tienda">Remeras</Link>
+        <Link href="/tienda">Tienda</Link>
         <Link href="/tienda/arrepentimiento">Botón de arrepentimiento</Link>
         <Link href="/privacidad">Privacidad</Link>
       </div>
