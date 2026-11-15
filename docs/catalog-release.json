@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-15",
+  "url": "https://sierradoc.site",
+  "store": "https://sierradoc.site/tienda",
+  "trailer": "https://sierradoc.site/trailer",
+  "target": "production",
+  "status": "READY",
+  "deploymentId": "dpl_CN3eYFHASZvzxUcXwzbgfPx4VQZo",
+  "deploymentUrl": "https://sierra-50za8ag6j-janaas-projects-47034055.vercel.app",
+  "projectId": "prj_OBANvaQQuSketvOJtfMkHgp9Hvnh",
+  "appCommit": "fafb7af",
+  "branch": "codex/sierra-tienda-v03-20261115",
+  "framework": "Next.js 15.5.29",
+  "buildDurationSeconds": 30.434,
+  "validation": {
+    "unitTests": 9,
+    "localDatabaseTest": "passed: mixed cart, idempotency, simulated Mercado Pago",
+    "localBrowser": "passed",
+    "stagedBrowser": "passed",
+    "productionBrowser": "passed: 0 orders/charges created",
+    "runtimeErrorScan": "No error/fatal groups returned for this deployment during the last 5 minutes",
+    "drains": "not inspected; unchanged",
+    "monitoring": "point-in-time verification",
+    "review": "F1 and F2 resolved, ship limited to listed fixes"
+  },
+  "limits": [
+    "No real purchase or money accreditation verified",
+    "Mercado Pago global merchant name not changed; browser unavailable",
+    "Shipping quote and email notification are manual",
+    "Book covers are proposals; final print layouts and manufacturing not verified",
+    "3D stopped for Claude; game/sweepstakes deferred"
+  ]
+}

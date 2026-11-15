@@ -116,9 +116,9 @@ SIERRA CF construye los titulares. Don Reyes y Alumnos de Sierra aportan voces o
 - Dibujos originales y visualizaciones de producto con procedencia conservada.
 - Esquinas rectas, filetes, columnas abiertas y controles sin sombra.
 
-Registro del código construido, actualizado el 15/11/2026. Autoridad: decisión de Juan y manual v03, documentado en `/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Manual de marca v03 - tinta grabado y cuaderno.md`. Fuentes de implementación: `app/layout.tsx`, `app/globals.css`, `app/tienda/store.css`, `app/components/{Nav,Icon,CartProvider}.tsx`, las vistas de tienda, carrito, pedido y gestión, y `lib/store/catalog.ts`. La autoridad de identidad no equivale a aprobar créditos ni materiales de prensa.
+Registro del código construido, actualizado el 15/11/2026. Autoridad: decisión de Juan y manual v03, documentado en `/Volumes/AZORES/SIERRA/Sierra/03 Imagen y prensa/Manual de marca v03 - tinta grabado y cuaderno.md`. Fuentes de implementación: `app/layout.tsx`, `app/globals.css`, `app/tienda/store.css`, `app/components/{Nav,Icon,CartProvider,Trailer}.tsx`, `app/tienda/catalog-additions.tsx`, las vistas de tienda, carrito, pedido y gestión, y `lib/store/catalog.ts`. La autoridad de identidad no equivale a aprobar créditos ni materiales de prensa.
 
-La evidencia visual de esta revisión está en `.impeccable/review/`: `desktop-viewport.png`, `mobile-viewport.png`, `home-desktop-viewport.png`, `home-mobile-viewport.png`, `cart-desktop.png`, `cart-mobile-top.png`, `cart-mobile-summary.png`, `cart-mobile-address.png`, `cart-mobile-checkout.png`, `order-desktop.png`, `order-mobile.png`, `admin-desktop.png`, `admin-mobile-order.png` y `admin-mobile-withdrawals.png`. Son capturas locales del build con datos ficticios; el aviso de Mercado Pago del entorno de QA no describe la configuración de producción. Este documento no establece un estado público de despliegue.
+La evidencia visual de la ampliación está en `.impeccable/review/catalog/`: `desktop.png`, `mobile.png`, `libros-desktop.png`, `poster-desktop.png`, `cart-desktop.png`, `cart-mobile.png`, `trailer-desktop.png` y `trailer-mobile.png`. El cierre de `docs/catalog-finish-review.md` declara F1/F2 resueltos y disposición "ship" sólo para esas dos correcciones: aviso previo de tapas propuestas y resultado junto al libro accionado. No equivale a una nueva revisión general ni a una compra real. Los avisos heredados del detector se registran en `docs/catalog-design-triage.md`; no cambian la identidad ni las reglas de este documento. Son pruebas locales del build y no establecen un estado público de despliegue.
 
 ## Colors
 
@@ -132,7 +132,7 @@ El lienzo gris piedra recibe tinta casi negra. La fotografía y los dibujos apor
 
 - **Piedra** (`paper`): fondo continuo de páginas, formularios y navegación; texto sobre tinta.
 - **Filete** (`line`): separaciones, contornos de campos y opciones sin seleccionar.
-- **Fondo de producto** (`photo-ground`): apoyo neutro de la vista de producto y las miniaturas del carrito. No es un acento para las acciones.
+- **Fondo de producto** (`photo-ground`): apoyo neutro de las vistas de remera, las tapas de libros, el afiche y las miniaturas del carrito. No es un acento para las acciones.
 
 Los nombres heredados `olive` y `clay` en CSS resuelven a Tinta. No representan colores adicionales del sistema vigente. Los valores de blanco y negro de las muestras de prenda describen el producto, no una segunda paleta de interfaz.
 
@@ -159,6 +159,8 @@ Los nombres heredados `olive` y `clay` en CSS resuelven a Tinta. No representan 
 ## Layout
 
 El contenedor editorial y la tienda llegan a 1680px, con márgenes laterales habituales de 7%; los márgenes móviles pasan a 6%. Las secciones editoriales conservan la cadencia amplia del sitio. La tienda organiza imagen y elección en dos columnas de proporción 1.15:1 con un vacío del 8%; a 760px se apilan. Las vistas de producto caben completas mediante `contain`, incluso cuando la superficie de exhibición es vertical y el archivo es horizontal.
+
+La navegación interna separa Remeras, Libros y Póster. Los tres libros forman una grilla de tres columnas con separación de 32px; a 1000px baja a 22px, y a 760px pasa a una sola columna con 45px entre productos. Cada tapa se muestra completa dentro de una superficie cuadrada, sin recorte. El aviso de propuestas de edición precede a la grilla. El póster usa dos columnas de proporción 1.15:1 y separación del 8%; a 760px se apila imagen y elección. El arte completo conserva proporción y créditos en todos los formatos.
 
 El carrito llega a 1500px. En escritorio tiene artículos y dirección a la izquierda, resumen a la derecha; el resumen se mantiene visible con posición sticky. A 1050px se estrechan columnas y miniaturas. A 760px el orden pasa a artículos, resumen y dirección, y el resumen vuelve al flujo normal. Así, el importe pendiente de envío y los pasos de compra se leen antes del formulario final.
 
@@ -188,11 +190,11 @@ Predominan esquinas rectas y bordes de 1px. El círculo queda limitado a funcion
 
 Rectangulares y directos. El botón delineado invierte a tinta al pasar el puntero; el principal empieza en tinta y se invierte a piedra. La variante sobre tinta tiene texto y contorno piedra. El patrón compartido tiene altura mínima de 48px, padding de 13px por 24px y espacio entre icono y texto de 16px. El foco visible usa un contorno de 2px separado 4px; el estado desactivado baja la opacidad y bloquea la acción.
 
-Las acciones de añadir y continuar ocupan el ancho de su columna. Las acciones secundarias de quitar, deshacer y consultar estado se expresan como texto subrayado. Los símbolos +/− de sumar y cantidades representan operaciones aritméticas; las flechas de navegación son SVG.
+Las acciones de añadir y continuar ocupan el ancho de su columna. Cada libro conserva su propia acción y coloca inmediatamente después la confirmación o el error, con enlace "Ver carrito". Las acciones secundarias de quitar, deshacer y consultar estado se expresan como texto subrayado. Los símbolos +/− de sumar y cantidades representan operaciones aritméticas; las flechas de navegación son SVG.
 
 ### Choices and status stamps
 
-Diseño, color y talle se eligen con grupos de botones delineados. El seleccionado invierte piedra y tinta y expone `aria-pressed`. Las opciones tienen altura mínima de 48px; los talles mantienen un ancho mínimo de 56px. La selección se comunica también con texto, sin depender de la muestra circular de color.
+Diseño, color, talle y formato de póster se eligen con grupos de botones delineados. El seleccionado invierte piedra y tinta y expone `aria-pressed`. Las opciones tienen altura mínima de 48px; los talles mantienen un ancho mínimo de 56px. La selección se comunica también con texto, sin depender de la muestra circular de color.
 
 Los estados de gestión son sellos rectangulares delineados, con nombres en español. Conservan texto legible y evitan códigos internos como única explicación al usuario.
 
@@ -206,15 +208,27 @@ Campos transparentes, rectos, con contorno Filete, texto Tinta, padding de 12px 
 
 ### Navigation
 
-Logo original, enlaces de la película, Remeras, Jugar, idioma, carrito con contador y acceso al asistente. La página activa se subraya. El menú pequeño incluye nombre visible, control SVG y estado accesible con `aria-expanded` y `aria-controls`. El contador del carrito muestra cantidad de prendas, no cantidad de variantes.
+Logo original, enlaces de la película, Tienda, Jugar, idioma, carrito con contador y acceso al asistente. El pie de página también llama "Tienda" al catálogo completo. La página activa se subraya. El menú pequeño incluye nombre visible, control SVG y estado accesible con `aria-expanded` y `aria-controls`. El contador del carrito suma unidades de productos de las tres categorías; no cuenta sólo prendas ni cantidad de variantes.
 
 ### Product media and original imagery
 
 La vista de producto alterna entre la visualización en Franco y el frente y espalda de la remera. Mantiene la imagen completa y una leyenda que la identifica como visualización del diseño. Las estampas son originales; las visualizaciones no se presentan como fotografías documentales de fabricación. Fotogramas, dibujos y logos conservan sus fuentes y procedencia. No añadir texto sobre las personas.
 
+### Books and poster
+
+Los libros prolongan la composición abierta: tapa completa, autor, título, descripción, precio y acción, sin una envoltura elevada. Las visualizaciones de tapa dura y lino son propuestas de edición; el aviso se lee antes de la grilla y los tres botones lo referencian con `aria-describedby`. La edición y el envío se confirman antes de habilitar el pago. Antología Poética utiliza la ilustración original de Reyes escribiendo. Ninguna visualización acredita fabricación o encuadernación final.
+
+La confirmación o el límite del carrito aparecen inmediatamente bajo el botón del libro accionado, mediante `role="status"` y con "Ver carrito". No se desplaza ese resultado al final de toda la sección. El patrón se conserva para los tres títulos.
+
+El póster final v08 aprobado se presenta entero. Sus opciones de formato incluyen nombre y dimensiones; el precio cambia con la selección. La imagen y los créditos no se recortan para completar la superficie de exhibición. El botón y su mensaje conservan el mismo lenguaje del catálogo.
+
 ### Order, totals and management
 
-El resumen distingue prendas, envío por cotizar y subtotal. El pedido privado muestra la cotización y el total confirmado antes de ofrecer el pago. Los plazos de preparación y de tránsito se leen por separado. Los códigos usan cifras tabulares y pueden partirse en móvil. Gestión conserva los mismos campos, botones y filetes; los estados y acciones tienen nombres comprensibles en español. Los datos del entorno de revisión no se convierten en contenido real.
+El resumen distingue productos, envío por cotizar y subtotal. Puede combinar remeras, libros y pósters, conservando título, detalle, cantidad y precio por artículo; el pedido usa los precios unitarios guardados desde el catálogo del servidor. El pedido privado muestra la cotización y el total confirmado antes de ofrecer el pago. Los plazos de preparación y de tránsito se leen por separado. Los códigos usan cifras tabulares y pueden partirse en móvil. Gestión conserva los mismos campos, botones y filetes; los estados y acciones tienen nombres comprensibles en español. Los datos del entorno de revisión no se convierten en contenido real.
+
+### Trailer
+
+El tráiler existente v06 dura 3:15. La imagen de espera y el control de reproducción activan la carga del video nativo; después aparecen sus controles, reproducción en línea y acceso alternativo al archivo. La duración se muestra antes de reproducir. Este cambio conserva el material existente y el espacio del reproductor; no es una nueva pieza audiovisual.
 
 ### Assistant, gallery and icons
 

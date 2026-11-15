@@ -1,0 +1,43 @@
+{
+  "base": "https://sierra-50za8ag6j-janaas-projects-47034055.vercel.app",
+  "readOnly": true,
+  "ordersCreated": 0,
+  "charges": 0,
+  "routes": [
+    {
+      "route": "/",
+      "status": 200
+    },
+    {
+      "route": "/tienda",
+      "status": 200
+    },
+    {
+      "route": "/tienda/condiciones",
+      "status": 200
+    },
+    {
+      "route": "/tienda/gestion",
+      "status": 200
+    },
+    {
+      "route": "/trailer",
+      "status": 200
+    },
+    {
+      "route": "/en/trailer",
+      "status": 200
+    },
+    {
+      "route": "/jugar/",
+      "status": 200
+    }
+  ],
+  "checks": [
+    "Admin without session: 401",
+    "Antología + A4: ARS35000, persistent cart and mobile without overflow",
+    "Trailer range requests: 206 video/mp4",
+    "Trailer playback: 195 seconds"
+  ],
+  "errors": []
+}
